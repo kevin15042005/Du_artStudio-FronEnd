@@ -1,0 +1,374 @@
+/* Shop.css - Versión Completa Optimizada y Responsive */
+
+/* Estilos Base */
+.Menu-Compra h1 {
+  height: 8rem;
+  margin: 0;
+}
+
+.Contenido-Compra {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../src/assets/cams.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Montserrat", sans-serif;
+  z-index: 0;
+  padding-bottom: 2rem;
+}
+
+.Contenido-Compra::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.9);
+  z-index: -1;
+}
+
+/* Títulos y Texto */
+.titulo-Compra {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: white;
+  margin: 1.5rem 0;
+  font-family: "Merienda", cursive;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* Sección Información Relevante */
+.Informacion-RelevanteGeneral-Compra {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+  gap: 1.5rem;
+}
+
+.InformacionRelevanteCompra {
+  flex: 1;
+  min-width: 280px;
+  max-width: 45rem;
+  min-height: 15rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #e53ee8, #072149);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.InformacionRelevanteCompra:hover {
+  transform: translateY(-5px);
+}
+
+.InformacionRelevanteCompra h2 {
+  color: #fff;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 1rem;
+  font-family: "Playfair Display", serif;
+}
+
+.InformacionRelevanteCompra p {
+  font-family: "Merienda", cursive;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.Imagen-Relevante-Compra {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.Imagen-Relevante-Compra:hover {
+  transform: scale(1.02);
+}
+
+.Imagen-Relevante-Compra img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.Imagen-Relevante-Compra:hover img {
+  transform: scale(1.05);
+}
+
+/* Carrusel */
+.carrusel-container-Compra {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: clamp(200px, 30vw, 300px);
+  margin: 0 auto 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.imagen-contenedor-Compra {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.imagen-fondo-Compra {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+}
+
+.imagen-fondo-Compra.visible {
+  opacity: 1;
+  z-index: 2;
+}
+
+.imagen-fondo-Compra.oculto {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Texto Hover Carrusel */
+.texto-hover-Compra {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.carrusel-container-Compra:hover .texto-hover-Compra {
+  opacity: 1;
+}
+
+.texto-hover-Compra h2 {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.texto-hover-Compra p {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  max-width: 80%;
+  line-height: 1.6;
+}
+
+/* Grid de Productos */
+.grid-container-Compra {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.0rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+  list-style: none;
+}
+
+.grid-item-Compra {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.grid-item-Compra:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.grid-item-Compra-img-container {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.grid-item-Compra img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.grid-item-Compra:hover img {
+  transform: scale(1.05);
+}
+
+.grid-item-Compra span {
+  display: block;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+/* Precio y Botón */
+.contenedor-precio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 1rem;
+}
+
+.precio {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.boton-comprar {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.boton-comprar:hover {
+  background: linear-gradient(135deg, #3e8e41, #1b5e20);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Paginación */
+.pagina-control {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pagination-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.pagination-button:hover {
+  background-color: #ddd;
+  transform: translateY(-2px);
+}
+
+.pagination-button.active {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ===================== MEDIA QUERIES ===================== */
+
+@media (max-width: 1024px) {
+  .Informacion-RelevanteGeneral-Compra {
+    max-width: 900px;
+  }
+  
+  .grid-container-Compra {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .InformacionRelevanteCompra,
+  .Imagen-Relevante-Compra {
+    max-width: 100%;
+  }
+  
+  .Imagen-Relevante-Compra {
+    height: 280px;
+  }
+  
+  .carrusel-container-Compra {
+    height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .InformacionRelevanteCompra {
+    padding: 1rem;
+  }
+  
+  .grid-container-Compra {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+  
+  .grid-item-Compra-img-container {
+    height: 250px;
+  }
+  
+  .carrusel-container-Compra {
+    height: 200px;
+  }
+  
+  .texto-hover-Compra p {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 400px) {
+  .InformacionRelevanteCompra p {
+    font-size: 1rem;
+  }
+  
+  .grid-item-Compra span {
+    font-size: 1rem;
+  }
+  
+  .precio {
+    font-size: 1.1rem;
+  }
+  
+  .boton-comprar {
+    padding: 0.4rem 0.8rem;
+  }
+}

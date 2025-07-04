@@ -1,0 +1,371 @@
+/* CONTENIDO PRINCIPAL */
+.Contenido-Principal-Pintura {
+  flex: 1;
+  padding: 3rem 4rem;
+}
+
+/* TÍTULO */
+.Informacion-Pintura {
+  margin: 3rem 0;
+}
+
+.letraPintura {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #3a2c2c;
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(30px);
+  animation: aparecer 0.4s ease-out forwards;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SECCIÓN INFORMATIVA */
+.Informacion-RelevanteGeneral-Pintura {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin: 4rem auto;
+  max-width: 1400px;
+}
+
+.Imagen-Relevante-Pintura {
+  flex: 1;
+  min-width: 200px;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.imagen-fija-pintura {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease;
+}
+
+.imagen-fija-pintura.oculto {
+  opacity: 0;
+}
+
+.InformacionRelevantePintura {
+  flex: 1;
+  min-width: 400px;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  animation: transicioFrente 1s ease-out;
+  text-align: center;
+}
+
+.InformacionRelevantePintura h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.InformacionRelevantePintura p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: black;
+  font-weight: bold;
+  font-family: "Merienda", cursive;
+}
+
+@keyframes transicioFrente {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* GRID DE DISEÑOS */
+.Container-Pintura {
+  margin-top: 4rem;
+  padding: 0 2rem;
+}
+
+.grid-container-pintura {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.grid-item-pintura {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  height: 100%;
+}
+
+/* CARRUSEL */
+.carrusel-container-pintura {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.imagen-contenedor-pintura {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.imagen-fondo-pintura {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 1s ease;
+}
+
+.imagen-fondo-pintura.oculto {
+  opacity: 0;
+}
+
+.imagen-fondo-pintura.visible {
+  opacity: 1;
+}
+
+/* TEXTO HOVER */
+.texto-hover-pintura {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(58, 44, 44, 0.85);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-align: center;
+}
+
+.carrusel-container-pintura:hover .texto-hover-pintura {
+  opacity: 1;
+}
+
+.texto-hover-pintura h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.texto-hover-pintura p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 80%;
+}
+
+/* PAGINACIÓN */
+.pagina-control-pintura {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 4rem 0 2rem;
+  flex-wrap: wrap;
+}
+
+.pagination-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background-color: #636fa4;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.pagination-button:hover {
+  background-color: #3a2c2c;
+  transform: translateY(-3px);
+}
+
+.pagination-button.active {
+  background-color: #3a2c2c;
+  transform: scale(1.05);
+}
+
+/* MENSAJES DE ESTADO */
+.loading-container,
+.error-container,
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 4rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  border: 5px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border-top: 5px solid #636fa4;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 2rem 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message, .no-results p {
+  color: #d32f2f;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* <= 1024px */
+@media (max-width: 1024px) {
+  .Contenido-Principal-Pintura {
+    padding: 3rem;
+  }
+
+  .grid-container-pintura {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+
+  .InformacionRelevantePintura h2 {
+    font-size: 2rem;
+  }
+
+  .InformacionRelevantePintura p {
+    font-size: 1rem;
+  }
+}
+
+/* <= 720px */
+@media (max-width: 720px) {
+  .grid-container-pintura {
+    grid-template-columns: 1fr;
+  }
+
+  .carrusel-container-pintura {
+    height: 250px;
+  }
+
+  .Imagen-Relevante-Pintura {
+    height: 250px;
+  }
+
+  .InformacionRelevantePintura {
+    padding: 2rem;
+  }
+
+  .texto-hover-pintura h2 {
+    font-size: 1.2rem;
+  }
+
+  .texto-hover-pintura p {
+    font-size: 1rem;
+  }
+
+  .pagination-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* <= 480px */
+@media (max-width: 480px) {
+  .Contenido-Principal-Pintura {
+    padding: 1.2rem;
+  }
+
+  .InformacionRelevantePintura {
+    padding: 1.5rem;
+    min-width: 100%;
+  }
+
+  .InformacionRelevantePintura h2 {
+    font-size: 1rem;
+  }
+
+  .InformacionRelevantePintura p {
+    font-size: 0.95rem;
+  }
+
+  .texto-hover-pintura h2 {
+    font-size: 1rem;
+  }
+
+  .texto-hover-pintura p {
+    font-size: 0.9rem;
+  }
+
+  .grid-container-pintura {
+    gap: 1.5rem;
+  }
+
+  .pagination-button {
+    font-size: 0.95rem;
+  }
+}
+
+/* <= 360px */
+@media (max-width: 360px) {
+  .Contenido-Principal-Pintura {
+    padding: 1rem;
+  }
+
+  .InformacionRelevantePintura {
+    padding: 1rem;
+  }
+
+  .InformacionRelevantePintura h2 {
+    font-size: 0.8rem;
+  }
+
+  .InformacionRelevantePintura p {
+    font-size: 0.85rem;
+  }
+
+  .texto-hover-pintura h2 {
+    font-size: 0.8rem;
+  }
+
+  .texto-hover-pintura p {
+    font-size: 0.8rem;
+  }
+
+  .pagination-button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}

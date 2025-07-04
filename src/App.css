@@ -1,0 +1,321 @@
+.General {
+position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../src/assets/dani.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Montserrat", sans-serif;
+  z-index: 0;}
+.General::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6); 
+  z-index: -1;
+}
+
+.BienvenidaApp {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  color: black;
+}
+
+.BienvenidaApp span {
+  font-size: 3rem;
+  font-style: italic;
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(15px);
+  animation: aparecerLetra 0.3s ease-out forwards;
+}
+
+@keyframes aparecerLetra {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.titulo-Inicio {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  font-size: 30px;
+  font-family: "Merienda", cursive;
+}
+
+.Informacion-RelevanteGeneral {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.InformacionRelevante {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  color: black;
+  text-align: center;
+  animation: transicioFrente 1s ease-out;
+}
+
+.InformacionRelevante h2 {
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.InformacionRelevante p {
+  font-family: "Merienda", cursive;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.Imagen-Relevante-General {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.imagen-fija {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: opacity 0.8s ease;
+}
+
+.imagen-fija.oculto {
+  opacity: 0;
+}
+
+/* ========== VIDEO RESPONSIVE ========== */
+.Introduccion_Duart {
+  font-family: "Merienda", cursive;
+  font-size: 20px;
+  font-weight: bold;
+  max-width: 1200px;
+  margin: 2rem auto 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+}
+
+.Introduccion_Duart p {
+  padding: 10px 20px;
+  max-width: 80%;
+  margin: 0 auto 1rem;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 1rem;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: transparent;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background-color: transparent;
+}
+
+.MarcasAliadas {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  color: #d400ff;
+  font-family: "Merienda", cursive;
+  font-size: 20px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.slider-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  padding: 1rem 0 10rem;
+}
+
+.slider {
+  display: flex;
+  width: max-content;
+  animation: scroll 25s linear infinite;
+}
+
+.slider img {
+  width: 150px;
+  height: auto;
+  margin: 0 15px;
+  border-radius: 10rem;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes transicioFrente {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.letra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: aparecer 0.3s forwards;
+}
+
+.nombre {
+  color: #d400ff;
+  font-weight: bold;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .BienvenidaApp span {
+    font-size: 2rem;
+  }
+
+  .titulo-Inicio {
+    font-size: 1.8rem;
+  }
+
+  .Informacion-RelevanteGeneral {
+    flex-direction: column;
+  }
+
+  .Imagen-Relevante-General {
+    display: none;
+  }
+
+  .InformacionRelevante h2 {
+    font-size: 1.4rem;
+  }
+
+  .InformacionRelevante p {
+    font-size: 1rem;
+  }
+
+  .video-container {
+    max-width: 95%;
+  }
+
+  .Introduccion_Duart {
+    font-size: 18px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .MarcasAliadas {
+    font-size: 16px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slider img {
+    width: 120px;
+  }
+}
+
+@media (max-width: 400px) {
+  .BienvenidaApp {
+    padding: 1rem;
+  }
+
+  .BienvenidaApp span {
+    font-size: 1.5rem;
+  }
+
+  .titulo-Inicio {
+    font-size: 1.2rem;
+  }
+
+  .InformacionRelevante p {
+    font-size: 0.9rem;
+  }
+
+  .Introduccion_Duart {
+    font-size: 15px;
+    max-width: 95%;
+  }
+
+  .Introduccion_Duart p {
+    padding: 8px 10px;
+    margin-bottom: 0.5rem;
+  }
+
+  .MarcasAliadas {
+    font-size: 14px;
+  }
+
+  .slider img {
+    width: 100px;
+  }
+}

@@ -1,0 +1,152 @@
+.popup-carrito {
+  position: fixed;
+  top: 100px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 320px;
+  z-index: 2000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.popup-carrito-contenido h3 {
+  margin-top: 0;
+  color: #4a148c;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.item-carrito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.item-carrito button {
+  background-color: #ff5252;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.3s;
+}
+
+.item-carrito button:hover {
+  background-color: #c62828;
+}
+
+.boton-whatsapp {
+  width: 100%;
+  background-color: #25d366;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.boton-whatsapp:hover {
+  background-color: #1ebe5d;
+}
+
+.cerrar-popup {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.popup-carrito-contenido ul {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+  margin-top: 10px;
+}
+
+/* ========== MEDIA QUERIES RESPONSIVE ========== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .popup-carrito {
+    right: 20px;
+    width: 90%;
+    max-width: 400px;
+    top: 80px;
+    padding: 16px;
+  }
+
+  .popup-carrito-contenido h3 {
+    font-size: 1.2rem;
+  }
+
+  .item-carrito {
+    font-size: 0.9rem;
+  }
+
+  .boton-whatsapp {
+    font-size: 0.95rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  .popup-carrito {
+    right: 10px;
+    left: 10px;
+    top: 70px;
+    width: auto;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .popup-carrito-contenido h3 {
+    font-size: 1.1rem;
+  }
+
+  .item-carrito {
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .item-carrito button {
+    align-self: flex-end;
+  }
+
+  .boton-whatsapp {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .cerrar-popup {
+    font-size: 1.1rem;
+  }
+}

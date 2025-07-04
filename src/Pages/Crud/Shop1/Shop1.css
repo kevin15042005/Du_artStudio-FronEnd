@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+/* Fondo principal */
+.Menu-Principal-Shop {
+  background-image: url("../../../assets/carro.webp");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+  z-index:0
+}
+.Menu-Principal-Shop::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+
+/* Título centrado */
+.Titulo-Shop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Merienda", cursive;
+  font-size: 2.5rem;
+  color: #d400ff;
+  margin: 2rem auto 1rem;
+  text-align: center;
+}
+
+/* Contenedor de tabla */
+.Tabla-Articulos {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Filtro */
+.filtradorShop {
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filtradorShop input {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filtradorShop button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.filtradorShop button:hover {
+  background: #45a049;
+}
+
+/* Tabla general */
+.tabla-articulos {
+  width: 95%;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  table-layout: fixed;
+  font-family: Arial, sans-serif;
+}
+
+.tabla-articulos th,
+.tabla-articulos td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+
+.tabla-articulos th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.tabla-articulos td {
+  background-color: #fafafa;
+}
+
+.tabla-articulos tbody tr:nth-child(even) td {
+  background-color: #f3f3f3;
+}
+
+.tabla-articulos tbody tr:hover td {
+  background-color: #eaf4ea;
+}
+
+/* Descripción truncada */
+.descripcion-limitada {
+  max-height: 6.5em;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4em;
+  text-align: justify;
+  padding: 0 10px;
+}
+
+/* Botones de acción */
+.acciones-botones-shop {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.acciones-botones-shop button {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Editar */
+.btn-editar {
+  background-color: #2196f3;
+}
+.btn-editar:hover {
+  background-color: #1976d2;
+}
+
+/* Eliminar */
+.btn-eliminar {
+  background-color: #f44336;
+}
+.btn-eliminar:hover {
+  background-color: #d32f2f;
+}
+
+/* ---------- POPUP ---------- */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popup-content h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  font-family: "Merienda", cursive;
+}
+
+.popup-form input[type="text"],
+.popup-form input[type="file"],
+.popup-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.popup-form textarea {
+  height: 120px;
+  resize: none;
+  background-color: #f4f4f4;
+  color: #444;
+  font-family: Arial, sans-serif;
+}
+
+.popup-form button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.popup-form button[type="submit"]:hover {
+  background-color: #388e3c;
+}
+
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+.popup-close:hover {
+  color: #000;
+}
+
+/* ---------- Paginación ---------- */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.paginacion button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.paginacion button.activo {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.paginacion button:hover {
+  background-color: #e0e0e0;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .Titulo-Shop {
+    font-size: 2rem;
+  }
+
+  .filtradorShop {
+    flex-direction: column;
+  width: 60%;
+  }
+
+  .filtradorShop input,
+  .filtradorShop button {
+    width: 100%;
+  }
+
+  .tabla-articulos th,
+  .tabla-articulos td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .acciones-botones-shop {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 10px 0;
+    margin: 8px 0;
+  }
+
+  .acciones-botones-shop button {
+    width: 100%;
+  }
+
+  .popup-content {
+    padding: 16px;
+    max-width: 90%;
+  }
+
+  .popup-form input,
+  .popup-form textarea {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-close {
+    font-size: 18px;
+  }
+
+  .popup-form button[type="submit"] {
+    font-size: 13px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+
+/* Loader Container - Base */
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1a1a2e;
+  z-index: 2000;
+  opacity: 1;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.loader-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Texto Neon - Versión móvil */
+.neon-text {
+  font-family: "Audiowide", sans-serif;
+  font-weight: 800;
+  font-size: 4.5rem; /* Tamaño ideal para 480px */
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 0 5px #ff005e, 0 0 10px #ff005e, 0 0 20px #ff005e;
+  animation: neonPulse 0.8s infinite alternate;
+  text-align: center;
+  word-break: break-word;
+  max-width: 100%;
+  line-height: 1.3;
+  padding: 0 10px;
+}
+@media (max-width: 1024px) {
+  .neon-text {
+    line-height: 1.4;
+    font-weight: 500;
+    font-size: 4rem; 
+  }
+}
+
+@media (max-width: 720px) {
+  .neon-text {
+    line-height: 2;
+    font-weight: 500;
+    font-size: 3rem; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .neon-text {
+    line-height: 1.7;
+    font-weight: 500;
+    font-size: 2.5rem; 
+  }
+}
+
+/* Ajustes específicos para pantallas muy pequeñas (≤360px) */
+@media (max-width: 360px) {
+  .neon-text {
+    line-height: 1.3;
+    font-weight: 500;
+    font-size: 1.5rem; 
+  }
+}
+
+/* Animación Neon */
+@keyframes neonPulse {
+  from {
+    text-shadow: 0 0 5px #ff005e, 0 0 10px #ff005e, 0 0 20px #ff005e;
+  }
+  to {
+    text-shadow: 0 0 10px #00ff48, 0 0 20px #00ff48, 0 0 40px #00ff48;
+  }
+}

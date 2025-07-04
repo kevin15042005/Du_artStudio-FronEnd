@@ -1,0 +1,349 @@
+/* Contacto.css - Versión con Estilo Violeta/Rosado */
+
+/* Contenedor principal con fondo fijo */
+.Informacion {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+  background-image: url(../../assets/motos-fondo.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.texto-resultado {
+  color: #7b2cbf;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+/* Capa oscura semi-transparente */
+.Informacion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+
+/* Contenedores de formularios */
+.InformacionCorreo {
+  width: calc(100% - 2rem);
+  max-width: 480px;
+  min-height: 580px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  margin: 0.5rem;
+  border: 2px solid #c77dff;
+  box-sizing: border-box;
+}
+
+/* Estructura del formulario */
+.contacto {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.contacto form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Tabla responsive mejorada */
+.tabla-contacto-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid #c77dff;
+}
+
+.tabla-contacto {
+  width: 100%;
+  min-width: 280px;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+.tabla-contacto th, 
+.tabla-contacto td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #c77dff;
+  color: white;
+}
+
+.tabla-contacto th {
+  background-color: rgba(199, 125, 255, 0.2);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+/* Estilos comunes */
+.contacto form h2 {
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #c77dff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Campos de entrada */
+.input-box-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.input-box-contacto label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.field-contacto {
+  height: 42px;
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #c77dff;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.field-contacto:focus {
+  outline: none;
+  border-color: #9d4edd;
+  box-shadow: 0 0 8px rgba(199, 125, 255, 0.5);
+}
+
+/* Textarea corregido */
+.input-box-contacto textarea {
+  width: 100%;
+  height: 140px;
+  max-width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 10px 12px;
+  font-family: inherit;
+}
+
+/* Botones */
+.Subir-mensaje,
+.button-contacto, 
+.email-button,
+.telefono-button,
+.button-contacto-oir {
+  width: 100%;
+  padding: 10px;
+  margin: 0.4rem 0;
+  background: linear-gradient(135deg, #9d4edd, #c77dff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #9d4edd;
+}
+
+.Subir-mensaje:hover,
+.button-contacto:hover, 
+.button-contacto-oir:hover,
+.email-button:hover,
+.telefono-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(157, 78, 221, 0.4);
+  background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+}
+
+/* Redes sociales */
+.redes-sociales {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1.8rem 0;
+}
+
+.redes-sociales a {
+  transition: all 0.3s ease;
+}
+
+.redes-sociales img {
+  width: 42px;
+  height: 42px;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.redes-sociales a:hover img {
+  filter: brightness(0) invert(0.7) sepia(1) hue-rotate(250deg) saturate(5);
+}
+
+/* ===================== MEDIA QUERIES ===================== */
+
+@media (max-width: 768px) {
+  .Informacion {
+    padding: 0.8rem;
+    gap: 1rem;
+  }
+  
+  .InformacionCorreo {
+    padding: 1.2rem;
+    border-radius: 18px;
+  }
+  
+  /* Tabla en móviles */
+  .tabla-contacto {
+    display: block;
+    font-size: 0.85rem;
+  }
+  
+  .tabla-contacto thead {
+    display: none;
+  }
+  
+  .tabla-contacto tr {
+    display: block;
+    margin-bottom: 0.8rem;
+    border: 1px solid #c77dff;
+    border-radius: 6px;
+  }
+  
+  .tabla-contacto td {
+    display: block;
+    text-align: right;
+    padding-left: 45%;
+    position: relative;
+    border-bottom: none;
+  }
+  
+  .tabla-contacto td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: calc(45% - 12px);
+    padding-right: 8px;
+    font-weight: bold;
+    text-align: left;
+    color: #c77dff;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .InformacionCorreo {
+    min-height: 540px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .contacto form {
+    gap: 1rem;
+  }
+  
+  .field-contacto {
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .input-box-contacto textarea {
+    height: 120px;
+  }
+  
+  .redes-sociales img {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 360px) {
+  .Informacion {
+    padding: 0.5rem;
+  }
+  
+  .InformacionCorreo {
+    padding: 0.8rem;
+    border-radius: 16px;
+    min-height: 520px;
+  }
+  
+  .contacto form h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .input-box-contacto label {
+    font-size: 0.9rem;
+  }
+  
+  .field-contacto {
+    height: 38px;
+    font-size: 0.85rem;
+  }
+  
+  .input-box-contacto textarea {
+    height: 100px;
+    font-size: 0.85rem;
+  }
+  
+  .tabla-contacto td {
+    padding-left: 40%;
+    font-size: 0.8rem;
+  }
+  
+  .tabla-contacto td::before {
+    width: calc(40% - 10px);
+    left: 10px;
+    font-size: 0.75rem;
+  }
+  
+  .Subir-mensaje,
+  .button-contacto, 
+  .email-button,
+  .telefono-button,
+  .button-contacto-oir {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .redes-sociales {
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .redes-sociales img {
+    width: 36px;
+    height: 36px;
+  }
+}
