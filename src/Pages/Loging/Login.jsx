@@ -88,7 +88,7 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/admin/update", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
