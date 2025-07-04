@@ -56,8 +56,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   list-style: none;
+  padding: 0;
   margin: 20px;
-  align-items: stretch;
 }
 
 .grid-item-noticia {
@@ -73,7 +73,7 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -153,31 +153,15 @@
 
 /* Animaciones */
 @keyframes transicioFrente {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes aparecerDesdeArribaConRebote {
-  0% {
-    transform: translateY(-200px);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(30px);
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(-200px); opacity: 0; }
+  60% { transform: translateY(30px); opacity: 1; }
+  80% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 .Contenedor-principal label {
