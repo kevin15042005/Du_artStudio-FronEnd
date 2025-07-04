@@ -8,6 +8,7 @@ import moto1 from "../../assets/cf2.jpeg";
 import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion";
 
+
 function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
@@ -27,7 +28,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   const textoCorto = contenido_Noticia.slice(0, maxLength);
 
   return (
-    <div className="noticia-card">
+    <div className={`noticia-card ${leerMas ? "expandido" : ""}`}>
       <img
         src={`${import.meta.env.VITE_API_URL}/uploads/${images[indexActual]}`}
         alt={`Noticia: ${nombre_Noticias}`}
@@ -35,7 +36,9 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
       />
       <div className="noticia-texto">
         <h3>{nombre_Noticias}</h3>
-        <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
+        <div className="contenido-noticia">
+          <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
+        </div>
         {esLargo && (
           <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
             {leerMas ? "Ver menos" : "Leer más"}

@@ -5,13 +5,12 @@ import Footer from "../../Components/Footer/footer";
 import "./Shop.css";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud/index";
 import { useCarrito } from "../../Components/CarritoContext/CarritoContext";
-import Animacion from "../../Components/Animacion/Animacion";
+import Animacion  from "../../Components/Animacion/Animacion";
 
-function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
+
+function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
-  const [leerMas, setLeerMas] = useState(false);
-  const maxLength = 120;
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -22,26 +21,23 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
 
   if (images.length === 0) return null;
 
-  const esLargo = contenido_Noticia.length > maxLength;
-  const textoCorto = contenido_Noticia.slice(0, maxLength);
-
   return (
-    <div className={`noticia-card ${leerMas ? "expandido" : ""}`}>
-      <img
-        src={`${import.meta.env.VITE_API_URL}/uploads/${images[indexActual]}`}
-        alt={`Noticia: ${nombre_Noticias}`}
-        className="noticia-imagen"
-      />
-      <div className="noticia-texto">
-        <h3>{nombre_Noticias}</h3>
-        <div className="contenido-noticia">
-          <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
-        </div>
-        {esLargo && (
-          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
-            {leerMas ? "Ver menos" : "Leer más"}
-          </button>
-        )}
+    <div className="carrusel-container-Compra">
+      <div className="imagen-contenedor-Compra">
+        {images.map((img, idx) => (
+          <img
+            key={idx}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${img}`}
+            alt={`${nombre_Shop} - imagen ${idx + 1}`}
+            className={`imagen-fondo-Compra ${
+              idx === indexActual ? "visible" : "oculto"
+            }`}
+          />
+        ))}
+      </div>
+      <div className="texto-hover-Compra">
+        <h2>{nombre_Shop}</h2>
+        <p>{contenido_Shop}</p>
       </div>
     </div>
   );
@@ -71,7 +67,7 @@ export default function Shop1() {
         <Layout />
         <div className="Contenido-Compra">
           <div className="Informacion-Compra">
-            <Animacion texto="Venta Articulos" className="titulo-Compra" />
+              <Animacion texto="Venta Articulos"  className="titulo-Compra"/>
             <div className="Informacion-RelevanteGeneral-Compra">
               <section className="InformacionRelevanteCompra">
                 <h2>Diseños a la venta</h2>
