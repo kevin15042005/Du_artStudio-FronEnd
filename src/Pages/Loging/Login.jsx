@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
+import { useAuth } from "../../Components/AuthContext/AuthContext.jsx";
 import "./Loging.css";
 
 export default function Login() {
   const navigate = useNavigate();
-        const { login } = useAuth();
+  const { login } = useAuth();
 
   const [registrarData, setRegistrarData] = useState({
     nombre: "",
