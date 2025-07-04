@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
 import { useAuth } from "../../Components/AuthContext/AuthContext.jsx";
 import "./Loging.css";
@@ -9,15 +8,7 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [registrarData, setRegistrarData] = useState({
-    nombre: "",
-    correo: "",
-    contraseña: "",
-    rol: "Administrador",
-  });
-
   const [currentForm, setCurrentForm] = useState("loging");
-
   const [showPassword, setShowPassword] = useState(false);
 
   const changeForm = (formName) => {
@@ -28,6 +19,7 @@ export default function Login() {
   const handleClick = () => {
     window.scrollTo(0, 0);
   };
+
   // Iniciar sesión
   const handleIniciar = async (e) => {
     e.preventDefault();
@@ -53,20 +45,19 @@ export default function Login() {
         alert("Inicio de sesión exitoso");
         localStorage.setItem("user", JSON.stringify(data.usuario));
         login();
-
         navigate("/CrudNoticias");
       } else {
         alert(data.message || "Credenciales inválidas");
-        localStorage.setItem("isLoging", "false");
+        localStorage.setItem("isLoggedIn", "false");
       }
     } catch {
-      console.log("Error al iniciar sesión");
+      console.error("Error al iniciar sesión");
       alert("Error al iniciar sesión");
-      localStorage.setItem("isLogin", "false");
+      localStorage.setItem("isLoggedIn", "false");
     }
   };
 
-  // Actualizar contraseña
+  // Recuperar contraseña
   const handleActualizar = async (e) => {
     e.preventDefault();
 
@@ -74,7 +65,6 @@ export default function Login() {
     const pinSeguridad = e.target.forgetPassword.value;
     const nuevaContraseña = e.target.newPassword.value;
 
-    // Validaciones
     if (!correo || !pinSeguridad || !nuevaContraseña) {
       alert("Todos los campos son obligatorios");
       return;
@@ -86,7 +76,7 @@ export default function Login() {
     }
 
     if (!/^\d{4}$/.test(pinSeguridad)) {
-      alert("El PIN debe ser de exactamente 4 dígitos");
+      alert("El PIN debe tener exactamente 4 dígitos");
       return;
     }
 
@@ -107,7 +97,7 @@ export default function Login() {
 
       if (res.ok) {
         alert("¡Contraseña actualizada correctamente!");
-        changeForm("loging"); // Volver al formulario de login
+        changeForm("loging");
       } else {
         alert(data.message || "Error al actualizar la contraseña");
       }
@@ -118,138 +108,130 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div id="main-container">
-        <Layout />
-        <main className="formulararioPrincipal">
-          {/* Login */}
-          {currentForm === "loging" && (
-            <div className="Menu-Loging">
-              <form className="Texto" onSubmit={handleIniciar}>
-                <h2>Ingreso</h2>
-                <div className="input-box">
-                  <label>Usuario</label>
+    <div id="main-container">
+      <main className="formulararioPrincipal">
+        {/* Login */}
+        {currentForm === "loging" && (
+          <div className="Menu-Loging">
+            <form className="Texto" onSubmit={handleIniciar}>
+              <h2>Ingreso</h2>
+              <div className="input-box">
+                <label>Usuario</label>
+                <input
+                  type="text"
+                  className="field"
+                  placeholder="Correo"
+                  name="correo"
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <label>Contraseña</label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="field"
+                  placeholder="Contraseña"
+                  name="contraseña"
+                  required
+                />
+                <div className="input-check">
+                  <h4>Mostrar contraseña</h4>
                   <input
-                    type="text"
-                    className="field"
-                    placeholder="Correo"
-                    name="correo"
-                    required
+                    type="checkbox"
+                    onChange={() => setShowPassword(!showPassword)}
                   />
                 </div>
-                <div className="input-box">
-                  <label>Contraseña</label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    className="field"
-                    placeholder="Contraseña"
-                    name="contraseña"
-                    required
-                  />
-                  <div className="input-check">
-                    <h4>Mostrar contraseña</h4>
-                    <input
-                      type="checkbox"
-                      onChange={() => setShowPassword(!showPassword)}
-                    />
-                  </div>
-                </div>
-                <div className="button-ingresar">
-                  <button
-                    type="submit"
-                    className="ingresarButton"
-                    onClick={handleClick}
+              </div>
+              <div className="button-ingresar">
+                <button
+                  type="submit"
+                  className="ingresarButton"
+                  onClick={handleClick}
+                >
+                  Ingresar
+                </button>
+                <div className="usuarioNewRegister">
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      changeForm("forgotPassword");
+                    }}
                   >
-                    Ingresar
-                  </button>
-                  <div className="usuarioNewRegister">
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        changeForm("forgotPassword");
-                      }}
-                    >
-                      Olvidé mi contraseña
-                    </a>
-                  </div>
+                    Olvidé mi contraseña
+                  </a>
                 </div>
-              </form>
-            </div>
-          )}
+              </div>
+            </form>
+          </div>
+        )}
 
-          {/* Recuperar Contraseña */}
-          {currentForm === "forgotPassword" && (
-            <div className="Menu-Password">
-              <form className="Texto" onSubmit={handleActualizar}>
-                <h2>Recuperar Contraseña</h2>
-
-                <div className="input-box">
-                  <label>Correo Electrónico</label>
+        {/* Recuperar Contraseña */}
+        {currentForm === "forgotPassword" && (
+          <div className="Menu-Password">
+            <form className="Texto" onSubmit={handleActualizar}>
+              <h2>Recuperar Contraseña</h2>
+              <div className="input-box">
+                <label>Correo Electrónico</label>
+                <input
+                  type="email"
+                  className="field"
+                  placeholder="Ingrese su correo"
+                  name="correo"
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <label>PIN de Seguridad (4 dígitos)</label>
+                <input
+                  type="password"
+                  className="field"
+                  placeholder="Ingrese su PIN"
+                  name="forgetPassword"
+                  pattern="\d{4}"
+                  maxLength={4}
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <label>Nueva Contraseña</label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="field"
+                  placeholder="Mínimo 8 caracteres"
+                  name="newPassword"
+                  minLength={8}
+                  required
+                />
+                <div className="input-check">
+                  <span>Mostrar contraseña</span>
                   <input
-                    type="email"
-                    className="field"
-                    placeholder="Ingrese su correo"
-                    name="correo"
-                    required
+                    type="checkbox"
+                    onChange={() => setShowPassword(!showPassword)}
                   />
                 </div>
-
-                <div className="input-box">
-                  <label>PIN de Seguridad (4 dígitos)</label>
-                  <input
-                    type="password"
-                    className="field"
-                    placeholder="Ingrese su PIN"
-                    name="forgetPassword"
-                    pattern="\d{4}"
-                    maxLength={4}
-                    required
-                  />
-                </div>
-
-                <div className="input-box">
-                  <label>Nueva Contraseña</label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    className="field"
-                    placeholder="Mínimo 8 caracteres"
-                    name="newPassword"
-                    minLength={8}
-                    required
-                  />
-                  <div className="input-check">
-                    <span>Mostrar contraseña</span>
-                    <input
-                      type="checkbox"
-                      onChange={() => setShowPassword(!showPassword)}
-                    />
-                  </div>
-                </div>
-
-                <div className="button-contraseña">
-                  <button type="submit" className="registerButton">
-                    Actualizar Contraseña
-                  </button>
-                </div>
-
-                <div className="VolverInicio">
-                  <button
-                    type="button"
-                    className="back-button"
-                    onClick={() => changeForm("loging")}
-                  >
-                    Volver al inicio de sesión
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
-    </>
+              </div>
+              <div className="button-contraseña">
+                <button type="submit" className="registerButton">
+                  Actualizar Contraseña
+                </button>
+              </div>
+              <div className="VolverInicio">
+                <button
+                  type="button"
+                  className="back-button"
+                  onClick={() => changeForm("loging")}
+                >
+                  Volver al inicio de sesión
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   );
 }
