@@ -18,7 +18,7 @@ import Registrar from "./Pages/Crud/Registrar/Registrar.jsx";
 import Aliados from "./Pages/Crud/Aliados/Aliados.jsx";
 // 🔐 Ruta protegida
 import ProtectedRoute from "./Components/ProtectedRoute/index";
-import { AuthProvider } from "./Components/AuthContext/Index.jsx";
+import { AuthProvider } from "./Components/AuthContext/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
