@@ -2,15 +2,14 @@
 .Menu-Principal-Noticias {
   align-items: center;
   background-color: rgba(230, 240, 255, 1);
-  padding: 1rem 0;
 }
 
 .titulo-Noticia {
   display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
-  font-family: "Merriweather", cursive;
-  font-size: 1.5rem;
+  margin-top: 20px;
+  font-family: "Merineda", cursive;
+  font-size: 20px;
   color: #b30098;
 }
 
@@ -29,42 +28,43 @@
 }
 
 .titulo-Bienvenida {
-  text-align: center;
-  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
   font-style: italic;
-  margin: 1rem 0;
 }
 
 .Informacion-Noticia h3 {
-  font-size: 1.1rem;
+  font-size: 20px;
   font-style: italic;
 }
 
 .Menu-Titulo {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
-  margin: 1rem 0;
 }
 
 .letraNoticia {
-  font-family: "Merriweather", serif;
+  font-family: "Marial", cover;
 }
 
 /* Grid de noticias */
 .grid-container-noticia {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 20px;
   list-style: none;
-  padding: 1rem;
-  margin: 0 auto;
-  max-width: 1400px;
+  padding: 0;
+  margin: 20px;
 }
 
 .grid-item-noticia {
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .noticia-card {
@@ -72,53 +72,52 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .noticia-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
 }
 
 .noticia-imagen {
   width: 100%;
-  height: 250px;
+  height: 380px;
   object-fit: cover;
   object-position: center;
-  padding: 15px;
-  transition: transform 0.3s ease;
-}
-
-.noticia-card:hover .noticia-imagen {
-  transform: scale(1.03);
+  padding: 20px;
+  border-radius: 30px;
 }
 
 .noticia-texto {
-  padding: 1.2rem;
+  padding: 1rem;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex-grow: 1;
 }
 
 .noticia-texto h3 {
   font-size: 1.2rem;
-  margin-bottom: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .noticia-texto p {
   font-size: 1rem;
   line-height: 1.5;
-  max-height: 4.5em; /* 3 líneas (1.5em x 3) */
+  max-height: 120px;
   overflow: hidden;
+  position: relative;
   transition: max-height 0.4s ease;
-  margin-bottom: 0.5rem;
 }
 
-.noticia-card.expandido .noticia-texto p {
-  max-height: 1000px; /* Valor suficientemente grande */
+.noticia-texto.expandido p {
+  max-height: 1000px;
 }
 
 .leer-mas-btn {
@@ -129,6 +128,7 @@
   margin-top: 0.5rem;
   align-self: flex-start;
   font-weight: bold;
+  font-size: 0.9rem;
   transition: color 0.2s ease;
 }
 
@@ -138,44 +138,46 @@
 
 /* Texto Informativo */
 .Texto-Informativo-Noticia {
-  max-width: 50rem;
+  max-width: 30rem;
   padding: 2rem;
   text-align: center;
-  line-height: 1.6;
-  background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  line-height: 1.5;
+  background: linear-gradient(to bottom, rgb(7 33 73), rgb(229, 62, 232));
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
   color: #fff;
-  border-radius: 15px;
+  border-radius: 10px;
+  animation: transicioFrente 2s ease-out forwards;
   margin: 3rem auto;
+  height: 40%;
 }
 
 /* Animaciones */
 @keyframes transicioFrente {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes aparecerDesdeArribaConRebote {
-  0% {
-    transform: translateY(-200px);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(30px);
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(-200px); opacity: 0; }
+  60% { transform: translateY(30px); opacity: 1; }
+  80% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.Contenedor-principal label {
+  display: flex;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 25px;
+  animation: aparecerDesdeArribaConRebote 1.2s ease-out forwards;
+}
+
+.num-Id {
+  display: flex;
+  justify-content: end;
+  font-size: 8px;
 }
 
 /* Información Relevante */
@@ -198,6 +200,7 @@
   background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: transicioFrente 1s ease-out;
   text-align: center;
 }
 
@@ -206,76 +209,162 @@
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: white;
+  text-align: center;
 }
 
 .InformacionRelevanteNoticia p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.6;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: "Merienda", cursive;
 }
 
 /* === RESPONSIVE DESIGN === */
 
-/* Tablet: 768px-1024px (2 columnas) */
+/* <= 1024px */
 @media (max-width: 1024px) {
   .grid-container-noticia {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .noticia-imagen {
-    height: 220px;
-  }
-  
-  .Menu-Titulo {
-    font-size: 1.8rem;
-  }
-  
-  .titulo-Noticia {
-    font-size: 1.3rem;
-  }
-}
 
-/* Móvil: <=767px (1 columna) */
-@media (max-width: 767px) {
-  .grid-container-noticia {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-  }
-  
   .noticia-imagen {
-    height: 200px;
+    height: 300px;
+    padding: 15px;
   }
-  
-  .Menu-Titulo {
-    font-size: 1.6rem;
-  }
-  
-  .titulo-Noticia {
-    font-size: 1.1rem;
-  }
-  
+
   .Texto-Informativo-Noticia {
     padding: 1.5rem;
-    margin: 2rem auto;
+    font-size: 1rem;
+  }
+
+  .InformacionRelevanteNoticia h2 {
+    font-size: 1.6rem;
   }
 }
 
-/* Móvil pequeño: <=480px */
-@media (max-width: 480px) {
-  .noticia-imagen {
-    height: 180px;
+/* <= 720px */
+@media (max-width: 720px) {
+  .grid-container-noticia {
+    grid-template-columns: 1fr;
+    margin: 10px;
+    gap: 15px;
   }
-  
-  .noticia-texto {
+
+  .noticia-imagen {
+    height: 250px;
+    padding: 10px;
+  }
+
+  .noticia-texto h3 {
+    font-size: 1.05rem;
+  }
+
+  .noticia-texto p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .Texto-Informativo-Noticia {
+    font-size: 0.9rem;
     padding: 1rem;
   }
-  
-  .Menu-Titulo {
-    font-size: 1.4rem;
+
+  .Informacion-RelevanteGeneral-Noticia {
+    flex-direction: column;
+    padding: 0 1rem;
   }
-  
+
   .InformacionRelevanteNoticia {
-    padding: 1.5rem;
+    padding: 1.2rem;
+  }
+}
+
+/* <= 480px */
+@media (max-width: 480px) {
+  .Texto-Informativo-Noticia {
+    padding: 1rem;
+    font-size: 0.85rem;
+    margin: 1.5rem auto;
+  }
+
+  .noticia-imagen {
+    height: 200px;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .noticia-texto h3 {
+    font-size: 0.8rem;
+  }
+
+  .leer-mas-btn {
+    font-size: 0.8rem;
+  }
+
+  .InformacionRelevanteNoticia {
+    padding: 1rem;
+    min-width: 250px;
+  }
+
+  .InformacionRelevanteNoticia h2 {
+    font-size: 1rem;
+  }
+
+  .InformacionRelevanteNoticia p {
+    font-size: 0.95rem;
+  }
+
+  .Menu-Titulo {
+    font-size: 1.5rem;
+  }
+
+  .titulo-Noticia {
+    font-size: 1rem;
+  }
+}
+
+/* <= 360px */
+@media (max-width: 360px) {
+  .noticia-imagen {
+    height: 180px;
+    padding: 5px;
+  }
+
+  .noticia-texto h3 {
+    font-size: 0.9rem;
+  }
+
+  .noticia-texto p {
+    font-size: 0.85rem;
+  }
+
+  .Texto-Informativo-Noticia {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
+
+  .InformacionRelevanteNoticia {
+    padding: 0.8rem;
+    min-width: 100%;
+  }
+
+  .InformacionRelevanteNoticia p {
+    font-size: 0.85rem;
+  }
+
+  .InformacionRelevanteNoticia h2 {
+    font-size: 0.8rem;
+  }
+
+  .Menu-Titulo {
+    font-size: 1.2rem;
+  }
+
+  .titulo-Noticia {
+    font-size: 0.4rem;
   }
 }
