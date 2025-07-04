@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import NavbarNoticia from "../NavbarNoticias/NavbarNoticias";
+
 const Layout = ({ children }) => {
-const isLoging = localStorage.getItem("isLoging");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("isLoging");
+    setIsLoggedIn(loginStatus === "true");
+  }, []);
 
   return (
     <div className="Main">
-      {isLoging === "true" ? <NavbarNoticia /> : <Navbar />}
+      {isLoggedIn ? <NavbarNoticia /> : <Navbar />}
       {children}
     </div>
   );
