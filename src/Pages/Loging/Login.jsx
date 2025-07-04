@@ -50,7 +50,7 @@ export default function Login() {
       if (res.ok) {
         alert("Inicio de sesión exitoso");
         localStorage.setItem("user", JSON.stringify(data.usuario));
-        localStorage.setItem("isLoging", "true");
+        localStorage.setItem("isLogin", "true");
         navigate("/CrudNoticias");
       } else {
         alert(data.message || "Credenciales inválidas");
