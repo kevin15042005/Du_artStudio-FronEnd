@@ -1,4 +1,3 @@
-// src/Components/AuthContext/AuthContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -7,18 +6,18 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const session = localStorage.getItem("isLoging");
+    const session = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(session === "true");
   }, []);
 
   const login = () => {
     setIsLoggedIn(true);
-    localStorage.setItem("isLoging", "true");
+    localStorage.setItem("isLoggedIn", "true");
   };
 
   const logout = () => {
     setIsLoggedIn(false);
-    localStorage.setItem("isLoging", "false");
+    localStorage.setItem("isLoggedIn", "false");
   };
 
   return (

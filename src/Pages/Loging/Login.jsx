@@ -6,6 +6,7 @@ import "./Loging.css";
 
 export default function Login() {
   const navigate = useNavigate();
+        const { login } = useAuth();
 
   const [registrarData, setRegistrarData] = useState({
     nombre: "",
@@ -50,7 +51,8 @@ export default function Login() {
       if (res.ok) {
         alert("Inicio de sesión exitoso");
         localStorage.setItem("user", JSON.stringify(data.usuario));
-        localStorage.setItem("isLoging", "true");
+        login();
+
         navigate("/CrudNoticias");
       } else {
         alert(data.message || "Credenciales inválidas");
