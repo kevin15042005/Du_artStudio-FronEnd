@@ -50,11 +50,11 @@ export default function Login() {
       if (res.ok) {
         alert("Inicio de sesión exitoso");
         localStorage.setItem("user", JSON.stringify(data.usuario));
-        localStorage.setItem("isLogin", "true");
+        localStorage.setItem("isLoging", "true");
         navigate("/CrudNoticias");
       } else {
         alert(data.message || "Credenciales inválidas");
-        localStorage.setItem("isLogin", "false");
+        localStorage.setItem("isLoging", "false");
       }
     } catch {
       console.log("Error al iniciar sesión");

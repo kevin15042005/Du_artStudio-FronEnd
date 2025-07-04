@@ -18,63 +18,66 @@ import Registrar from "./Pages/Crud/Registrar/Registrar.jsx";
 import Aliados from "./Pages/Crud/Aliados/Aliados.jsx";
 // 🔐 Ruta protegida
 import ProtectedRoute from "./Components/ProtectedRoute/index";
+import { AuthProvider } from "./Components/AuthContext/Index.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <CarritoProvider>
-        <Routes>
-          {/* Rutas públicas */}
-          <Route index path="/" element={<App />} />
-          <Route path="/Pintura" element={<Pintura />} />
-          <Route path="/Contacto" element={<Contacto />} />
-          <Route path="/Noticias" element={<Noticias />} />
-          <Route path="/Loging" element={<Loging />} />
-          <Route path="/Nosotros" element={<Nosotros />} />
-          <Route path="/Compra" element={<Compra />} />
-          {/* Rutas protegidas (solo si está logueado) */}
-          <Route
-            path="/CrudNoticias"
-            element={
-              <ProtectedRoute>
-                <CrudNoticias />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/CrudNoticiasPintura"
-            element={
-              <ProtectedRoute>
-                <CrudNoticiasPintura />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Shop"
-            element={
-              <ProtectedRoute>
-                <Shop />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Registrar"
-            element={
-              <ProtectedRoute>
-                <Registrar />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Aliados"
-            element={
-              <ProtectedRoute>
-                <Aliados />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </CarritoProvider>
+      <AuthProvider>
+        <CarritoProvider>
+          <Routes>
+            {/* Rutas públicas */}
+            <Route index path="/" element={<App />} />
+            <Route path="/Pintura" element={<Pintura />} />
+            <Route path="/Contacto" element={<Contacto />} />
+            <Route path="/Noticias" element={<Noticias />} />
+            <Route path="/Loging" element={<Loging />} />
+            <Route path="/Nosotros" element={<Nosotros />} />
+            <Route path="/Compra" element={<Compra />} />
+            {/* Rutas protegidas (solo si está logueado) */}
+            <Route
+              path="/CrudNoticias"
+              element={
+                <ProtectedRoute>
+                  <CrudNoticias />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/CrudNoticiasPintura"
+              element={
+                <ProtectedRoute>
+                  <CrudNoticiasPintura />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Shop"
+              element={
+                <ProtectedRoute>
+                  <Shop />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Registrar"
+              element={
+                <ProtectedRoute>
+                  <Registrar />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Aliados"
+              element={
+                <ProtectedRoute>
+                  <Aliados />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </CarritoProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );

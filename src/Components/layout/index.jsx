@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../Navbar/Navbar";
 import NavbarNoticia from "../NavbarNoticias/NavbarNoticias";
+import { useAuth } from "../AuthContext/AuthContext";
 
 const Layout = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const loginStatus = localStorage.getItem("isLoging");
-    setIsLoggedIn(loginStatus === "true");
-  }, []);
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className="Main">
