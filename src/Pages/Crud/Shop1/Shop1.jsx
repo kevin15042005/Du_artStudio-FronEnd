@@ -83,7 +83,7 @@ export default function Shop() {
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/Shop/crear", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop/crear`, {
         method: "POST",
         body: formData,
       });
@@ -109,7 +109,7 @@ export default function Shop() {
     if (imagenActualizar) formData.append("cover", imagenActualizar);
 
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/Shop", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop`, {
         method: "PUT",
         body: formData,
       });

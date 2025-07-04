@@ -91,7 +91,7 @@ export default function CrudNoticiasPintura() {
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/pintura/crear", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/pintura/crear`, {
         method: "POST",
         body: formData,
       });

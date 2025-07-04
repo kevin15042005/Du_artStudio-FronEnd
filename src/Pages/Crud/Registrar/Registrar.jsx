@@ -63,7 +63,7 @@ const Registrar = () => {
     }
 
     try {
-      await axios.post("${import.meta.env.VITE_API_URL}/admin/register", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/admin/register`, {
         nombre_Administrador: nombreCrear,
         correo_Administrador: correo,
         contraseña_Administrador: contrasena,
@@ -88,7 +88,7 @@ const Registrar = () => {
     }
 
     try {
-      await axios.put("${import.meta.env.VITE_API_URL}/admin/update", {
+      await axios.put(`${import.meta.env.VITE_API_URL}/admin/update`, {
         correo_Administrador: correoAdminActualizar,
         pin_seguridad: pinAdminActualizar,
         nuevaContraseña: contrasena,
