@@ -1,42 +1,17 @@
-/* Estilos generales */
+/* ===== ESTILOS BASE ===== */
 .Menu-Principal-Noticias {
   align-items: center;
   background-color: rgba(230, 240, 255, 1);
+  padding: 1rem 0;
 }
 
 .titulo-Noticia {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  font-family: "Merineda", cursive;
-  font-size: 20px;
+  margin: 1.5rem 0;
+  font-family: "Merriweather", cursive;
+  font-size: 1.5rem;
   color: #b30098;
-}
-
-.Informacion-Noticia span {
-  opacity: 0;
-  display: inline-block;
-  transform: translateY(20px);
-  animation: aparecer 0.35s ease-out forwards;
-}
-
-@keyframes aparecer {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.titulo-Bienvenida {
-  display: flex;
-  justify-content: center;
-  font-size: 20px;
-  font-style: italic;
-}
-
-.Informacion-Noticia h3 {
-  font-size: 20px;
-  font-style: italic;
 }
 
 .Menu-Titulo {
@@ -44,35 +19,23 @@
   justify-content: center;
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
+  margin: 1rem 0;
 }
 
-.letraNoticia {
-  font-family: "Marial", cover;
-}
-
-/* Grid de noticias */
-/* Añade estos estilos al archivo Noticias.css */
-
-.grid-container-noticia {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style: none;
-  margin: 20px;
-}
-
-.grid-row {
+/* ===== GRID DE NOTICIAS - ESTRUCTURA PRINCIPAL ===== */
+.grid-container-noticias {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: stretch;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas por defecto (desktop) */
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  list-style: none;
 }
 
 .grid-item-noticia {
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  overflow: hidden;
 }
 
 .noticia-card {
@@ -81,50 +44,42 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .noticia-imagen {
   width: 100%;
-  height: 25rem;
+  height: 250px;
   object-fit: cover;
-  object-position: center;
-  padding: 20px;
-  border-radius: 30px;
+  padding: 15px;
 }
 
-.noticia-texto {
+.noticia-contenido {
   padding: 1rem;
-  color: #222;
-  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.contenido-noticia {
-  flex-grow: 1;
-}
-
-.noticia-texto p {
-  font-size: 1rem;
-  line-height: 1.5;
+.noticia-titulo {
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-/* Mantén el resto de tus estilos existentes */
+.noticia-texto {
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
 
 .leer-mas-btn {
   background: none;
   border: none;
   color: #007bff;
   cursor: pointer;
-  margin-top: 0.5rem;
-  align-self: flex-start;
   font-weight: bold;
-  font-size: 0.9rem;
+  align-self: flex-start;
   transition: color 0.2s ease;
 }
 
@@ -132,259 +87,66 @@
   color: #0056b3;
 }
 
-/* Texto Informativo */
-.Texto-Informativo-Noticia {
-  max-width: 30rem;
-  padding: 2rem;
-  text-align: center;
-  line-height: 1.5;
-  background: linear-gradient(to bottom, rgb(7 33 73), rgb(229, 62, 232));
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border-radius: 10px;
-  animation: transicioFrente 2s ease-out forwards;
-  margin: 3rem auto;
-  height: 40%;
-}
+/* ===== RESPONSIVE DESIGN ===== */
 
-/* Animaciones */
-@keyframes transicioFrente {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes aparecerDesdeArribaConRebote {
-  0% {
-    transform: translateY(-200px);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(30px);
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.Contenedor-principal label {
-  display: flex;
-  justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 25px;
-  animation: aparecerDesdeArribaConRebote 1.2s ease-out forwards;
-}
-
-.num-Id {
-  display: flex;
-  justify-content: end;
-  font-size: 8px;
-}
-
-/* Información Relevante */
-.Informacion-RelevanteGeneral-Noticia {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin: 3rem auto;
-  padding: 0 2rem;
-  max-width: 1400px;
-}
-
-.InformacionRelevanteNoticia {
-  flex: 1;
-  min-width: 300px;
-  max-width: 800px;
-  padding: 2rem;
-  background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  animation: transicioFrente 1s ease-out;
-  text-align: center;
-}
-
-.InformacionRelevanteNoticia h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: white;
-  text-align: center;
-}
-
-.InformacionRelevanteNoticia p {
-  font-size: 20px;
-  line-height: 1.6;
-  color: black;
-  font-weight: bold;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: "Merienda", cursive;
-}
-
-/* === RESPONSIVE DESIGN === */
-
-/* <= 1024px */
+/* Tablet: 768px - 1024px (2 columnas) */
 @media (max-width: 1024px) {
-  .grid-container-noticia {
-    grid-template-columns: repeat(3, 1fr);
+  .grid-container-noticias {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas para tablet */
   }
-
+  
   .noticia-imagen {
-    height: 300px;
-    padding: 15px;
+    height: 220px;
+    padding: 12px;
   }
-
-  .Texto-Informativo-Noticia {
-    padding: 1.5rem;
-    font-size: 1rem;
+  
+  .Menu-Titulo {
+    font-size: 1.8rem;
   }
-
-  .InformacionRelevanteNoticia h2 {
-    font-size: 1.6rem;
+  
+  .titulo-Noticia {
+    font-size: 1.3rem;
   }
 }
 
-/* <= 720px */
-@media (max-width: 720px) {
-  .grid-container-noticia {
-    grid-template-columns: repeat(2, 1fr);
-    margin: 10px;
-    gap: 15px;
+/* Móvil: <= 767px (1 columna) */
+@media (max-width: 767px) {
+  .grid-container-noticias {
+    grid-template-columns: 1fr; /* 1 columna para móvil */
+    max-width: 500px;
   }
-
-  .noticia-imagen {
-    height: 250px;
-    padding: 10px;
-  }
-
-  .noticia-texto h3 {
-    font-size: 1.05rem;
-  }
-
-  .noticia-texto p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-
-  .Texto-Informativo-Noticia {
-    font-size: 0.9rem;
-    padding: 1rem;
-  }
-
-  .Informacion-RelevanteGeneral-Noticia {
-    flex-direction: column;
-    padding: 0 1rem;
-  }
-
-  .InformacionRelevanteNoticia {
-    padding: 1.2rem;
-  }
-}
-
-/* <= 480px */
-@media (max-width: 480px) {
-  .grid-container-noticia {
-    grid-template-columns: 1fr;
-    margin: 10px;
-    gap: 15px;
-  }
-  .Texto-Informativo-Noticia {
-    padding: 1rem;
-    font-size: 0.85rem;
-    margin: 1.5rem auto;
-  }
-
+  
   .noticia-imagen {
     height: 200px;
-    padding: 5px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 8px;
   }
-
-  .noticia-texto h3 {
-    font-size: 0.8rem;
-  }
-
-  .leer-mas-btn {
-    font-size: 0.8rem;
-  }
-
-  .InformacionRelevanteNoticia {
-    padding: 1rem;
-    min-width: 250px;
-  }
-
-  .InformacionRelevanteNoticia h2 {
-    font-size: 1rem;
-  }
-
-  .InformacionRelevanteNoticia p {
-    font-size: 0.95rem;
-  }
-
+  
   .Menu-Titulo {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
-
+  
   .titulo-Noticia {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
-/* <= 360px */
-@media (max-width: 360px) {
-  .grid-container-noticia {
-    grid-template-columns: 1fr;
-  }
+/* Móvil pequeño: <= 480px */
+@media (max-width: 480px) {
   .noticia-imagen {
     height: 180px;
-    padding: 5px;
+    padding: 8px;
   }
-
-  .noticia-texto h3 {
-    font-size: 0.9rem;
-  }
-
-  .noticia-texto p {
-    font-size: 0.85rem;
-  }
-
-  .Texto-Informativo-Noticia {
-    font-size: 0.8rem;
+  
+  .noticia-contenido {
     padding: 0.8rem;
   }
-
-  .InformacionRelevanteNoticia {
-    padding: 0.8rem;
-    min-width: 100%;
+  
+  .noticia-titulo {
+    font-size: 1.1rem;
   }
-
-  .InformacionRelevanteNoticia p {
-    font-size: 0.85rem;
-  }
-
-  .InformacionRelevanteNoticia h2 {
-    font-size: 0.8rem;
-  }
-
+  
   .Menu-Titulo {
-    font-size: 1.2rem;
-  }
-
-  .titulo-Noticia {
-    font-size: 0.4rem;
+    font-size: 1.4rem;
   }
 }
