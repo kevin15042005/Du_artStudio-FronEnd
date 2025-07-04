@@ -62,7 +62,7 @@
   padding: 3rem;
   background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
   border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
   animation: transicioFrente 1s ease-out;
   text-align: center;
 }
