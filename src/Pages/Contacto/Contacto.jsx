@@ -70,45 +70,7 @@ export default function Contacto() {
     <div id="main-container">
       <Layout />
       <main className="Informacion" >
-        <div className="InformacionCorreo">
-          <section className="contacto">
-            <form onSubmit={onSubmit}>
-              <h2>Contactonos Aqui</h2>
-              <div className="input-box-contacto">
-                <label>Nombre Completo</label>
-                <input
-                  type="text"
-                  className="field-contacto"
-                  placeholder="Ingresar tu nombre"
-                  name="nombre"
-                  required
-                />
-              </div>
-              <div className="input-box-contacto">
-                <label>Direccion Email</label>
-                <input
-                  type="email"
-                  className="field-contacto"
-                  placeholder="Ingresar tu Email"
-                  name="email"
-                  required
-                />
-              </div>
-              <div className="input-box-contacto">
-                <label>Mensaje</label>
-                <textarea
-                  name="mensaje"
-                  className="field-contacto mess"
-                  placeholder="Escribe un mensaje "
-                  required
-                ></textarea>
-              </div>
-              <button className="Subir-mensaje" type="submit">Subir Mensaje</button>
-              <p className="texto-resultado">{result}</p> {/* Muestra el resultado del envío */}
-            </form>
-          </section>
-        </div>
-        <div className="InformacionCorreo">
+         <div className="InformacionCorreo">
           <section className="contacto">
             <form onSubmit={onSubmit}>
               <h2>Tambien por Aqui</h2>
@@ -179,6 +141,45 @@ export default function Contacto() {
             </form>
           </section>
         </div>
+        <div className="InformacionCorreo">
+          <section className="contacto">
+            <form onSubmit={onSubmit}>
+              <h2>Contactonos Aqui</h2>
+              <div className="input-box-contacto">
+                <label>Nombre Completo</label>
+                <input
+                  type="text"
+                  className="field-contacto"
+                  placeholder="Ingresar tu nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div className="input-box-contacto">
+                <label>Direccion Email</label>
+                <input
+                  type="email"
+                  className="field-contacto"
+                  placeholder="Ingresar tu Email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div className="input-box-contacto">
+                <label>Mensaje</label>
+                <textarea
+                  name="mensaje"
+                  className="field-contacto mess"
+                  placeholder="Escribe un mensaje "
+                  required
+                ></textarea>
+              </div>
+              <button className="Subir-mensaje" type="submit">Subir Mensaje</button>
+              <p className="texto-resultado">{result}</p> {/* Muestra el resultado del envío */}
+            </form>
+          </section>
+        </div>
+       
       </main>
       <footer>
         <Footer />
