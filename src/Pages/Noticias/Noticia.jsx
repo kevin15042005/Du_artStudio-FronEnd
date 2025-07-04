@@ -3,16 +3,11 @@ import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
 import "./Noticias.css";
 import ScrollAnimation from "../../Components/ScrollAnimationCrud/index";
-import moto from "../../assets/cf1.jpeg";
-import moto1 from "../../assets/cf2.jpeg";
-import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion";
 
-
-function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
+function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, isExpanded, onToggle }) {
   const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
-  const [leerMas, setLeerMas] = useState(false);
   const maxLength = 120;
 
   useEffect(() => {
@@ -28,7 +23,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   const textoCorto = contenido_Noticia.slice(0, maxLength);
 
   return (
-    <div className={`noticia-card ${leerMas ? "expandido" : ""}`}>
+    <div className={`noticia-card ${isExpanded ? "expandido" : ""}`}>
       <img
         src={`${import.meta.env.VITE_API_URL}/uploads/${images[indexActual]}`}
         alt={`Noticia: ${nombre_Noticias}`}
@@ -37,11 +32,11 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
       <div className="noticia-texto">
         <h3>{nombre_Noticias}</h3>
         <div className="contenido-noticia">
-          <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
+          <p>{isExpanded || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
         </div>
         {esLargo && (
-          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
-            {leerMas ? "Ver menos" : "Leer más"}
+          <button className="leer-mas-btn" onClick={onToggle}>
+            {isExpanded ? "Ver menos" : "Leer más"}
           </button>
         )}
       </div>
@@ -52,6 +47,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
 export default function Noticias() {
   const [noticias, setNoticias] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedRows, setExpandedRows] = useState({});
   const itemsPerPage = 9;
 
   useEffect(() => {
@@ -65,6 +61,19 @@ export default function Noticias() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = noticias.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(noticias.length / itemsPerPage);
+
+  // Agrupar noticias por filas (3 por fila)
+  const rows = [];
+  for (let i = 0; i < currentItems.length; i += 3) {
+    rows.push(currentItems.slice(i, i + 3));
+  }
+
+  const toggleRow = (rowIndex) => {
+    setExpandedRows(prev => ({
+      ...prev,
+      [rowIndex]: !prev[rowIndex]
+    }));
+  };
 
   return (
     <>
@@ -83,21 +92,27 @@ export default function Noticias() {
               </section>
             </div>
           </div>
-          <div className="Container-noticia ">
+          <div className="Container-noticia">
             <div className="Contenedor-principal">
-              <ul className="grid-container-noticia">
-                {currentItems.map((noticia, index) => (
-                  <ScrollAnimation key={noticia.id_Noticia} delay={index * 0.2}>
-                    <li className="grid-item-noticia">
-                      <CarruselImagenes
-                        cover={noticia.cover}
-                        nombre_Noticias={noticia.nombre_Noticias}
-                        contenido_Noticia={noticia.contenido_Noticia}
-                      />
-                    </li>
-                  </ScrollAnimation>
+              <div className="grid-container-noticia">
+                {rows.map((row, rowIndex) => (
+                  <div key={rowIndex} className="grid-row">
+                    {row.map((noticia, index) => (
+                      <ScrollAnimation key={noticia.id_Noticia} delay={index * 0.2}>
+                        <div className="grid-item-noticia">
+                          <CarruselImagenes
+                            cover={noticia.cover}
+                            nombre_Noticias={noticia.nombre_Noticias}
+                            contenido_Noticia={noticia.contenido_Noticia}
+                            isExpanded={expandedRows[rowIndex]}
+                            onToggle={() => toggleRow(rowIndex)}
+                          />
+                        </div>
+                      </ScrollAnimation>
+                    ))}
+                  </div>
                 ))}
-              </ul>
+              </div>
               <div className="pagina-control">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (number) => (
