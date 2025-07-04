@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import NavbarNoticia from "../NavbarNoticias/NavbarNoticias";
-import { useAuth } from "../AuthContext/AuthContext";
+import { useAuth } from "../AuthContext/Index.jsx"; 
 
 const Layout = ({ children }) => {
   const { isLoggedIn } = useAuth();
