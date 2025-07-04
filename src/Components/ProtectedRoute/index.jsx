@@ -2,10 +2,10 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const isLoging = localStorage.getItem("isLoging");
+  const isLogin = localStorage.getItem("isLogin");
+  const user = localStorage.getItem("user");
 
-  // Si no está logueado, redirige a inicio
-  if (isLoging !== "true") {
+  if (isLogin !== "true" || !user) {
     return <Navigate to="/" replace />;
   }
 
