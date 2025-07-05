@@ -22,12 +22,10 @@ function Slider() {
         {[...aliados, ...aliados, ...aliados].map((aliado, index) => (
           <div key={index} className="aliado-card">
             <img
-              src={`${import.meta.env.VITE_API_URL}/uploads/${
-                aliado.imagen_Marcas_Aliadas
-              }`}
-              alt={aliado.nombre_Marcas_Aliadas}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${aliado.imagen_Marcas_Aliadas}`}
+              alt={aliado.nombre_Aliado_Marca}
             />
-            <p>{aliado.nombre_Marcas_Aliadas}</p>
+            <p>{aliado.nombre_Aliado_Marca}</p>
           </div>
         ))}
       </div>
