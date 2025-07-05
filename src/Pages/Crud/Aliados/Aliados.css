@@ -217,6 +217,7 @@
   }
 
   .aliado-card {
+    border-radius: 50%;
     width: 10rem;
     height: 10rem;
   }
@@ -242,7 +243,9 @@
     padding: 10px;
   }
 
+
   .aliado-card {
+    border-radius: 50%;
     width: 9rem;
     height: 9rem;
   }
