@@ -295,10 +295,15 @@ export default function CrudNoticias() {
                 />
                 <input
                   type="file"
-                  id="fileInputActualizar"
+                  accept="image/*"
                   multiple
-                  onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files);
+                    console.log("Archivos desde celular:", files);
+                    setImagen(files);
+                  }}
                 />
+
                 <input type="hidden" value={idNoticiaActualizar} readOnly />
                 <button type="submit">Actualizar</button>
               </form>
