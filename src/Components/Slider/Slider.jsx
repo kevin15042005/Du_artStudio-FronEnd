@@ -1,4 +1,3 @@
-// src/Components/Slider.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -23,9 +22,8 @@ function Slider() {
           <div key={index} className="aliado-card">
             <img
               src={`${import.meta.env.VITE_API_URL}/uploads/${aliado.imagen_Marcas_Aliadas}`}
-              alt={aliado.nombre_Aliado_Marca}
+              alt={`Aliado ${index + 1}`}
             />
-            <p>{aliado.nombre_Aliado_Marca}</p>
           </div>
         ))}
       </div>
