@@ -1,75 +1,32 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../../Components/layout";
-import Animacion from "../../../Components/Animacion/Animacion";
-import PopUp from "../../../Components/popup/popup";
-import Footer from "../../../Components/Footer/footer";
-import "./Pintura.css";
+import Layout from "../../Components/layout";
+import Footer from "../../Components/Footer/footer";
+import Animacion from "../../Components/Animacion/Animacion";
+import PopUp from "../../Components/popup/popup";
+import "./CrudNoticiasPintura.css";
 
 export default function CrudNoticiasPintura() {
-  const [pintura, setPintura] = useState([]);
+  const [noticias, setNoticias] = useState([]);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [imagen, setImagen] = useState([]);
-  const [noticiasPinturaPublicadas, setNoticiasPinturaPublicadas] = useState(0);
+  const [imagenes, setImagenes] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
 
+  const [idActualizar, setIdActualizar] = useState(null);
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
-  const [imagenActualizar, setImagenActualizar] = useState([]);
-  const [idNoticiaActualizar, setIdNoticiaActualizar] = useState("");
+  const [imagenesActualizar, setImagenesActualizar] = useState([]);
 
   const [mostrarCrear, setMostrarCrear] = useState(false);
   const [mostrarActualizar, setMostrarActualizar] = useState(false);
-  const [busqueda, setBusqueda] = useState("");
-  const [expandedRows, setExpandedRows] = useState([]);
-
-  const [paginaActual, setPaginaActual] = useState(1);
-  const noticiasPorPagina = 9;
-
-  const filtradoNoticiaPintura = Array.isArray(pintura)
-    ? pintura.filter((item) =>
-        item.nombre_Noticia_Pintura
-          ?.toLowerCase()
-          .includes(busqueda.toLowerCase())
-      )
-    : [];
-
-  const indexUltima = paginaActual * noticiasPorPagina;
-  const indexPrimera = indexUltima - noticiasPorPagina;
-  const noticiasActuales = filtradoNoticiaPintura.slice(
-    indexPrimera,
-    indexUltima
-  );
-  const totalPaginas = Math.ceil(
-    filtradoNoticiaPintura.length / noticiasPorPagina
-  );
-
-  const cambiarPagina = (numero) => setPaginaActual(numero);
-
-  const limpiarCampos = () => {
-    setTitulo("");
-    setDescripcion("");
-    setImagen([]);
-    const input = document.getElementById("fileInput");
-    if (input) input.value = "";
-  };
-
-  const limpiarCamposActualizar = () => {
-    setTituloActualizar("");
-    setDescripcionActualizar("");
-    setImagenActualizar(null);
-    setIdNoticiaActualizar("");
-    const input = document.getElementById("fileInputActualizar");
-    if (input) input.value = "";
-  };
 
   const obtenerNoticias = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/pintura`);
       const data = await res.json();
-      setPintura(data);
-      setNoticiasPinturaPublicadas(data.length);
+      setNoticias(data);
     } catch (err) {
-      console.error("Error al obtener noticias", err);
+      console.error("Error al obtener noticias:", err);
     }
   };
 
@@ -77,18 +34,17 @@ export default function CrudNoticiasPintura() {
     obtenerNoticias();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleCrear = async (e) => {
     e.preventDefault();
-
-    if (!titulo || !descripcion || imagen.length === 0) {
-      alert("Ingrese todos los campos");
+    if (!titulo || !descripcion || imagenes.length === 0) {
+      alert("Todos los campos son obligatorios.");
       return;
     }
 
     const formData = new FormData();
     formData.append("nombre_Noticia_Pintura", titulo);
     formData.append("contenido_Noticia_Pintura", descripcion);
-    imagen.forEach((img) => formData.append("cover", img));
+    imagenes.forEach((img) => formData.append("cover", img));
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/pintura/crear`, {
@@ -97,238 +53,158 @@ export default function CrudNoticiasPintura() {
       });
       const data = await res.json();
       alert(data.message || "Noticia creada");
-      limpiarCampos();
+      setMostrarCrear(false);
       obtenerNoticias();
-    } catch (err) {
-      console.error(err);
-      alert("Error al crear la noticia");
+    } catch (error) {
+      alert("Error al crear noticia");
     }
   };
 
-  const handleUpdate = async (e) => {
+  const handleActualizar = async (e) => {
     e.preventDefault();
 
-    if (!idNoticiaActualizar) {
-      alert("No se ha seleccionado ninguna noticia para actualizar");
-      return;
+    const formData = new FormData();
+    formData.append("id_Noticias_Pintura", idActualizar);
+    formData.append("nombre_Noticia_Pintura", tituloActualizar);
+    formData.append("contenido_Noticia_Pintura", descripcionActualizar);
+    if (imagenesActualizar.length > 0) {
+      imagenesActualizar.forEach((img) => formData.append("cover", img));
     }
 
     try {
-      const formData = new FormData();
-      formData.append("nombre_Noticia_Pintura", tituloActualizar);
-      formData.append("contenido_Noticia_Pintura", descripcionActualizar);
-
-      if (imagenActualizar?.length > 0) {
-        imagenActualizar.forEach((img) => {
-          formData.append("cover", img);
-        });
-      }
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/pintura/${idNoticiaActualizar}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Error al actualizar la noticia");
-      }
-
-      alert(data.message || "Noticia actualizada con éxito");
-      limpiarCamposActualizar();
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/pintura`, {
+        method: "PUT",
+        body: formData,
+      });
+      const data = await res.json();
+      alert(data.message || "Noticia actualizada");
       setMostrarActualizar(false);
       obtenerNoticias();
-    } catch (error) {
-      console.error("Error al actualizar noticia:", error);
-      alert(error.message || "Error al actualizar la noticia");
+    } catch (err) {
+      alert("Error al actualizar noticia");
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm(`¿Estás seguro de eliminar el diseño ${id}?`)) return;
-
+  const handleEliminar = async (id) => {
+    if (!window.confirm("¿Deseas eliminar esta noticia?")) return;
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/pintura/${id}`, {
         method: "DELETE",
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Error al eliminar la noticia");
-      }
-
-      alert(data.message || "Diseño eliminado con éxito");
+      const data = await res.json();
+      alert(data.message || "Noticia eliminada");
       obtenerNoticias();
-    } catch (error) {
-      console.error("Error al eliminar noticia:", error);
-      alert(error.message || "Error al eliminar la noticia");
+    } catch (err) {
+      alert("Error al eliminar noticia");
     }
   };
+
+  const filtradas = noticias.filter((n) =>
+    n.nombre_Noticia_Pintura.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   return (
     <>
-      <div className="menu-Pricipal-Pintura">
-        <Layout />
-
-        <div className="Titulo-Noticia">
-          <Animacion texto="Diseños Publicados" />
+      <Layout />
+      <div className="crud-noticias-pintura">
+        <Animacion texto="Gestión de Diseños" />
+        <div className="barra-filtro">
+          <button onClick={() => setMostrarCrear(true)}>➕ Crear</button>
+          <input
+            type="text"
+            placeholder="Buscar diseño"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
         </div>
 
-        <div className="DiseñoTabla">
-          <div className="filtradoDiseños" style={{ marginBottom: "1rem" }}>
-            <div className="botonesDiseños">
-              {" "}
-              <button className="" onClick={() => setMostrarCrear(true)}>
-                ➕ Crear Noticia
-              </button>
-            </div>
-            <input
-              type="text"
-              placeholder="Buscar Diseño"
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <table className="tabla-Diseño">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Titulo</th>
-                  <th>Descripción</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {noticiasActuales.map((item) => (
-                  <tr key={item.id_Noticias_Pintura}>
-                    <td>{item.id_Noticias_Pintura}</td>
-                    <td>{item.nombre_Noticia_Pintura}</td>
-                    <td>
-                      <div className="descripcion-limitada">
-                        {expandedRows.includes(item.id_Noticias_Pintura)
-                          ? item.contenido_Noticia_Pintura
-                          : item.contenido_Noticia_Pintura.slice(0, 120) +
-                            (item.contenido_Noticia_Pintura.length > 120
-                              ? "..."
-                              : "")}
-                      </div>
-                    </td>
-                    <td>
-                      <div className="acciones-botones-pintura">
-                        <button
-                          className="btn-editar-pintura"
-                          onClick={() => {
-                            setIdNoticiaActualizar(item.id_Noticias_Pintura);
-                            setTituloActualizar(item.nombre_Noticia_Pintura);
-                            setDescripcionActualizar(
-                              item.contenido_Noticia_Pintura
-                            );
-                            setMostrarActualizar(true);
-                          }}
-                        >
-                          🖌️
-                        </button>
-                        <button
-                          className="btn-eliminar-pintura"
-                          onClick={() => handleDelete(item.id_Noticias_Pintura)}
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className="paginacion">
-              {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(
-                (num) => (
+        <table className="tabla-crud">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtradas.map((n) => (
+              <tr key={n.id_Noticias_Pintura}>
+                <td>{n.id_Noticias_Pintura}</td>
+                <td>{n.nombre_Noticia_Pintura}</td>
+                <td>{n.contenido_Noticia_Pintura.slice(0, 100)}...</td>
+                <td>
                   <button
-                    key={num}
-                    className={paginaActual === num ? "activo" : ""}
-                    onClick={() => cambiarPagina(num)}
+                    onClick={() => {
+                      setIdActualizar(n.id_Noticias_Pintura);
+                      setTituloActualizar(n.nombre_Noticia_Pintura);
+                      setDescripcionActualizar(n.contenido_Noticia_Pintura);
+                      setMostrarActualizar(true);
+                    }}
                   >
-                    {num}
+                    🖌️
                   </button>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Crear Noticia */}
-        {mostrarCrear && (
-          <PopUp onClose={() => setMostrarCrear(false)} title="Crear Noticia">
-            <form onSubmit={handleSubmit} className="popup-form">
-              <input
-                type="text"
-                placeholder="Título"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
-                required
-              />
-              <textarea
-                className="Descripcion-Formulario"
-                placeholder="Descripción"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
-                required
-              />
-              <input
-                type="file"
-                id="fileInput"
-                multiple
-                onChange={(e) => setImagen(Array.from(e.target.files))}
-                required
-              />
-              <button type="submit">Crear</button>
-            </form>
-          </PopUp>
-        )}
-
-        {/* Actualizar Noticia */}
-        {mostrarActualizar && (
-          <PopUp
-            onClose={() => {
-              setMostrarActualizar(false);
-              limpiarCamposActualizar();
-            }}
-            title="Actualizar Noticia"
-          >
-            <form onSubmit={handleUpdate} className="popup-form">
-              <input
-                type="text"
-                placeholder="Título"
-                value={tituloActualizar}
-                onChange={(e) => setTituloActualizar(e.target.value)}
-              />
-              <textarea
-                className="Descripcion-Formulario"
-                placeholder="Descripción"
-                value={descripcionActualizar}
-                onChange={(e) => setDescripcionActualizar(e.target.value)}
-              />
-              <input
-                type="file"
-                id="fileInputActualizar"
-                multiple
-                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
-              />
-              <input type="hidden" value={idNoticiaActualizar} readOnly />
-              <button type="submit">Actualizar</button>
-            </form>
-          </PopUp>
-        )}
+                  <button onClick={() => handleEliminar(n.id_Noticias_Pintura)}>🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
       <Footer />
+
+      {mostrarCrear && (
+        <PopUp title="Crear Diseño" onClose={() => setMostrarCrear(false)}>
+          <form onSubmit={handleCrear} className="popup-form">
+            <input
+              type="text"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              placeholder="Título"
+              required
+            />
+            <textarea
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+              placeholder="Descripción"
+              required
+            />
+            <input
+              type="file"
+              multiple
+              onChange={(e) => setImagenes(Array.from(e.target.files))}
+              required
+            />
+            <button type="submit">Crear</button>
+          </form>
+        </PopUp>
+      )}
+
+      {mostrarActualizar && (
+        <PopUp title="Actualizar Diseño" onClose={() => setMostrarActualizar(false)}>
+          <form onSubmit={handleActualizar} className="popup-form">
+            <input
+              type="text"
+              value={tituloActualizar}
+              onChange={(e) => setTituloActualizar(e.target.value)}
+              placeholder="Título"
+              required
+            />
+            <textarea
+              value={descripcionActualizar}
+              onChange={(e) => setDescripcionActualizar(e.target.value)}
+              placeholder="Descripción"
+              required
+            />
+            <input
+              type="file"
+              multiple
+              onChange={(e) => setImagenesActualizar(Array.from(e.target.files))}
+            />
+            <button type="submit">Actualizar</button>
+          </form>
+        </PopUp>
+      )}
     </>
   );
 }

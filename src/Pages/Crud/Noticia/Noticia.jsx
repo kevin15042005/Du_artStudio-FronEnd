@@ -300,7 +300,7 @@ export default function CrudNoticias() {
                   onChange={(e) => {
                     const files = Array.from(e.target.files);
                     console.log("Archivos desde celular:", files);
-                    setImagen(files); // o setImagen([files[0]]); si solo permites una
+                    setImagenActualizar(files);
                   }}
                 />
 

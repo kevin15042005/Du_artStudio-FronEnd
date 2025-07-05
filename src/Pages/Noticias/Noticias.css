@@ -119,7 +119,7 @@
 }
 .Informacion-RelevanteGeneralNoticia{
   display: flex;
-  justify-self: center;
+  justify-self: start;
 }
 
 .noticia-card.expandido .contenido-noticia {
