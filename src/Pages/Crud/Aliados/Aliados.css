@@ -136,7 +136,7 @@
 
 .slider-container-aliados {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   overflow-x: auto;
   gap: 30px;
