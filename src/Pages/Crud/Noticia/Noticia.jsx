@@ -108,8 +108,10 @@ export default function CrudNoticias() {
       const formData = new FormData();
       formData.append("nombre_Noticias", tituloActualizar);
       formData.append("contenido_Noticia", descripcionActualizar);
-      if (imagenActualizar) {
-        formData.append("cover", imagenActualizar);
+      if (imagenActualizar?.length > 0) {
+        imagenActualizar.forEach((img) => {
+          formData.append("cover", img);
+        });
       }
 
       const response = await fetch(

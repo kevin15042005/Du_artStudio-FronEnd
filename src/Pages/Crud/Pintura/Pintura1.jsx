@@ -14,7 +14,7 @@ export default function CrudNoticiasPintura() {
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
-  const [imagenActualizar, setImagenActualizar] = useState(null);
+  const [imagenActualizar, setImagenActualizar] = useState([]);
   const [idNoticiaActualizar, setIdNoticiaActualizar] = useState("");
 
   const [mostrarCrear, setMostrarCrear] = useState(false);
@@ -117,8 +117,11 @@ export default function CrudNoticiasPintura() {
       const formData = new FormData();
       formData.append("nombre_Noticia_Pintura", tituloActualizar);
       formData.append("contenido_Noticia_Pintura", descripcionActualizar);
-      if (imagenActualizar) {
-        formData.append("cover", imagenActualizar);
+
+      if (imagenActualizar?.length > 0) {
+        imagenActualizar.forEach((img) => {
+          formData.append("cover", img);
+        });
       }
 
       const response = await fetch(

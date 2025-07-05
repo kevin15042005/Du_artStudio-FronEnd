@@ -106,7 +106,12 @@ export default function Shop() {
     formData.append("nombre_Shop", tituloActualizar);
     formData.append("contenido_Shop", descripcionActualizar);
     formData.append("precio_Shop", precio_ShopActualizar);
-    if (imagenActualizar) formData.append("cover", imagenActualizar);
+
+    if (imagenActualizar?.length > 0) {
+      imagenActualizar?.forEach((img) => {
+        formData.append("cover", img);
+      });
+    }
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop`, {
@@ -276,7 +281,9 @@ export default function Shop() {
                 type="file"
                 id="fileInputActualizar"
                 multiple
-                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
+                onChange={(e) =>
+                  setImagenActualizar(Array.from(e.target.files))
+                }
               />
               <input
                 type="text"
