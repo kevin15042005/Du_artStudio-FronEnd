@@ -3,24 +3,24 @@ import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
 import "./Noticias.css";
 import ScrollAnimation from "../../Components/ScrollAnimationCrud/index";
-import moto from "../../assets/cf1.jpeg";
-import moto1 from "../../assets/cf2.jpeg";
-import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion";
+
 function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
-  const images = cover ? cover.split(",") : [];
+  const coverArray = cover ? JSON.parse(cover) : [];
   const [indexActual, setIndexActual] = useState(0);
   const [leerMas, setLeerMas] = useState(false);
   const maxLength = 120;
 
   useEffect(() => {
-    const intervalo = setInterval(() => {
-      setIndexActual((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(intervalo);
-  }, [images.length]);
+    if (coverArray.length > 0) {
+      const intervalo = setInterval(() => {
+        setIndexActual((prev) => (prev + 1) % coverArray.length);
+      }, 3000);
+      return () => clearInterval(intervalo);
+    }
+  }, [coverArray.length]);
 
-  if (images.length === 0) return null;
+  if (coverArray.length === 0) return null;
 
   const esLargo = contenido_Noticia.length > maxLength;
   const textoCorto = contenido_Noticia.slice(0, maxLength);
@@ -28,7 +28,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   return (
     <div className={`noticia-card ${leerMas ? "expandido" : ""}`}>
       <img
-        src={`${import.meta.env.VITE_API_URL}/uploads/${images[indexActual]}`}
+        src={coverArray[indexActual]?.url}
         alt={`Noticia: ${nombre_Noticias}`}
         className="noticia-imagen"
       />
@@ -38,7 +38,10 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
           <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
         </div>
         {esLargo && (
-          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
+          <button
+            className="leer-mas-btn"
+            onClick={() => setLeerMas(!leerMas)}
+          >
             {leerMas ? "Ver menos" : "Leer más"}
           </button>
         )}
@@ -71,52 +74,46 @@ export default function Noticias() {
         <div className="Contenido-Principal">
           <div className="Informacion-Noticia">
             <Animacion texto="Noticias publicadas" className="titulo-Noticia" />
-            <div className="Informacion-RelevanteGeneral-Noticia">
-              <section className="InformacionRelevanteNoticia">
-                <h2>Información Relevante</h2>
-                <p>
-                  Aquí se mostrarán noticias importantes sobre eventos,
-                  comunidad y novedades del mundo de la motovelocidad.
-                </p>
-              </section>
-            </div>
+            <section className="InformacionRelevanteNoticia">
+              <h2>Información Relevante</h2>
+              <p>
+                Aquí se mostrarán noticias importantes sobre eventos,
+                comunidad y novedades del mundo de la motovelocidad.
+              </p>
+            </section>
           </div>
-          <div className="Container-noticia ">
-            <div className="Contenedor-principal">
-              <ul className="grid-container-noticia">
-                {currentItems.map((noticia, index) => (
-                  <ScrollAnimation key={noticia.id_Noticia} delay={index * 0.2}>
-                    <li className="grid-item-noticia">
-                      <CarruselImagenes
-                        cover={noticia.cover}
-                        nombre_Noticias={noticia.nombre_Noticias}
-                        contenido_Noticia={noticia.contenido_Noticia}
-                      />
-                    </li>
-                  </ScrollAnimation>
-                ))}
-              </ul>
-              <div className="pagina-control">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (number) => (
-                    <button
-                      key={number}
-                      onClick={() => setCurrentPage(number)}
-                      className={`pagination-button ${
-                        currentPage === number ? "active" : ""
-                      }`}
-                    >
-                      {number}
-                    </button>
-                  )
-                )}
-              </div>
+          <div className="Container-noticia">
+            <ul className="grid-container-noticia">
+              {currentItems.map((noticia, index) => (
+                <ScrollAnimation key={noticia.id_Noticia} delay={index * 0.2}>
+                  <li className="grid-item-noticia">
+                    <CarruselImagenes
+                      cover={noticia.cover}
+                      nombre_Noticias={noticia.nombre_Noticias}
+                      contenido_Noticia={noticia.contenido_Noticia}
+                    />
+                  </li>
+                </ScrollAnimation>
+              ))}
+            </ul>
+            <div className="pagina-control">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (number) => (
+                  <button
+                    key={number}
+                    onClick={() => setCurrentPage(number)}
+                    className={`pagination-button ${
+                      currentPage === number ? "active" : ""
+                    }`}
+                  >
+                    {number}
+                  </button>
+                )
+              )}
             </div>
           </div>
         </div>
-        <footer>
-          <Footer />
-        </footer>
+        <Footer />
       </div>
     </>
   );
