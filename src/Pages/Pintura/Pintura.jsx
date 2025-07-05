@@ -13,8 +13,17 @@ const CarruselImagenes = ({
   nombre_Noticia_Pintura,
   contenido_Noticia_Pintura,
 }) => {
-  const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
+
+  let images = [];
+
+  try {
+    const parsed = JSON.parse(cover || "[]");
+    images = Array.isArray(parsed) ? parsed.map(img => img.url) : [];
+  } catch (err) {
+    console.warn("⚠️ Error al parsear cover como JSON:", cover);
+    images = (cover || "").split(",").map(x => x.trim());
+  }
 
   useEffect(() => {
     if (images.length === 0) return;
@@ -42,14 +51,14 @@ const CarruselImagenes = ({
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img}`}
+            src={img}
             alt={`${nombre_Noticia_Pintura} - imagen ${idx + 1}`}
             className={`imagen-fondo-pintura ${
               idx === indexActual ? "visible" : "oculto"
             }`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = moto; // Imagen de respaldo
+              e.target.src = moto;
             }}
           />
         ))}
