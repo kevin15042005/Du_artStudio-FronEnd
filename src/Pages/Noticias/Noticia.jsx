@@ -6,10 +6,18 @@ import ScrollAnimation from "../../Components/ScrollAnimationCrud/index";
 import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
-  const coverArray = cover ? JSON.parse(cover) : [];
   const [indexActual, setIndexActual] = useState(0);
   const [leerMas, setLeerMas] = useState(false);
   const maxLength = 120;
+
+  let coverArray = [];
+
+  try {
+    coverArray = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
+  } catch (err) {
+    console.error("❌ Error al parsear cover:", cover);
+    coverArray = [];
+  }
 
   useEffect(() => {
     if (coverArray.length > 0) {
