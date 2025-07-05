@@ -316,7 +316,8 @@ export default function CrudNoticiasPintura() {
               <input
                 type="file"
                 id="fileInputActualizar"
-                onChange={(e) => setImagenActualizar(e.target.files[0])}
+                multiple
+                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
               />
               <input type="hidden" value={idNoticiaActualizar} readOnly />
               <button type="submit">Actualizar</button>

@@ -79,10 +79,13 @@ export default function CrudNoticias() {
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/noticias/crear`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/noticias/crear`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await res.json();
       alert(data.message || "Noticia creada");
       limpiarCampos();
@@ -291,7 +294,8 @@ export default function CrudNoticias() {
                 <input
                   type="file"
                   id="fileInputActualizar"
-                  onChange={(e) => setImagenActualizar(e.target.files[0])}
+                  multiple
+                  onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
                 />
                 <input type="hidden" value={idNoticiaActualizar} readOnly />
                 <button type="submit">Actualizar</button>
