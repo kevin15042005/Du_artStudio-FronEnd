@@ -6,29 +6,33 @@ import ScrollAnimation from "../../Components/ScrollAnimationCrud/index";
 import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
+  const [imagenes, setImagenes] = useState([]);
   const [indexActual, setIndexActual] = useState(0);
   const [leerMas, setLeerMas] = useState(false);
   const maxLength = 120;
 
-  let coverArray = [];
-
-  try {
-    coverArray = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
-  } catch (err) {
-    console.error("❌ Error al parsear cover:", cover);
-    coverArray = [];
-  }
+  useEffect(() => {
+    try {
+      const parsed = JSON.parse(cover); // intenta como JSON (Cloudinary)
+      const urls = parsed.map((img) => img.url);
+      setImagenes(urls);
+    } catch {
+      const split = cover?.split(",") || []; // como texto plano
+      const urls = split.map((name) => `${import.meta.env.VITE_API_URL}/uploads/${name}`);
+      setImagenes(urls);
+    }
+  }, [cover]);
 
   useEffect(() => {
-    if (coverArray.length > 0) {
-      const intervalo = setInterval(() => {
-        setIndexActual((prev) => (prev + 1) % coverArray.length);
+    if (imagenes.length > 1) {
+      const interval = setInterval(() => {
+        setIndexActual((prev) => (prev + 1) % imagenes.length);
       }, 3000);
-      return () => clearInterval(intervalo);
+      return () => clearInterval(interval);
     }
-  }, [coverArray.length]);
+  }, [imagenes]);
 
-  if (coverArray.length === 0) return null;
+  if (!imagenes.length) return null;
 
   const esLargo = contenido_Noticia.length > maxLength;
   const textoCorto = contenido_Noticia.slice(0, maxLength);
@@ -36,7 +40,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   return (
     <div className={`noticia-card ${leerMas ? "expandido" : ""}`}>
       <img
-        src={coverArray[indexActual]?.url}
+        src={imagenes[indexActual]}
         alt={`Noticia: ${nombre_Noticias}`}
         className="noticia-imagen"
       />
@@ -46,10 +50,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
           <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
         </div>
         {esLargo && (
-          <button
-            className="leer-mas-btn"
-            onClick={() => setLeerMas(!leerMas)}
-          >
+          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
             {leerMas ? "Ver menos" : "Leer más"}
           </button>
         )}
@@ -57,6 +58,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
     </div>
   );
 }
+
 
 export default function Noticias() {
   const [noticias, setNoticias] = useState([]);
@@ -82,13 +84,15 @@ export default function Noticias() {
         <div className="Contenido-Principal">
           <div className="Informacion-Noticia">
             <Animacion texto="Noticias publicadas" className="titulo-Noticia" />
-            <section className="InformacionRelevanteNoticia">
-              <h2>Información Relevante</h2>
-              <p>
-                Aquí se mostrarán noticias importantes sobre eventos,
-                comunidad y novedades del mundo de la motovelocidad.
-              </p>
-            </section>
+            <div className="Informacion-RelevanteGeneralNoticia">
+              <section className="InformacionRelevanteNoticia">
+                <h2>Información Relevante</h2>
+                <p>
+                  Aquí se mostrarán noticias importantes sobre eventos,
+                  comunidad y novedades del mundo de la motovelocidad.
+                </p>
+              </section>
+            </div>
           </div>
           <div className="Container-noticia">
             <ul className="grid-container-noticia">
