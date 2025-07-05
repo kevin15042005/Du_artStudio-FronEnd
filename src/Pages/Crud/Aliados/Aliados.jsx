@@ -22,21 +22,31 @@ function Aliados() {
 
   const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-  const filtrarAliados = aliados.filter((aliado) =>
-    aliado.nombre_Marcas_Aliadas.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
   useEffect(() => {
     obtenerAliados();
   }, []);
 
   const obtenerAliados = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/aliados`);
+      const res = await fetch(`${VITE_API_URL}/api/aliados`);
       const data = await res.json();
       setAliados(data);
     } catch (err) {
       console.error("Error al cargar aliados", err);
+    }
+  };
+
+  const filtrarAliados = aliados.filter((aliado) =>
+    aliado.nombre_Marcas_Aliadas.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  const obtenerUrlImagen = (imagenString) => {
+    try {
+      const imagenObj = JSON.parse(imagenString);
+      return imagenObj.url || "";
+    } catch (error) {
+      console.warn("Error al parsear imagen:", error);
+      return "";
     }
   };
 
@@ -58,7 +68,7 @@ function Aliados() {
     formData.append("cover", imagen);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/aliados`, {
+      const res = await fetch(`${VITE_API_URL}/api/aliados`, {
         method: "POST",
         body: formData,
       });
@@ -81,8 +91,7 @@ function Aliados() {
     }
 
     const formData = new FormData();
-    if (nombreActualizar)
-      formData.append("nombre_Marcas_Aliadas", nombreActualizar);
+    if (nombreActualizar) formData.append("nombre_Marcas_Aliadas", nombreActualizar);
     if (imagenActualizar) formData.append("cover", imagenActualizar);
 
     if (!nombreActualizar && !imagenActualizar) {
@@ -91,13 +100,10 @@ function Aliados() {
     }
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/aliados/${idActualizar}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const res = await fetch(`${VITE_API_URL}/api/aliados/${idActualizar}`, {
+        method: "PUT",
+        body: formData,
+      });
       const data = await res.json();
       alert(data.message || "Aliado actualizado");
       setIdActualizar("");
@@ -116,12 +122,9 @@ function Aliados() {
     if (!window.confirm("¿Estás seguro de eliminar este aliado?")) return;
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/aliados/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`${VITE_API_URL}/api/aliados/${id}`, {
+        method: "DELETE",
+      });
       const data = await res.json();
       alert(data.message || "Aliado eliminado correctamente");
       obtenerAliados();
@@ -136,11 +139,10 @@ function Aliados() {
       <div className="Pagina-Principal">
         <Layout />
         <Animacion texto="Aliados" />
+
         <div className="AliadosTabla">
           <div className="filtradoAliado" style={{ marginBottom: "1rem" }}>
-            <button onClick={() => setMostrarCrear(true)}>
-              ➕ Crear Aliado
-            </button>
+            <button onClick={() => setMostrarCrear(true)}>➕ Crear Aliado</button>
             <input
               type="text"
               placeholder="Buscar aliado..."
@@ -192,9 +194,7 @@ function Aliados() {
               {[...aliados, ...aliados].map((aliado, index) => (
                 <div key={index} className="aliado-card">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/uploads/${
-                      aliado.imagen_Marcas_Aliadas
-                    }`}
+                    src={obtenerUrlImagen(aliado.imagen_Marcas_Aliadas)}
                     alt={aliado.nombre_Marcas_Aliadas}
                   />
                 </div>
@@ -222,23 +222,14 @@ function Aliados() {
                 setPreview(URL.createObjectURL(file));
               }}
             />
-            {preview && (
-              <img
-                src={preview}
-                alt="Vista previa"
-                style={{ maxWidth: "200px" }}
-              />
-            )}
+            {preview && <img src={preview} alt="Vista previa" style={{ maxWidth: "200px" }} />}
             <button type="submit">Crear</button>
           </form>
         </PopUp>
       )}
 
       {mostrarActualizar && (
-        <PopUp
-          onClose={() => setMostrarActualizar(false)}
-          title="Actualizar Aliado"
-        >
+        <PopUp onClose={() => setMostrarActualizar(false)} title="Actualizar Aliado">
           <form onSubmit={handleUpdate}>
             <input
               type="text"
@@ -256,11 +247,7 @@ function Aliados() {
               }}
             />
             {previewActualizar && (
-              <img
-                src={previewActualizar}
-                alt="Preview"
-                style={{ maxWidth: "200px" }}
-              />
+              <img src={previewActualizar} alt="Preview" style={{ maxWidth: "200px" }} />
             )}
             <button type="submit">Actualizar</button>
           </form>

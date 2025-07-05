@@ -15,24 +15,27 @@ function Slider() {
       .catch((err) => console.error("Error al cargar aliados", err));
   };
 
+  const obtenerUrlImagen = (imagenString) => {
+    try {
+      const imagenObj = JSON.parse(imagenString);
+      return imagenObj.url || "";
+    } catch (error) {
+      console.warn("Error al parsear imagen_Marcas_Aliadas:", error);
+      return "";
+    }
+  };
+
   return (
     <div className="slider-container-aliados">
       <div className="slider">
-        {[...aliados, ...aliados, ...aliados].map((aliado, index) => {
-          let imagenUrl = "";
-          try {
-            const imgData = JSON.parse(aliado.imagen_Marcas_Aliadas);
-            imagenUrl = imgData.url;
-          } catch (e) {
-            console.error("Imagen no válida:", aliado.imagen_Marcas_Aliadas);
-          }
-
-          return (
-            <div key={index} className="aliado-card">
-              <img src={imagenUrl} alt={`Aliado ${index}`} />
-            </div>
-          );
-        })}
+        {[...aliados, ...aliados, ...aliados].map((aliado, index) => (
+          <div key={index} className="aliado-card">
+            <img
+              src={obtenerUrlImagen(aliado.imagen_Marcas_Aliadas)}
+              alt={`Aliado ${index}`}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
