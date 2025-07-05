@@ -25,7 +25,7 @@ function Slider() {
               src={`${import.meta.env.VITE_API_URL}/uploads/${
                 aliado.imagen_Marcas_Aliadas
               }`}
-  alt={aliado.nombre_Marcas_Aliadas}
+              alt={aliado.nombre_Marcas_Aliadas}
             />
             <p>{aliado.nombre_Marcas_Aliadas}</p>
           </div>
@@ -33,8 +33,6 @@ function Slider() {
       </div>
     </div>
   );
-  
-
 }
 
 export default Slider;
