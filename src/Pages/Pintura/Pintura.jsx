@@ -14,15 +14,16 @@ const CarruselImagenes = ({
   contenido_Noticia_Pintura,
 }) => {
   const [indexActual, setIndexActual] = useState(0);
-
   let images = [];
 
   try {
     const parsed = JSON.parse(cover || "[]");
-    images = Array.isArray(parsed) ? parsed.map(img => img.url) : [];
+    images = Array.isArray(parsed)
+      ? parsed.map((img) => (typeof img === "object" ? img.url : img))
+      : [];
   } catch (err) {
     console.warn("⚠️ Error al parsear cover como JSON:", cover);
-    images = (cover || "").split(",").map(x => x.trim());
+    images = (cover || "").split(",").map((x) => x.trim());
   }
 
   useEffect(() => {
@@ -108,9 +109,7 @@ const Pintura = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura`);
-        if (!response.ok) {
-          throw new Error("Error al cargar los datos");
-        }
+        if (!response.ok) throw new Error("Error al cargar los datos");
         const data = await response.json();
         setNoticiasPintura(data);
       } catch (err) {
@@ -129,16 +128,12 @@ const Pintura = () => {
   const currentItems = noticiasPintura.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(noticiasPintura.length / itemsPerPage);
 
-
-  
-
   return (
-    
-  <div id="main-container" className={loading ? "" : "fade-in-pintura"}>
+    <div id="main-container" className={loading ? "" : "fade-in-pintura"}>
       <Layout />
       <div className="Contenido-Principal-Pintura">
         <div className="Informacion-Pintura">
-            <Animacion texto="Diseños Motocilcetas" className="Informacion-Pintura" />
+          <Animacion texto="Diseños Motocilcetas" className="Informacion-Pintura" />
 
           <div className="Informacion-RelevanteGeneral-Pintura">
             <section className="Imagen-Relevante-Pintura">
@@ -169,12 +164,8 @@ const Pintura = () => {
                       <li className="grid-item-pintura">
                         <CarruselImagenes
                           cover={noticia.cover}
-                          nombre_Noticia_Pintura={
-                            noticia.nombre_Noticia_Pintura
-                          }
-                          contenido_Noticia_Pintura={
-                            noticia.contenido_Noticia_Pintura
-                          }
+                          nombre_Noticia_Pintura={noticia.nombre_Noticia_Pintura}
+                          contenido_Noticia_Pintura={noticia.contenido_Noticia_Pintura}
                         />
                       </li>
                     </ScrollAnimadoCrud>
@@ -207,7 +198,6 @@ const Pintura = () => {
           </div>
         </div>
       </div>
-
       <footer>
         <Footer />
       </footer>
