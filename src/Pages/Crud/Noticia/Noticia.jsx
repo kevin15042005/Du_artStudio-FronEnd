@@ -14,7 +14,7 @@ export default function CrudNoticias() {
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
-  const [imagenActualizar, setImagenActualizar] = useState(null);
+  const [imagenActualizar, setImagenActualizar] = useState([]);
   const [idNoticiaActualizar, setIdNoticiaActualizar] = useState("");
 
   const [mostrarCrear, setMostrarCrear] = useState(false);
