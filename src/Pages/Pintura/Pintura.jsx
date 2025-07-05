@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../Components/layout";
+import Layout from "../../Components/layout/index";
 import Footer from "../../Components/Footer/footer";
 import Animacion from "../../Components/Animacion/Animacion";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud";

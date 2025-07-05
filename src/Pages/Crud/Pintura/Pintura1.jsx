@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../Components/layout";
-import Footer from "../../Components/Footer/footer";
-import Animacion from "../../Components/Animacion/Animacion";
-import PopUp from "../../Components/popup/popup";
-import "./CrudNoticiasPintura.css";
+import Layout from "../../../Components/layout/index";
+import Footer from "../../../Components/Footer/footer";
+import Animacion from "../../../Components/Animacion/Animacion";
+import PopUp from "../../../Components/popup/popup";
+import "./Pintura.css";
 
 export default function CrudNoticiasPintura() {
   const [noticias, setNoticias] = useState([]);
