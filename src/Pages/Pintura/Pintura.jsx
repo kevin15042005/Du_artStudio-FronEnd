@@ -13,9 +13,11 @@ const CarruselImagenes = ({
   nombre_Noticia_Pintura,
   contenido_Noticia_Pintura,
 }) => {
-  const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
 
+  const images = Array.isArray(cover) ? cover : [];
+  console.log("✅ Cover recibido:", images);
+  
   useEffect(() => {
     if (images.length === 0) return;
 
@@ -42,14 +44,14 @@ const CarruselImagenes = ({
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img}`}
+            src={img.url}
             alt={`${nombre_Noticia_Pintura} - imagen ${idx + 1}`}
             className={`imagen-fondo-pintura ${
               idx === indexActual ? "visible" : "oculto"
             }`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = moto; // Imagen de respaldo
+              e.target.src = "/default.jpg"; // Imagen de respaldo
             }}
           />
         ))}
@@ -120,16 +122,15 @@ const Pintura = () => {
   const currentItems = noticiasPintura.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(noticiasPintura.length / itemsPerPage);
 
-
-  
-
   return (
-    
-  <div id="main-container" className={loading ? "" : "fade-in-pintura"}>
+    <div id="main-container" className={loading ? "" : "fade-in-pintura"}>
       <Layout />
       <div className="Contenido-Principal-Pintura">
         <div className="Informacion-Pintura">
-            <Animacion texto="Diseños Motocilcetas" className="Informacion-Pintura" />
+          <Animacion
+            texto="Diseños Motocilcetas"
+            className="Informacion-Pintura"
+          />
 
           <div className="Informacion-RelevanteGeneral-Pintura">
             <section className="Imagen-Relevante-Pintura">

@@ -152,9 +152,12 @@ export default function CrudNoticiasPintura() {
     if (!window.confirm(`¿Estás seguro de eliminar el diseño ${id}?`)) return;
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/pintura/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await response.json();
 
@@ -285,6 +288,7 @@ export default function CrudNoticiasPintura() {
               <input
                 type="file"
                 id="fileInput"
+                accept="image/*"
                 multiple
                 onChange={(e) => setImagen(Array.from(e.target.files))}
                 required
@@ -319,8 +323,11 @@ export default function CrudNoticiasPintura() {
               <input
                 type="file"
                 id="fileInputActualizar"
+                accept="image/*"
                 multiple
-                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
+                onChange={(e) =>
+                  setImagenActualizar(Array.from(e.target.files))
+                }
               />
               <input type="hidden" value={idNoticiaActualizar} readOnly />
               <button type="submit">Actualizar</button>
