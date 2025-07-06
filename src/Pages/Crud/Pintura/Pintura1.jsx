@@ -9,8 +9,6 @@ import imagenFallback from "../../../assets/cf1.jpeg";
 export default function CrudNoticiasPintura() {
   // Estados principales
   const [pintura, setPintura] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   
   // Estados para creación
   const [formData, setFormData] = useState({
@@ -185,8 +183,7 @@ export default function CrudNoticiasPintura() {
           <Animacion texto="Diseños Publicados" />
         </div>
 
-        {loading && <div className="loading-overlay">Cargando...</div>}
-        {error && <div className="error-message">Error: {error}</div>}
+
 
         <div className="DiseñoTabla">
           <div className="filtradoDiseños">
