@@ -65,23 +65,7 @@ const Pintura = () => {
   const currentItems = noticiasPintura.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(noticiasPintura.length / itemsPerPage);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Cargando diseños...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <p>Error al cargar los diseños: {error}</p>
-        <button onClick={() => window.location.reload()}>Reintentar</button>
-      </div>
-    );
-  }
+ 
 
   return (
     <div id="main-container" className={!loading ? "fade-in-pintura" : ""}>
