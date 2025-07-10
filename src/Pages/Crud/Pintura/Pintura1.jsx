@@ -11,6 +11,7 @@ export default function CrudNoticiasPintura() {
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState([]);
   const [noticiasPinturaPublicadas, setNoticiasPinturaPublicadas] = useState(0);
+  const [subiendo, setSubiendo] = useState(false);
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
@@ -21,28 +22,19 @@ export default function CrudNoticiasPintura() {
   const [mostrarActualizar, setMostrarActualizar] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [expandedRows, setExpandedRows] = useState([]);
-
   const [paginaActual, setPaginaActual] = useState(1);
   const noticiasPorPagina = 9;
 
   const filtradoNoticiaPintura = Array.isArray(pintura)
     ? pintura.filter((item) =>
-        item.nombre_Noticia_Pintura
-          ?.toLowerCase()
-          .includes(busqueda.toLowerCase())
+        item.nombre_Noticia_Pintura?.toLowerCase().includes(busqueda.toLowerCase())
       )
     : [];
 
   const indexUltima = paginaActual * noticiasPorPagina;
   const indexPrimera = indexUltima - noticiasPorPagina;
-  const noticiasActuales = filtradoNoticiaPintura.slice(
-    indexPrimera,
-    indexUltima
-  );
-  const totalPaginas = Math.ceil(
-    filtradoNoticiaPintura.length / noticiasPorPagina
-  );
-
+  const noticiasActuales = filtradoNoticiaPintura.slice(indexPrimera, indexUltima);
+  const totalPaginas = Math.ceil(filtradoNoticiaPintura.length / noticiasPorPagina);
   const cambiarPagina = (numero) => setPaginaActual(numero);
 
   const limpiarCampos = () => {
@@ -56,7 +48,7 @@ export default function CrudNoticiasPintura() {
   const limpiarCamposActualizar = () => {
     setTituloActualizar("");
     setDescripcionActualizar("");
-    setImagenActualizar(null);
+    setImagenActualizar([]);
     setIdNoticiaActualizar("");
     const input = document.getElementById("fileInputActualizar");
     if (input) input.value = "";
@@ -85,6 +77,8 @@ export default function CrudNoticiasPintura() {
       return;
     }
 
+    setSubiendo(true);
+
     const formData = new FormData();
     formData.append("nombre_Noticia_Pintura", titulo);
     formData.append("contenido_Noticia_Pintura", descripcion);
@@ -95,6 +89,7 @@ export default function CrudNoticiasPintura() {
         method: "POST",
         body: formData,
       });
+
       const data = await res.json();
       alert(data.message || "Noticia creada");
       limpiarCampos();
@@ -102,6 +97,8 @@ export default function CrudNoticiasPintura() {
     } catch (err) {
       console.error(err);
       alert("Error al crear la noticia");
+    } finally {
+      setSubiendo(false);
     }
   };
 
@@ -152,12 +149,9 @@ export default function CrudNoticiasPintura() {
     if (!window.confirm(`¿Estás seguro de eliminar el diseño ${id}?`)) return;
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/pintura/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura/${id}`, {
+        method: "DELETE",
+      });
 
       const data = await response.json();
 
@@ -177,7 +171,6 @@ export default function CrudNoticiasPintura() {
     <>
       <div className="menu-Pricipal-Pintura">
         <Layout />
-
         <div className="Titulo-Noticia">
           <Animacion texto="Diseños Publicados" />
         </div>
@@ -185,10 +178,7 @@ export default function CrudNoticiasPintura() {
         <div className="DiseñoTabla">
           <div className="filtradoDiseños" style={{ marginBottom: "1rem" }}>
             <div className="botonesDiseños">
-              {" "}
-              <button className="" onClick={() => setMostrarCrear(true)}>
-                ➕ Crear Noticia
-              </button>
+              <button onClick={() => setMostrarCrear(true)}>➕ Crear Noticia</button>
             </div>
             <input
               type="text"
@@ -198,72 +188,64 @@ export default function CrudNoticiasPintura() {
             />
           </div>
 
-          <div>
-            <table className="tabla-Diseño">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Titulo</th>
-                  <th>Descripción</th>
-                  <th>Acciones</th>
+          <table className="tabla-Diseño">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {noticiasActuales.map((item) => (
+                <tr key={item.id_Noticias_Pintura}>
+                  <td>{item.id_Noticias_Pintura}</td>
+                  <td>{item.nombre_Noticia_Pintura}</td>
+                  <td>
+                    <div className="descripcion-limitada">
+                      {expandedRows.includes(item.id_Noticias_Pintura)
+                        ? item.contenido_Noticia_Pintura
+                        : item.contenido_Noticia_Pintura.slice(0, 120) +
+                          (item.contenido_Noticia_Pintura.length > 120 ? "..." : "")}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="acciones-botones-pintura">
+                      <button
+                        className="btn-editar-pintura"
+                        onClick={() => {
+                          setIdNoticiaActualizar(item.id_Noticias_Pintura);
+                          setTituloActualizar(item.nombre_Noticia_Pintura);
+                          setDescripcionActualizar(item.contenido_Noticia_Pintura);
+                          setMostrarActualizar(true);
+                        }}
+                      >
+                        🖌️
+                      </button>
+                      <button
+                        className="btn-eliminar-pintura"
+                        onClick={() => handleDelete(item.id_Noticias_Pintura)}
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {noticiasActuales.map((item) => (
-                  <tr key={item.id_Noticias_Pintura}>
-                    <td>{item.id_Noticias_Pintura}</td>
-                    <td>{item.nombre_Noticia_Pintura}</td>
-                    <td>
-                      <div className="descripcion-limitada">
-                        {expandedRows.includes(item.id_Noticias_Pintura)
-                          ? item.contenido_Noticia_Pintura
-                          : item.contenido_Noticia_Pintura.slice(0, 120) +
-                            (item.contenido_Noticia_Pintura.length > 120
-                              ? "..."
-                              : "")}
-                      </div>
-                    </td>
-                    <td>
-                      <div className="acciones-botones-pintura">
-                        <button
-                          className="btn-editar-pintura"
-                          onClick={() => {
-                            setIdNoticiaActualizar(item.id_Noticias_Pintura);
-                            setTituloActualizar(item.nombre_Noticia_Pintura);
-                            setDescripcionActualizar(
-                              item.contenido_Noticia_Pintura
-                            );
-                            setMostrarActualizar(true);
-                          }}
-                        >
-                          🖌️
-                        </button>
-                        <button
-                          className="btn-eliminar-pintura"
-                          onClick={() => handleDelete(item.id_Noticias_Pintura)}
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table>
 
-            <div className="paginacion">
-              {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(
-                (num) => (
-                  <button
-                    key={num}
-                    className={paginaActual === num ? "activo" : ""}
-                    onClick={() => cambiarPagina(num)}
-                  >
-                    {num}
-                  </button>
-                )
-              )}
-            </div>
+          <div className="paginacion">
+            {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                className={paginaActual === num ? "activo" : ""}
+                onClick={() => cambiarPagina(num)}
+              >
+                {num}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -293,7 +275,9 @@ export default function CrudNoticiasPintura() {
                 onChange={(e) => setImagen(Array.from(e.target.files))}
                 required
               />
-              <button type="submit">Crear</button>
+              <button type="submit" disabled={subiendo}>
+                {subiendo ? "Cargando..." : "Crear"}
+              </button>
             </form>
           </PopUp>
         )}
@@ -325,11 +309,8 @@ export default function CrudNoticiasPintura() {
                 id="fileInputActualizar"
                 accept="image/*"
                 multiple
-                onChange={(e) =>
-                  setImagenActualizar(Array.from(e.target.files))
-                }
+                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
               />
-              <input type="hidden" value={idNoticiaActualizar} readOnly />
               <button type="submit">Actualizar</button>
             </form>
           </PopUp>

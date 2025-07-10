@@ -8,16 +8,15 @@ import moto1 from "../../assets/cf2.jpeg";
 import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion.jsx";
 
+// ✅ Carrusel dinámico por noticia
 const CarruselImagenes = ({
   cover,
   nombre_Noticia_Pintura,
   contenido_Noticia_Pintura,
 }) => {
   const [indexActual, setIndexActual] = useState(0);
-
   const images = Array.isArray(cover) ? cover : [];
-  console.log("✅ Cover recibido:", images);
-  
+
   useEffect(() => {
     if (images.length === 0) return;
 
@@ -28,15 +27,7 @@ const CarruselImagenes = ({
     return () => clearInterval(intervalo);
   }, [images.length]);
 
-  if (images.length === 0) {
-    return (
-      <div className="carrusel-container-pintura">
-        <div className="imagen-contenedor-pintura">
-          <div className="imagen-placeholder">No hay imágenes disponibles</div>
-        </div>
-      </div>
-    );
-  }
+  if (images.length === 0) return null;
 
   return (
     <div className="carrusel-container-pintura">
@@ -51,19 +42,20 @@ const CarruselImagenes = ({
             }`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "/default.jpg"; // Imagen de respaldo
+              e.target.src = "/default.jpg";
             }}
           />
         ))}
-      </div>
-      <div className="texto-hover-pintura">
-        <h2>{nombre_Noticia_Pintura}</h2>
-        <p>{contenido_Noticia_Pintura}</p>
+        <div className="texto-hover-pintura">
+          <h2>{nombre_Noticia_Pintura}</h2>
+          <p>{contenido_Noticia_Pintura}</p>
+        </div>
       </div>
     </div>
   );
 };
 
+// ✅ Carrusel fijo superior
 const CarruselImagenesFijas = () => {
   const imagenes = [moto, moto1, moto2];
   const [indexActual, setIndexActual] = useState(0);
@@ -90,6 +82,7 @@ const CarruselImagenesFijas = () => {
   );
 };
 
+// ✅ Componente principal
 const Pintura = () => {
   const [noticiasPintura, setNoticiasPintura] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,9 +94,7 @@ const Pintura = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura`);
-        if (!response.ok) {
-          throw new Error("Error al cargar los datos");
-        }
+        if (!response.ok) throw new Error("Error al cargar los datos");
         const data = await response.json();
         setNoticiasPintura(data);
       } catch (err) {
@@ -127,10 +118,7 @@ const Pintura = () => {
       <Layout />
       <div className="Contenido-Principal-Pintura">
         <div className="Informacion-Pintura">
-          <Animacion
-            texto="Diseños Motocilcetas"
-            className="Informacion-Pintura"
-          />
+          <Animacion texto="Diseños Motocicletas" className="Informacion-Pintura" />
 
           <div className="Informacion-RelevanteGeneral-Pintura">
             <section className="Imagen-Relevante-Pintura">
@@ -150,7 +138,7 @@ const Pintura = () => {
 
         <div className="Container-Pintura">
           <div className="Contenedor-principal">
-            {noticiasPintura.length > 0 ? (
+            {currentItems.length > 0 ? (
               <>
                 <ul className="grid-container-pintura">
                   {currentItems.map((noticia, index) => (
@@ -161,12 +149,8 @@ const Pintura = () => {
                       <li className="grid-item-pintura">
                         <CarruselImagenes
                           cover={noticia.cover}
-                          nombre_Noticia_Pintura={
-                            noticia.nombre_Noticia_Pintura
-                          }
-                          contenido_Noticia_Pintura={
-                            noticia.contenido_Noticia_Pintura
-                          }
+                          nombre_Noticia_Pintura={noticia.nombre_Noticia_Pintura}
+                          contenido_Noticia_Pintura={noticia.contenido_Noticia_Pintura}
                         />
                       </li>
                     </ScrollAnimadoCrud>
