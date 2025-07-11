@@ -92,7 +92,12 @@ export default function Shop() {
                   <ScrollAnimadoCrud key={articulo.id_Shop} delay={index * 0.2}>
                     <li className="grid-item-Compra">
                       <CarruselImagenes
-                        cover={articulo.cover}
+                        cover={
+                          Array.isArray(articulo.cover) &&
+                          articulo.cover.length > 0
+                            ? articulo.cover
+                            : [{ url: "/default.jpg" }]
+                        }
                         nombre_Shop={articulo.nombre_Shop}
                         contenido_Shop={articulo.contenido_Shop}
                       />
