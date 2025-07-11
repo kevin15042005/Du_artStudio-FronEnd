@@ -183,6 +183,7 @@ export default function Shop1() {
                 <th>Título</th>
                 <th>Descripción</th>
                 <th>Precio</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -193,6 +194,25 @@ export default function Shop1() {
                   <td>{item.nombre_Shop}</td>
                   <td>{item.contenido_Shop}</td>
                   <td>{item.precio_Shop}</td>
+                  <td>
+                    <div
+                      style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}
+                    >
+                      {item.cover?.map((img, idx) => (
+                        <img
+                          key={idx}
+                          src={img.url}
+                          alt={`imagen-${idx}`}
+                          style={{
+                            width: "50px",
+                            height: "auto",
+                            borderRadius: "4px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </td>
                   <td>
                     <div className="acciones-botones-shop">
                       <button
