@@ -70,15 +70,15 @@
 
 .InformacionRelevantePintura h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   margin-bottom: 1.5rem;
   color: #fff;
 }
 
 .InformacionRelevantePintura p {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   line-height: 1.8;
-  color: black;
+  color: white;
   font-weight: bold;
   font-family: "Merienda", cursive;
 }
