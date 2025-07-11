@@ -55,7 +55,12 @@ const CarruselImagenes = ({
 
 // Carrusel fijo superior
 const CarruselImagenesFijas = () => {
-  const imagenes = [moto, moto1, moto2];
+  const imagenes = [
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf2_xtbvpw.jpg",
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf2_xtbvpw.jpg",
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf1_r4ubb9.jpg",
+  ];
+
   const [indexActual, setIndexActual] = useState(0);
   const [fade, setFade] = useState(false);
 
@@ -76,6 +81,9 @@ const CarruselImagenesFijas = () => {
       src={imagenes[indexActual]}
       alt={`Diseño ${indexActual + 1}`}
       className={`imagen-fija-pintura ${fade ? "oculto" : ""}`}
+      onError={(e) => {
+        e.currentTarget.src = "/default.jpg"; // Imagen de respaldo local si falla
+      }}
     />
   );
 };

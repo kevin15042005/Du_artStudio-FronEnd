@@ -9,8 +9,13 @@ import moto2 from "./assets/cf3.jpeg";
 import Animacion from "./Components/Animacion/Animacion";
 import Loader from "./Components/Loader/Loader";
 
-function CarruselImagenesFijas() {
-  const imagenes = [moto, moto1, moto2];
+const CarruselImagenesFijas = () => {
+  const imagenes = [
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf2_xtbvpw.jpg",
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf2_xtbvpw.jpg",
+    "https://res.cloudinary.com/dismceqv1/image/upload/v1752259281/cf1_r4ubb9.jpg",
+  ];
+
   const [indexActual, setIndexActual] = useState(0);
   const [fade, setFade] = useState(false);
 
@@ -22,18 +27,21 @@ function CarruselImagenesFijas() {
         setFade(false);
       }, 1000);
     }, 4000);
+
     return () => clearInterval(intervalo);
   }, [imagenes.length]);
 
   return (
     <img
       src={imagenes[indexActual]}
-      alt={`Imagen ${indexActual + 1}`}
-      className={`imagen-fija ${fade ? "oculto" : ""}`}
+      alt={`Diseño ${indexActual + 1}`}
+      className={`imagen-fija-pintura ${fade ? "oculto" : ""}`}
+      onError={(e) => {
+        e.currentTarget.src = "/default.jpg"; // Imagen de respaldo local si falla
+      }}
     />
   );
-}
-
+};
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
