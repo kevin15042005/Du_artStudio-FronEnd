@@ -27,14 +27,21 @@ export default function CrudNoticiasPintura() {
 
   const filtradoNoticiaPintura = Array.isArray(pintura)
     ? pintura.filter((item) =>
-        item.nombre_Noticia_Pintura?.toLowerCase().includes(busqueda.toLowerCase())
+        item.nombre_Noticia_Pintura
+          ?.toLowerCase()
+          .includes(busqueda.toLowerCase())
       )
     : [];
 
   const indexUltima = paginaActual * noticiasPorPagina;
   const indexPrimera = indexUltima - noticiasPorPagina;
-  const noticiasActuales = filtradoNoticiaPintura.slice(indexPrimera, indexUltima);
-  const totalPaginas = Math.ceil(filtradoNoticiaPintura.length / noticiasPorPagina);
+  const noticiasActuales = filtradoNoticiaPintura.slice(
+    indexPrimera,
+    indexUltima
+  );
+  const totalPaginas = Math.ceil(
+    filtradoNoticiaPintura.length / noticiasPorPagina
+  );
   const cambiarPagina = (numero) => setPaginaActual(numero);
 
   const limpiarCampos = () => {
@@ -109,6 +116,7 @@ export default function CrudNoticiasPintura() {
       alert("No se ha seleccionado ninguna noticia para actualizar");
       return;
     }
+    setSubiendo(true);
 
     try {
       const formData = new FormData();
@@ -142,16 +150,22 @@ export default function CrudNoticiasPintura() {
     } catch (error) {
       console.error("Error al actualizar noticia:", error);
       alert(error.message || "Error al actualizar la noticia");
+    }finally{
+      setSubiendo(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm(`¿Estás seguro de eliminar el diseño ${id}?`)) return;
+setSubiendo(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/pintura/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/pintura/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await response.json();
 
@@ -164,6 +178,8 @@ export default function CrudNoticiasPintura() {
     } catch (error) {
       console.error("Error al eliminar noticia:", error);
       alert(error.message || "Error al eliminar la noticia");
+    }finally{
+      setSubiendo(false);
     }
   };
 
@@ -178,7 +194,9 @@ export default function CrudNoticiasPintura() {
         <div className="DiseñoTabla">
           <div className="filtradoDiseños" style={{ marginBottom: "1rem" }}>
             <div className="botonesDiseños">
-              <button onClick={() => setMostrarCrear(true)}>➕ Crear Noticia</button>
+              <button onClick={() => setMostrarCrear(true)}>
+                ➕ Crear Noticia
+              </button>
             </div>
             <input
               type="text"
@@ -207,7 +225,9 @@ export default function CrudNoticiasPintura() {
                       {expandedRows.includes(item.id_Noticias_Pintura)
                         ? item.contenido_Noticia_Pintura
                         : item.contenido_Noticia_Pintura.slice(0, 120) +
-                          (item.contenido_Noticia_Pintura.length > 120 ? "..." : "")}
+                          (item.contenido_Noticia_Pintura.length > 120
+                            ? "..."
+                            : "")}
                     </div>
                   </td>
                   <td>
@@ -217,7 +237,9 @@ export default function CrudNoticiasPintura() {
                         onClick={() => {
                           setIdNoticiaActualizar(item.id_Noticias_Pintura);
                           setTituloActualizar(item.nombre_Noticia_Pintura);
-                          setDescripcionActualizar(item.contenido_Noticia_Pintura);
+                          setDescripcionActualizar(
+                            item.contenido_Noticia_Pintura
+                          );
                           setMostrarActualizar(true);
                         }}
                       >
@@ -237,15 +259,17 @@ export default function CrudNoticiasPintura() {
           </table>
 
           <div className="paginacion">
-            {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((num) => (
-              <button
-                key={num}
-                className={paginaActual === num ? "activo" : ""}
-                onClick={() => cambiarPagina(num)}
-              >
-                {num}
-              </button>
-            ))}
+            {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(
+              (num) => (
+                <button
+                  key={num}
+                  className={paginaActual === num ? "activo" : ""}
+                  onClick={() => cambiarPagina(num)}
+                >
+                  {num}
+                </button>
+              )
+            )}
           </div>
         </div>
 
@@ -270,6 +294,7 @@ export default function CrudNoticiasPintura() {
               <input
                 type="file"
                 id="fileInput"
+                name="cover"
                 accept="image/*"
                 multiple
                 onChange={(e) => setImagen(Array.from(e.target.files))}
@@ -309,9 +334,11 @@ export default function CrudNoticiasPintura() {
                 id="fileInputActualizar"
                 accept="image/*"
                 multiple
-                onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
+                onChange={(e) =>
+                  setImagenActualizar(Array.from(e.target.files))
+                }
               />
-              <button type="submit">Actualizar</button>
+              <button type="submit" disabled={subiendo}>{subiendo ? "Cargando...": "Actualizar"}</button>
             </form>
           </PopUp>
         )}
