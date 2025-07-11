@@ -29,9 +29,12 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
       {images.length > 0 && (
         <div className="imagen-contenedor-Compra">
           {images.map((img, idx) => {
-            const rutaImg = img.url?.startsWith("http")
-              ? img.url
-              : `${import.meta.env.VITE_API_URL}/uploads/${img.url}`;
+            const rutaImg =
+              img?.url && typeof img.url === "string"
+                ? img.url.startsWith("http")
+                  ? img.url
+                  : `${import.meta.env.VITE_API_URL}/uploads/${img.url}`
+                : null;
 
             return (
               <img
