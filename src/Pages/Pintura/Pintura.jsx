@@ -8,7 +8,7 @@ import moto1 from "../../assets/cf2.jpeg";
 import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion.jsx";
 
-// ✅ Carrusel dinámico por noticia
+// Carrusel dinámico por noticia
 const CarruselImagenes = ({
   cover,
   nombre_Noticia_Pintura,
@@ -35,14 +35,13 @@ const CarruselImagenes = ({
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={img.url}
+            src={img.url || "/default.jpg"}
             alt={`${nombre_Noticia_Pintura} - imagen ${idx + 1}`}
             className={`imagen-fondo-pintura ${
               idx === indexActual ? "visible" : "oculto"
             }`}
             onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "/default.jpg";
+              e.currentTarget.src = "/default.jpg";
             }}
           />
         ))}
@@ -55,7 +54,7 @@ const CarruselImagenes = ({
   );
 };
 
-// ✅ Carrusel fijo superior
+// Carrusel fijo superior
 const CarruselImagenesFijas = () => {
   const imagenes = [moto, moto1, moto2];
   const [indexActual, setIndexActual] = useState(0);
@@ -82,7 +81,7 @@ const CarruselImagenesFijas = () => {
   );
 };
 
-// ✅ Componente principal
+// Componente principal
 const Pintura = () => {
   const [noticiasPintura, setNoticiasPintura] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -184,9 +183,7 @@ const Pintura = () => {
         </div>
       </div>
 
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };

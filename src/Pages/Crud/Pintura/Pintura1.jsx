@@ -150,14 +150,14 @@ export default function CrudNoticiasPintura() {
     } catch (error) {
       console.error("Error al actualizar noticia:", error);
       alert(error.message || "Error al actualizar la noticia");
-    }finally{
+    } finally {
       setSubiendo(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm(`¿Estás seguro de eliminar el diseño ${id}?`)) return;
-setSubiendo(true);
+    setSubiendo(true);
 
     try {
       const response = await fetch(
@@ -178,7 +178,7 @@ setSubiendo(true);
     } catch (error) {
       console.error("Error al eliminar noticia:", error);
       alert(error.message || "Error al eliminar la noticia");
-    }finally{
+    } finally {
       setSubiendo(false);
     }
   };
@@ -210,8 +210,9 @@ setSubiendo(true);
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Titulo</th>
+                <th>Título</th>
                 <th>Descripción</th>
+                <th>Imágenes</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -228,6 +229,25 @@ setSubiendo(true);
                           (item.contenido_Noticia_Pintura.length > 120
                             ? "..."
                             : "")}
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}
+                    >
+                      {item.cover?.map((img, idx) => (
+                        <img
+                          key={idx}
+                          src={img.url}
+                          alt={`imagen-${idx}`}
+                          style={{
+                            width: "50px",
+                            height: "auto",
+                            borderRadius: "4px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ))}
                     </div>
                   </td>
                   <td>
@@ -332,13 +352,16 @@ setSubiendo(true);
               <input
                 type="file"
                 id="fileInputActualizar"
+                name="cover"
                 accept="image/*"
                 multiple
                 onChange={(e) =>
                   setImagenActualizar(Array.from(e.target.files))
                 }
               />
-              <button type="submit" disabled={subiendo}>{subiendo ? "Cargando...": "Actualizar"}</button>
+              <button type="submit" disabled={subiendo}>
+                {subiendo ? "Cargando..." : "Actualizar"}
+              </button>
             </form>
           </PopUp>
         )}
