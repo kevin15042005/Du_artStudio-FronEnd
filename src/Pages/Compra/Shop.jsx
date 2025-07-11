@@ -9,10 +9,10 @@ import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
-  const images =
-    Array.isArray(cover) && cover.length > 0
-      ? cover
-      : [{ url: "/default.jpg" }];
+
+  const images = Array.isArray(cover) && cover.length > 0
+    ? cover
+    : [{ url: "default.jpg" }]; // Imagen por defecto si no hay ninguna
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -21,21 +21,29 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
     return () => clearInterval(intervalo);
   }, [images.length]);
 
-  if (images.length === 0) return null;
-
   return (
     <div className="carrusel-container-Compra">
       <div className="imagen-contenedor-Compra">
-        {images.map((img, idx) => (
-          <img
-            key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url}`}
-            alt={`${nombre_Shop} - imagen ${idx + 1}`}
-            className={`imagen-fondo-Compra ${
-              idx === indexActual ? "visible" : "oculto"
-            }`}
-          />
-        ))}
+        {images.map((img, idx) => {
+          const src = img.url.includes("http")
+            ? img.url
+            : `${import.meta.env.VITE_API_URL}/uploads/${img.url}`;
+
+          return (
+            <img
+              key={idx}
+              src={src}
+              alt={`${nombre_Shop} - imagen ${idx + 1}`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/default.jpg"; // Imagen fallback local
+              }}
+              className={`imagen-fondo-Compra ${
+                idx === indexActual ? "visible" : "oculto"
+              }`}
+            />
+          );
+        })}
       </div>
       <div className="texto-hover-Compra">
         <h2>{nombre_Shop}</h2>
@@ -44,6 +52,7 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
     </div>
   );
 }
+
 
 export default function Shop() {
   const [shop, setShop] = useState([]);
