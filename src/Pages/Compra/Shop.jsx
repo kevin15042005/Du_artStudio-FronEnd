@@ -29,14 +29,14 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url.replace(
-              /^\/+/,
-              ""
-            )}`}
+            src={img.url || "/default.jpg"} // ✅ Usa directamente la URL de Cloudinary
             alt={`${nombre_Shop} - imagen ${idx + 1}`}
             className={`imagen-fondo-Compra ${
               idx === indexActual ? "visible" : "oculto"
             }`}
+            onError={(e) => {
+              e.currentTarget.src = "/default.jpg"; // Backup local
+            }}
           />
         ))}
       </div>

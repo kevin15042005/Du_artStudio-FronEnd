@@ -17,7 +17,7 @@ export default function Shop() {
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
-  const [imagenActualizar, setImagenActualizar] = useState(null);
+  const [imagenActualizar, setImagenActualizar] = useState([]);
   const [id_ShopActualizar, setIdShopActualizar] = useState("");
   const [precio_ShopActualizar, setPrecio_ShopActualizar] = useState("");
 
@@ -261,7 +261,7 @@ setSubirShop(true)
                 multiple
                 onChange={(e) => setImagen(Array.from(e.target.files))}
               />
-              <button type="submit" disabled={setBusqueda}>{subirShop ? "Cargando...":"Crear"}</button>
+              <button type="submit" disabled={subirShop}>{subirShop ? "Cargando...":"Crear"}</button>
             </form>
           </PopUp>
         )}
