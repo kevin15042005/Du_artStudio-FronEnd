@@ -1,16 +1,12 @@
-// src/Components/ProtectedRoute/index.jsx
-import React from "react";
+// ProtectedRoute.jsx
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../AuthContext/AuthContext.jsx";
+import { useAuth } from "../AuthContext/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
 
-  if (!isLoggedIn) {
-    return <Navigate to="/Loging" replace />;
-  }
-
-  return children;
+  if (isLoggedIn === null) return null;
+  return isLoggedIn ? children : <Navigate to="/Loging" replace />;
 };
 
 export default ProtectedRoute;
