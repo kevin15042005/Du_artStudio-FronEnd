@@ -202,7 +202,6 @@ export default function CrudNoticias() {
                     <th>ID</th>
                     <th>Título</th>
                     <th>Descripción</th>
-                    <th>Imagenes</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -221,29 +220,7 @@ export default function CrudNoticias() {
                                 : "")}
                         </div>
                       </td>
-                      <td>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "4px",
-                          }}
-                        >
-                          {item.cover?.map((img, idx) => (
-                            <img
-                              key={idx}
-                              src={img.url}
-                              alt={`imagen-${idx}`}
-                              style={{
-                                width: "50px",
-                                height: "auto",
-                                borderRadius: "4px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          ))}
-                        </div>
-                      </td>
+                      
                       <td>
                         <div className="acciones-botones">
                           <button
