@@ -15,19 +15,15 @@ const CarruselImagenes = ({
   contenido_Noticia_Pintura,
 }) => {
   const [indexActual, setIndexActual] = useState(0);
-  const images = Array.isArray(cover) ? cover : [];
+  const images = Array.isArray(cover) && cover.length > 0 ? cover : [{ url: "/default.jpg" }];
 
   useEffect(() => {
-    if (images.length === 0) return;
-
+    if (images.length <= 1) return;
     const intervalo = setInterval(() => {
       setIndexActual((prev) => (prev + 1) % images.length);
     }, 3000);
-
     return () => clearInterval(intervalo);
   }, [images.length]);
-
-  if (images.length === 0) return null;
 
   return (
     <div className="carrusel-container-pintura">
@@ -137,46 +133,38 @@ const Pintura = () => {
 
         <div className="Container-Pintura">
           <div className="Contenedor-principal">
-            {currentItems.length > 0 ? (
-              <>
-                <ul className="grid-container-pintura">
-                  {currentItems.map((noticia, index) => (
-                    <ScrollAnimadoCrud
-                      key={noticia.id_Noticias_Pintura || index}
-                      delay={index * 0.2}
-                    >
-                      <li className="grid-item-pintura">
-                        <CarruselImagenes
-                          cover={noticia.cover}
-                          nombre_Noticia_Pintura={noticia.nombre_Noticia_Pintura}
-                          contenido_Noticia_Pintura={noticia.contenido_Noticia_Pintura}
-                        />
-                      </li>
-                    </ScrollAnimadoCrud>
-                  ))}
-                </ul>
+            <ul className="grid-container-pintura">
+              {currentItems.map((noticia, index) => (
+                <ScrollAnimadoCrud
+                  key={noticia.id_Noticias_Pintura || index}
+                  delay={index * 0.2}
+                >
+                  <li className="grid-item-pintura">
+                    <CarruselImagenes
+                      cover={noticia.cover}
+                      nombre_Noticia_Pintura={noticia.nombre_Noticia_Pintura}
+                      contenido_Noticia_Pintura={noticia.contenido_Noticia_Pintura}
+                    />
+                  </li>
+                </ScrollAnimadoCrud>
+              ))}
+            </ul>
 
-                {totalPages > 1 && (
-                  <div className="pagina-control-pintura">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (number) => (
-                        <button
-                          key={number}
-                          onClick={() => setCurrentPage(number)}
-                          className={`pagination-button ${
-                            currentPage === number ? "active" : ""
-                          }`}
-                        >
-                          {number}
-                        </button>
-                      )
-                    )}
-                  </div>
+            {totalPages > 1 && (
+              <div className="pagina-control-pintura">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (number) => (
+                    <button
+                      key={number}
+                      onClick={() => setCurrentPage(number)}
+                      className={`pagination-button ${
+                        currentPage === number ? "active" : ""
+                      }`}
+                    >
+                      {number}
+                    </button>
+                  )
                 )}
-              </>
-            ) : (
-              <div className="no-results">
-                <p>No se encontraron diseños disponibles.</p>
               </div>
             )}
           </div>

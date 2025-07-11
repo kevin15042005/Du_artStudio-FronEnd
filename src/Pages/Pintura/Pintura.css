@@ -2,6 +2,7 @@
 .Contenido-Principal-Pintura {
   flex: 1;
   padding: 3rem 4rem;
+  min-height: 100vh;
 }
 
 /* TÍTULO */
