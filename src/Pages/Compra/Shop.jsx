@@ -10,44 +10,43 @@ import Animacion from "../../Components/Animacion/Animacion";
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
 
-  // Filtra imágenes válidas, si no hay, muestra una por defecto
   const images =
     Array.isArray(cover) && cover.length > 0 && cover.some((img) => img?.url)
       ? cover
-      : [{ url: "default.jpg" }];
+      : [];
 
   useEffect(() => {
-    const intervalo = setInterval(() => {
-      setIndexActual((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(intervalo);
+    if (images.length > 1) {
+      const intervalo = setInterval(() => {
+        setIndexActual((prev) => (prev + 1) % images.length);
+      }, 3000);
+      return () => clearInterval(intervalo);
+    }
   }, [images.length]);
 
   return (
     <div className="carrusel-container-Compra">
-      <div className="imagen-contenedor-Compra">
-        {images.map((img, idx) => {
-          const rutaImg =
-            img.url?.includes("http") || img.url === "default.jpg"
+      {images.length > 0 && (
+        <div className="imagen-contenedor-Compra">
+          {images.map((img, idx) => {
+            const rutaImg = img.url?.startsWith("http")
               ? img.url
               : `${import.meta.env.VITE_API_URL}/uploads/${img.url}`;
 
-          return (
-            <img
-              key={idx}
-              src={rutaImg}
-              alt={`${nombre_Shop} - imagen ${idx + 1}`}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/default.jpg";
-              }}
-              className={`imagen-fondo-Compra ${
-                idx === indexActual ? "visible" : "oculto"
-              }`}
-            />
-          );
-        })}
-      </div>
+            return (
+              <img
+                key={idx}
+                src={rutaImg}
+                alt={`${nombre_Shop} - imagen ${idx + 1}`}
+                className={`imagen-fondo-Compra ${
+                  idx === indexActual ? "visible" : "oculto"
+                }`}
+              />
+            );
+          })}
+        </div>
+      )}
+
       <div className="texto-hover-Compra">
         <h2>{nombre_Shop}</h2>
         <p>{contenido_Shop}</p>
@@ -55,7 +54,6 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
     </div>
   );
 }
-
 
 export default function Shop() {
   const [shop, setShop] = useState([]);
