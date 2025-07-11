@@ -12,8 +12,9 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
   const images =
     Array.isArray(cover) && cover.length > 0
-      ? cover
-      : [{ url: "/default.jpg" }];
+      ? cover.filter((img) => !!img?.url) // solo imágenes válidas
+      : [];
+  if (images.length === 0) return null; // no renderiza si no hay imágenes válidas
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -92,12 +93,7 @@ export default function Shop() {
                   <ScrollAnimadoCrud key={articulo.id_Shop} delay={index * 0.2}>
                     <li className="grid-item-Compra">
                       <CarruselImagenes
-                        cover={
-                          Array.isArray(articulo.cover) &&
-                          articulo.cover.length > 0
-                            ? articulo.cover
-                            : [{ url: "/default.jpg" }]
-                        }
+                        cover={articulo.cover} // <-- directo, sin fallback aquí
                         nombre_Shop={articulo.nombre_Shop}
                         contenido_Shop={articulo.contenido_Shop}
                       />
