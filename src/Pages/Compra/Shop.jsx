@@ -9,47 +9,34 @@ import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
-
   const images =
-    Array.isArray(cover) && cover.length > 0 && cover.some((img) => img?.url)
+    Array.isArray(cover) && cover.length > 0
       ? cover
-      : [];
+      : [{ url: "/default.jpg" }];
 
   useEffect(() => {
-    if (images.length > 1) {
-      const intervalo = setInterval(() => {
-        setIndexActual((prev) => (prev + 1) % images.length);
-      }, 3000);
-      return () => clearInterval(intervalo);
-    }
+    const intervalo = setInterval(() => {
+      setIndexActual((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(intervalo);
   }, [images.length]);
+
+  if (images.length === 0) return null;
 
   return (
     <div className="carrusel-container-Compra">
-      {images.length > 0 && (
-        <div className="imagen-contenedor-Compra">
-          {images.map((img, idx) => {
-            const rutaImg =
-              img?.url && typeof img.url === "string"
-                ? img.url.startsWith("http")
-                  ? img.url
-                  : `${import.meta.env.VITE_API_URL}/uploads/${img.url}`
-                : null;
-
-            return (
-              <img
-                key={idx}
-                src={rutaImg}
-                alt={`${nombre_Shop} - imagen ${idx + 1}`}
-                className={`imagen-fondo-Compra ${
-                  idx === indexActual ? "visible" : "oculto"
-                }`}
-              />
-            );
-          })}
-        </div>
-      )}
-
+      <div className="imagen-contenedor-Compra">
+        {images.map((img, idx) => (
+          <img
+            key={idx}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url}`}
+            alt={`${nombre_Shop} - imagen ${idx + 1}`}
+            className={`imagen-fondo-Compra ${
+              idx === indexActual ? "visible" : "oculto"
+            }`}
+          />
+        ))}
+      </div>
       <div className="texto-hover-Compra">
         <h2>{nombre_Shop}</h2>
         <p>{contenido_Shop}</p>
