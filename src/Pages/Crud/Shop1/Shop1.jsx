@@ -260,7 +260,7 @@ export default function Shop1() {
                 multiple
                 onChange={(e) => setImagen(Array.from(e.target.files))}
               />
-              <button type="submit" disabled={setBusqueda}>
+              <button type="submit" disabled={subirShop}>
                 {subirShop ? "Cargando..." : "Crear"}
               </button>
             </form>
