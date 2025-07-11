@@ -46,10 +46,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
           <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
         </div>
         {esLargo && (
-          <button
-            className="leer-mas-btn"
-            onClick={() => setLeerMas(!leerMas)}
-          >
+          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
             {leerMas ? "Ver menos" : "Leer más"}
           </button>
         )}
@@ -82,13 +79,15 @@ export default function Noticias() {
         <div className="Contenido-Principal">
           <div className="Informacion-Noticia">
             <Animacion texto="Noticias publicadas" className="titulo-Noticia" />
-            <section className="InformacionRelevanteNoticia">
-              <h2>Información Relevante</h2>
-              <p>
-                Aquí se mostrarán noticias importantes sobre eventos,
-                comunidad y novedades del mundo de la motovelocidad.
-              </p>
-            </section>
+            <div className="Informacion-RelevanteGeneral-Noticia">
+              <section className="InformacionRelevanteNoticia">
+                <h2>Información Relevante</h2>
+                <p>
+                  Aquí se mostrarán noticias importantes sobre eventos,
+                  comunidad y novedades del mundo de la motovelocidad.
+                </p>
+              </section>
+            </div>
           </div>
           <div className="Container-noticia">
             <ul className="grid-container-noticia">

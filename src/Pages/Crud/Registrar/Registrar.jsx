@@ -12,6 +12,7 @@ const Registrar = () => {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [pin_seguridad, setPin_seguridad] = useState("");
+  const [subirRegistar, setSubirRegistrar] = useState(false);
 
   const [nombreAdminActualizar, setNombreAdminActualizar] = useState("");
   const [correoAdminActualizar, setCorreoAdminActualizar] = useState("");
@@ -61,7 +62,7 @@ const Registrar = () => {
       alert("El PIN debe tener 4 caracteres");
       return;
     }
-
+    setSubirRegistrar(true)
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/admin/register`, {
         nombre_Administrador: nombreCrear,
@@ -77,6 +78,8 @@ const Registrar = () => {
     } catch (err) {
       console.error("Error:", err);
       alert("❌ Ya existe este usuario/correo");
+    }finally{
+      setSubirRegistrar(false)
     }
   };
 
@@ -86,7 +89,7 @@ const Registrar = () => {
       alert("Completa todos los campos");
       return;
     }
-
+    setSubirRegistrar(true)
     try {
       await axios.put(`${import.meta.env.VITE_API_URL}/admin/update`, {
         correo_Administrador: correoAdminActualizar,
@@ -100,6 +103,8 @@ const Registrar = () => {
       obtenerAdministradores();
     } catch (err) {
       alert("❌ Error al actualizar contraseña");
+    }finally{
+      setSubirRegistrar(false)
     }
   };
 
@@ -120,7 +125,9 @@ const Registrar = () => {
       <div className="contenido-registrar">
         <Animacion texto="Creación de Administrador" />
         <div className="filtradorRegistrar">
-          <button onClick={() => setMostrarCrear(true)}>➕ Crear Administrador</button>
+          <button onClick={() => setMostrarCrear(true)}>
+            ➕ Crear Administrador
+          </button>
           <input
             type="text"
             placeholder="Buscar administrador"
@@ -169,7 +176,10 @@ const Registrar = () => {
         </table>
 
         {mostrarCrear && (
-          <PopUp onClose={() => setMostrarCrear(false)} title="Crear Administrador">
+          <PopUp
+            onClose={() => setMostrarCrear(false)}
+            title="Crear Administrador"
+          >
             <form onSubmit={handleRegistrar} className="popup-form">
               <input
                 type="text"
@@ -200,13 +210,16 @@ const Registrar = () => {
                 onChange={(e) => setPin_seguridad(e.target.value)}
                 required
               />
-              <button type="submit">Registrar</button>
+              <button type="submit" disabled={subirRegistar}>{subirRegistar ? "Cargando...":"Crear"}</button>
             </form>
           </PopUp>
         )}
 
         {mostrarActualizar && (
-          <PopUp onClose={() => setMostrarActualizar(false)} title="Actualizar Contraseña">
+          <PopUp
+            onClose={() => setMostrarActualizar(false)}
+            title="Actualizar Contraseña"
+          >
             <form onSubmit={handleUpdate} className="popup-form">
               <input
                 type="email"
@@ -230,7 +243,7 @@ const Registrar = () => {
                 onChange={(e) => setContrasena(e.target.value)}
                 required
               />
-              <button type="submit">Actualizar</button>
+              <button type="submit" disabled={subirRegistar}>{subirRegistar?"Cargando...":"Actualizar"}</button>
             </form>
           </PopUp>
         )}

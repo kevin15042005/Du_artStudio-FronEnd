@@ -10,6 +10,7 @@ function Aliados() {
   const [imagen, setImagen] = useState(null);
   const [aliados, setAliados] = useState([]);
   const [preview, setPreview] = useState(null);
+  const [subirAliados , setSubirAliados] = useState(false)
 
   const [idActualizar, setIdActualizar] = useState("");
   const [nombreActualizar, setNombreActualizar] = useState("");
@@ -66,7 +67,7 @@ function Aliados() {
     const formData = new FormData();
     formData.append("nombre_Marcas_Aliadas", nombre);
     formData.append("cover", imagen);
-
+    setSubirAliados(true)
     try {
       const res = await fetch(`${VITE_API_URL}/api/aliados`, {
         method: "POST",
@@ -80,6 +81,8 @@ function Aliados() {
     } catch (error) {
       console.error("Error al crear el aliado:", error);
       alert("Error al crear el aliado");
+    }finally{
+      setSubirAliados(false)
     }
   };
 
@@ -98,6 +101,7 @@ function Aliados() {
       alert("Debe cambiar al menos el nombre o la imagen");
       return;
     }
+    setSubirAliados(true)
 
     try {
       const res = await fetch(`${VITE_API_URL}/api/aliados/${idActualizar}`, {
@@ -115,6 +119,8 @@ function Aliados() {
     } catch (err) {
       console.error("Error al actualizar aliado", err);
       alert("Error al actualizar aliado");
+    }finally{
+      setSubirAliados(false)
     }
   };
 
@@ -223,7 +229,7 @@ function Aliados() {
               }}
             />
             {preview && <img src={preview} alt="Vista previa" style={{ maxWidth: "200px" }} />}
-            <button type="submit">Crear</button>
+            <button type="submit" disabled={subirAliados}>{subirAliados ?"Cargando..." :"Crear" }</button>
           </form>
         </PopUp>
       )}
@@ -249,7 +255,7 @@ function Aliados() {
             {previewActualizar && (
               <img src={previewActualizar} alt="Preview" style={{ maxWidth: "200px" }} />
             )}
-            <button type="submit">Actualizar</button>
+            <button type="submit" disabled={subirAliados}>{subirAliados ? "Cargando...":"Actualizar"}</button>
           </form>
         </PopUp>
       )}

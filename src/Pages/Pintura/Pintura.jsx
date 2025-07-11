@@ -15,7 +15,10 @@ const CarruselImagenes = ({
   contenido_Noticia_Pintura,
 }) => {
   const [indexActual, setIndexActual] = useState(0);
-  const images = Array.isArray(cover) && cover.length > 0 ? cover : [{ url: "/default.jpg" }];
+  const images =
+    Array.isArray(cover) && cover.length > 0
+      ? cover
+      : [{ url: "/default.jpg" }];
 
   useEffect(() => {
     if (images.length <= 1) return;
@@ -113,7 +116,10 @@ const Pintura = () => {
       <Layout />
       <div className="Contenido-Principal-Pintura">
         <div className="Informacion-Pintura">
-          <Animacion texto="Diseños Motocicletas" className="Informacion-Pintura" />
+          <Animacion
+            texto="Diseños Motocicletas"
+            className="Informacion-Pintura"
+          />
 
           <div className="Informacion-RelevanteGeneral-Pintura">
             <section className="Imagen-Relevante-Pintura">
@@ -143,7 +149,9 @@ const Pintura = () => {
                     <CarruselImagenes
                       cover={noticia.cover}
                       nombre_Noticia_Pintura={noticia.nombre_Noticia_Pintura}
-                      contenido_Noticia_Pintura={noticia.contenido_Noticia_Pintura}
+                      contenido_Noticia_Pintura={
+                        noticia.contenido_Noticia_Pintura
+                      }
                     />
                   </li>
                 </ScrollAnimadoCrud>

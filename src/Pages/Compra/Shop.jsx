@@ -5,12 +5,11 @@ import Footer from "../../Components/Footer/footer";
 import "./Shop.css";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud/index";
 import { useCarrito } from "../../Components/CarritoContext/CarritoContext";
-import Animacion  from "../../Components/Animacion/Animacion";
-
+import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
-  const images = cover ? cover.split(",") : [];
   const [indexActual, setIndexActual] = useState(0);
+  const images = Array.isArray(cover) && cover.length>0 ? cover : [{url:"/default.jpg"}];
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -43,7 +42,7 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   );
 }
 
-export default function Shop1() {
+export default function Shop() {
   const [shop, setShop] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
@@ -67,7 +66,7 @@ export default function Shop1() {
         <Layout />
         <div className="Contenido-Compra">
           <div className="Informacion-Compra">
-              <Animacion texto="Venta Articulos"  className="titulo-Compra"/>
+            <Animacion texto="Venta Articulos" className="titulo-Compra" />
             <div className="Informacion-RelevanteGeneral-Compra">
               <section className="InformacionRelevanteCompra">
                 <h2>Diseños a la venta</h2>

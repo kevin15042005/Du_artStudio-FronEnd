@@ -5,13 +5,14 @@ import Footer from "../../../Components/Footer/footer";
 import PopUp from "../../../Components/popup/popup";
 import "./Shop1.css";
 
-export default function Shop() {
+export default function Shop1() {
   const [ventas, setVentas] = useState([]);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState([]);
   const [id_Shop, setIdShop] = useState("");
   const [precio_Shop, setPrecio_Shop] = useState("");
+  const [subirShop, setSubirShop] = useState(false);
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
@@ -82,6 +83,7 @@ export default function Shop() {
     formData.append("precio_Shop", precio_Shop);
     imagen.forEach((img) => formData.append("cover", img));
 
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop/crear`, {
         method: "POST",
@@ -94,6 +96,8 @@ export default function Shop() {
     } catch (err) {
       console.error(err);
       alert("Error al crear el artículo");
+    } finally {
+      setSubirShop(false);
     }
   };
 
@@ -112,7 +116,7 @@ export default function Shop() {
         formData.append("cover", img);
       });
     }
-
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop`, {
         method: "PUT",
@@ -128,11 +132,14 @@ export default function Shop() {
     } catch (err) {
       console.error(err);
       alert(err.message || "Error al actualizar artículo");
+    } finally {
+      setSubirShop(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm(`¿Eliminar el artículo ${id}?`)) return;
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop/${id}`, {
         method: "DELETE",
@@ -144,6 +151,8 @@ export default function Shop() {
     } catch (err) {
       console.error(err);
       alert(err.message || "Error al eliminar artículo");
+    } finally {
+      setSubirShop(false);
     }
   };
 
@@ -251,7 +260,9 @@ export default function Shop() {
                 multiple
                 onChange={(e) => setImagen(Array.from(e.target.files))}
               />
-              <button type="submit">Crear</button>
+              <button type="submit" disabled={setBusqueda}>
+                {subirShop ? "Cargando..." : "Crear"}
+              </button>
             </form>
           </PopUp>
         )}
@@ -292,7 +303,9 @@ export default function Shop() {
                 onChange={(e) => setPrecio_ShopActualizar(e.target.value)}
               />
               <input type="hidden" value={id_ShopActualizar} readOnly />
-              <button type="submit">Actualizar</button>
+              <button type="submit" disabled={subirShop}>
+                {subirShop ? "Cargando..." : "Actualizar"}
+              </button>
             </form>
           </PopUp>
         )}{" "}

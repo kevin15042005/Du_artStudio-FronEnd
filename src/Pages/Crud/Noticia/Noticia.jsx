@@ -11,6 +11,7 @@ export default function CrudNoticias() {
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState([]);
   const [noticiasPublicadas, setNoticiasPublicadas] = useState(0);
+  const [subiendNoticia , setSubiendoNoticia] = useState (false)
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
@@ -72,6 +73,7 @@ export default function CrudNoticias() {
       alert("Ingresa todos los campos");
       return;
     }
+    setSubiendoNoticia(true)
 
     const formData = new FormData();
     formData.append("nombre_Noticias", titulo);
@@ -93,6 +95,8 @@ export default function CrudNoticias() {
     } catch (err) {
       console.error(err);
       alert("Error al crear la noticia");
+    }finally{
+      setSubiendoNoticia(false)
     }
   };
 
@@ -103,7 +107,7 @@ export default function CrudNoticias() {
       alert("No se ha seleccionado ninguna noticia para actualizar");
       return;
     }
-
+    setSubiendoNoticia(true)
     try {
       const formData = new FormData();
       formData.append("nombre_Noticias", tituloActualizar);
@@ -135,16 +139,15 @@ export default function CrudNoticias() {
     } catch (error) {
       console.error("Error al actualizar noticia:", error);
       alert(error.message || "Error al actualizar la noticia");
+    }finally{
+      setSubiendoNoticia(false)
     }
   };
 
   const handleDelete = async (id_Noticia) => {
     if (
-      !window.confirm(`¿Estás seguro de eliminar la noticia ${id_Noticia}?`)
-    ) {
-      return;
-    }
-
+      !window.confirm(`¿Estás seguro de eliminar la noticia ${id_Noticia}?`))return;
+      setSubiendoNoticia(true)
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/noticias/${id_Noticia}`,
@@ -164,6 +167,8 @@ export default function CrudNoticias() {
     } catch (error) {
       console.error("Error al eliminar noticia:", error);
       alert(error.message || "Error al eliminar la noticia");
+    }finally{
+      setSubiendoNoticia(false)
     }
   };
 
@@ -267,7 +272,7 @@ export default function CrudNoticias() {
                   onChange={(e) => setImagen(Array.from(e.target.files))}
                   required
                 />
-                <button type="submit">Crear</button>
+                <button type="submit" disabled={subiendNoticia}>{setSubiendoNoticia ? "Cargando...": "Crear"}</button>
               </form>
             </PopUp>
           )}
@@ -305,7 +310,7 @@ export default function CrudNoticias() {
                 />
 
                 <input type="hidden" value={idNoticiaActualizar} readOnly />
-                <button type="submit">Actualizar</button>
+                <button type="submit" disabled={subiendNoticia}>{subiendNoticia ?"Cargando..." :"Actualizar"}</button>
               </form>
             </PopUp>
           )}
