@@ -9,7 +9,10 @@ import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
-  const images = Array.isArray(cover) && cover.length>0 ? cover : [{url:"/default.jpg"}];
+  const images =
+    Array.isArray(cover) && cover.length > 0
+      ? cover
+      : [{ url: "/default.jpg" }];
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -26,7 +29,7 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img}`}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url}`}
             alt={`${nombre_Shop} - imagen ${idx + 1}`}
             className={`imagen-fondo-Compra ${
               idx === indexActual ? "visible" : "oculto"
