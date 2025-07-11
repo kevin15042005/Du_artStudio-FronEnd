@@ -28,19 +28,14 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   return (
     <div className="carrusel-container-Compra">
       <div className="imagen-contenedor-Compra">
-        {images.map((img, idx) => (
-          <img
-            key={idx}
-            src={img.url || "/default.jpg"} // ✅ Usa directamente la URL de Cloudinary
-            alt={`${nombre_Shop} - imagen ${idx + 1}`}
-            className={`imagen-fondo-Compra ${
-              idx === indexActual ? "visible" : "oculto"
-            }`}
-            onError={(e) => {
-              e.currentTarget.src = "/default.jpg"; // Backup local
-            }}
-          />
-        ))}
+         {images.map((img, idx) => (
+      <img
+        key={idx}
+        src={img.url}
+        alt=""
+        className={`imagen-fondo-Compra ${idx === indexActual ? "visible" : "oculto"}`}
+      />
+    ))}
       </div>
       <div className="texto-hover-Compra">
         <h2>{nombre_Shop}</h2>
