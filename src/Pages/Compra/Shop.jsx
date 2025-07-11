@@ -29,7 +29,10 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
         {images.map((img, idx) => (
           <img
             key={idx}
-            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url}`}
+            src={`${import.meta.env.VITE_API_URL}/uploads/${img.url.replace(
+              /^\/+/,
+              ""
+            )}`}
             alt={`${nombre_Shop} - imagen ${idx + 1}`}
             className={`imagen-fondo-Compra ${
               idx === indexActual ? "visible" : "oculto"
