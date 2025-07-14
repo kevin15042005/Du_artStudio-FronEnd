@@ -40,7 +40,7 @@ const Registrar = () => {
 
   const obtenerAdministradores = async () => {
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/admin/");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/admin/`);
       const data = await res.json();
       setRegistro(data);
     } catch (err) {
