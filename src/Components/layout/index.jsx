@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import NavbarNoticia from "../NavbarNoticias/NavbarNoticias";
 import { useAuth } from "../AuthContext/AuthContext.jsx";
-import WhatsApp from "../WhatsApp/WhatsApp.jsx";
+import WhatsAppButtom from "../WhatsApp/WhatsApp.jsx"
 const Layout = ({ children }) => {
   const { isLoggedIn } = useAuth();
 
@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
     <div className="Main">
       {isLoggedIn ? <NavbarNoticia /> : <Navbar />}
       {children}
-      <WhatsApp/>
+      <WhatsAppButtom/>
     </div>
   );
 };
