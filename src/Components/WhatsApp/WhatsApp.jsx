@@ -1,5 +1,5 @@
 import React from "react";
-import "WhatsApp.css";
+import "./WhatsApp.css";
 
 export default function WhatsApp() {
   retunr(
