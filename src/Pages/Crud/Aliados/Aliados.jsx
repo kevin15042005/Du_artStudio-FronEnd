@@ -41,14 +41,8 @@ function Aliados() {
     aliado.nombre_Marcas_Aliadas.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  const obtenerUrlImagen = (imagenString) => {
-    try {
-      const imagenObj = JSON.parse(imagenString);
-      return imagenObj.url || "";
-    } catch (error) {
-      console.warn("Error al parsear imagen:", error);
-      return "";
-    }
+  const obtenerUrlImagen = (imagenData) => {
+    return imagenData?.url || "";
   };
 
   const limpiarCampos = () => {
