@@ -259,6 +259,7 @@ setSubirShop(true)
                 type="file"
                 id="fileInput"
                 multiple
+                onClick={(e)=>(e.target.value = null)}
                 onChange={(e) => setImagen(Array.from(e.target.files))}
               />
               <button type="submit" disabled={subirShop}>{subirShop ? "Cargando...":"Crear"}</button>
@@ -291,6 +292,7 @@ setSubirShop(true)
                 type="file"
                 id="fileInputActualizar"
                 multiple
+                onClick={(e)=>(e.target.value = null)}
                 onChange={(e) =>
                   setImagenActualizar(Array.from(e.target.files))
                 }

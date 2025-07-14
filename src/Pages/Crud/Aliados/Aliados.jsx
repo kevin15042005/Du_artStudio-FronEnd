@@ -10,7 +10,7 @@ function Aliados() {
   const [imagen, setImagen] = useState(null);
   const [aliados, setAliados] = useState([]);
   const [preview, setPreview] = useState(null);
-  const [subirAliados , setSubirAliados] = useState(false)
+  const [subirAliados, setSubirAliados] = useState(false);
 
   const [idActualizar, setIdActualizar] = useState("");
   const [nombreActualizar, setNombreActualizar] = useState("");
@@ -67,7 +67,7 @@ function Aliados() {
     const formData = new FormData();
     formData.append("nombre_Marcas_Aliadas", nombre);
     formData.append("cover", imagen);
-    setSubirAliados(true)
+    setSubirAliados(true);
     try {
       const res = await fetch(`${VITE_API_URL}/api/aliados`, {
         method: "POST",
@@ -81,8 +81,8 @@ function Aliados() {
     } catch (error) {
       console.error("Error al crear el aliado:", error);
       alert("Error al crear el aliado");
-    }finally{
-      setSubirAliados(false)
+    } finally {
+      setSubirAliados(false);
     }
   };
 
@@ -94,14 +94,15 @@ function Aliados() {
     }
 
     const formData = new FormData();
-    if (nombreActualizar) formData.append("nombre_Marcas_Aliadas", nombreActualizar);
+    if (nombreActualizar)
+      formData.append("nombre_Marcas_Aliadas", nombreActualizar);
     if (imagenActualizar) formData.append("cover", imagenActualizar);
 
     if (!nombreActualizar && !imagenActualizar) {
       alert("Debe cambiar al menos el nombre o la imagen");
       return;
     }
-    setSubirAliados(true)
+    setSubirAliados(true);
 
     try {
       const res = await fetch(`${VITE_API_URL}/api/aliados/${idActualizar}`, {
@@ -119,8 +120,8 @@ function Aliados() {
     } catch (err) {
       console.error("Error al actualizar aliado", err);
       alert("Error al actualizar aliado");
-    }finally{
-      setSubirAliados(false)
+    } finally {
+      setSubirAliados(false);
     }
   };
 
@@ -148,7 +149,9 @@ function Aliados() {
 
         <div className="AliadosTabla">
           <div className="filtradoAliado" style={{ marginBottom: "1rem" }}>
-            <button onClick={() => setMostrarCrear(true)}>➕ Crear Aliado</button>
+            <button onClick={() => setMostrarCrear(true)}>
+              ➕ Crear Aliado
+            </button>
             <input
               type="text"
               placeholder="Buscar aliado..."
@@ -222,20 +225,32 @@ function Aliados() {
             <input
               type="file"
               accept="image/*"
+              onClick={(e) => (e.target.value = null)}
               onChange={(e) => {
                 const file = e.target.files[0];
                 setImagen(file);
                 setPreview(URL.createObjectURL(file));
               }}
             />
-            {preview && <img src={preview} alt="Vista previa" style={{ maxWidth: "200px" }} />}
-            <button type="submit" disabled={subirAliados}>{subirAliados ?"Cargando..." :"Crear" }</button>
+            {preview && (
+              <img
+                src={preview}
+                alt="Vista previa"
+                style={{ maxWidth: "200px" }}
+              />
+            )}
+            <button type="submit" disabled={subirAliados}>
+              {subirAliados ? "Cargando..." : "Crear"}
+            </button>
           </form>
         </PopUp>
       )}
 
       {mostrarActualizar && (
-        <PopUp onClose={() => setMostrarActualizar(false)} title="Actualizar Aliado">
+        <PopUp
+          onClose={() => setMostrarActualizar(false)}
+          title="Actualizar Aliado"
+        >
           <form onSubmit={handleUpdate}>
             <input
               type="text"
@@ -246,6 +261,7 @@ function Aliados() {
             <input
               type="file"
               accept="image/*"
+              onClick={(e) => (e.target.value = null)}
               onChange={(e) => {
                 const file = e.target.files[0];
                 setImagenActualizar(file);
@@ -253,9 +269,15 @@ function Aliados() {
               }}
             />
             {previewActualizar && (
-              <img src={previewActualizar} alt="Preview" style={{ maxWidth: "200px" }} />
+              <img
+                src={previewActualizar}
+                alt="Preview"
+                style={{ maxWidth: "200px" }}
+              />
             )}
-            <button type="submit" disabled={subirAliados}>{subirAliados ? "Cargando...":"Actualizar"}</button>
+            <button type="submit" disabled={subirAliados}>
+              {subirAliados ? "Cargando..." : "Actualizar"}
+            </button>
           </form>
         </PopUp>
       )}

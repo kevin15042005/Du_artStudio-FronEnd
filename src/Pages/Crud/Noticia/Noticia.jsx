@@ -220,7 +220,7 @@ export default function CrudNoticias() {
                                 : "")}
                         </div>
                       </td>
-                      
+
                       <td>
                         <div className="acciones-botones">
                           <button
@@ -270,7 +270,10 @@ export default function CrudNoticias() {
                   type="file"
                   id="fileInput"
                   multiple
-                  onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
+                  onClick={(e) => (e.target.value = null)}
+                  onChange={(e) =>
+                    setImagenActualizar(Array.from(e.target.files))
+                  }
                   required
                 />
                 <button type="submit" disabled={subiendNoticia}>
@@ -305,10 +308,11 @@ export default function CrudNoticias() {
                   type="file"
                   accept="image/*"
                   multiple
+                  onClick={(e)=>(e.target.value = null)}
                   onChange={(e) => {
                     const files = Array.from(e.target.files);
                     console.log("Archivos desde celular:", files);
-                    setImagenActualizar(files); 
+                    setImagenActualizar(files);
                   }}
                 />
 
