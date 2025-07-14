@@ -13,7 +13,8 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
   let coverArray = [];
 
   try {
-    coverArray = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
+    const parsed = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
+    coverArray = parsed.filter((img) => img && img.url); // Solo con imágenes válidas
   } catch (err) {
     console.error("❌ Error al parsear cover:", cover);
     coverArray = [];
@@ -82,10 +83,10 @@ export default function Noticias() {
             <div className="Informacion-RelevanteGeneral-Noticia">
               <section className="InformacionRelevanteNoticia">
                 <h2>Información Relevante</h2>
-                  <p>
-                    Aquí se mostrarán noticias importantes sobre eventos,
-                    comunidad y novedades del mundo de la motovelocidad.
-                  </p>
+                <p>
+                  Aquí se mostrarán noticias importantes sobre eventos,
+                  comunidad y novedades del mundo de la motovelocidad.
+                </p>
               </section>
             </div>
           </div>

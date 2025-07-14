@@ -277,7 +277,7 @@ export default function CrudNoticias() {
                   required
                 />
                 <button type="submit" disabled={subiendNoticia}>
-                  {setSubiendoNoticia ? "Cargando..." : "Crear"}
+                  {subiendNoticia ? "Cargando..." : "Crear"}
                 </button>
               </form>
             </PopUp>

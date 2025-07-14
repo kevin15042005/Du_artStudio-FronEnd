@@ -213,7 +213,6 @@ export default function CrudNoticiasPintura() {
                 <th>ID</th>
                 <th>Título</th>
                 <th>Descripción</th>
-                <th>Imágenes</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -230,25 +229,6 @@ export default function CrudNoticiasPintura() {
                           (item.contenido_Noticia_Pintura.length > 120
                             ? "..."
                             : "")}
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}
-                    >
-                      {item.cover?.map((img, idx) => (
-                        <img
-                          key={idx}
-                          src={img.url}
-                          alt={`imagen-${idx}`}
-                          style={{
-                            width: "50px",
-                            height: "auto",
-                            borderRadius: "4px",
-                            objectFit: "cover",
-                          }}
-                        />
-                      ))}
                     </div>
                   </td>
                   <td>
