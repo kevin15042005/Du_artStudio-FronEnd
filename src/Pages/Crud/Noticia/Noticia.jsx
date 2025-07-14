@@ -23,6 +23,8 @@ export default function CrudNoticias() {
   const [busqueda, setBusqueda] = useState("");
   const [expandedRows, setExpandedRows] = useState([]);
 
+  const idAdministradorActual = localStorage.getItem("id_Administrador");
+
   const filtradoNoticia = Array.isArray(noticia)
     ? noticia.filter((item) =>
         item.nombre_Noticias?.toLowerCase().includes(busqueda.toLowerCase())
@@ -73,11 +75,18 @@ export default function CrudNoticias() {
       alert("Ingresa todos los campos");
       return;
     }
+
+    if (!idAdministradorActual) {
+      alert("Administrador no identificado");
+      return;
+    }
+
     setSubiendoNoticia(true);
 
     const formData = new FormData();
     formData.append("nombre_Noticias", titulo);
     formData.append("contenido_Noticia", descripcion);
+    formData.append("id_Administrador", idAdministradorActual);
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
@@ -107,6 +116,7 @@ export default function CrudNoticias() {
       alert("No se ha seleccionado ninguna noticia para actualizar");
       return;
     }
+
     setSubiendoNoticia(true);
     try {
       const formData = new FormData();
@@ -177,7 +187,6 @@ export default function CrudNoticias() {
       <div className="General-Noticia">
         <div className="Menu-Principal-Noticia">
           <Layout />
-
           <div className="Titulo-Noticia">
             <Animacion texto="Noticias Publicadas" />
           </div>
@@ -202,6 +211,7 @@ export default function CrudNoticias() {
                     <th>ID</th>
                     <th>Título</th>
                     <th>Descripción</th>
+                    <th>Autor</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -220,7 +230,7 @@ export default function CrudNoticias() {
                                 : "")}
                         </div>
                       </td>
-
+                      <td>{item.nombre_Administrador}</td>
                       <td>
                         <div className="acciones-botones">
                           <button
@@ -308,14 +318,12 @@ export default function CrudNoticias() {
                   type="file"
                   accept="image/*"
                   multiple
+                  id="fileInputActualizar"
                   onChange={(e) => {
                     const files = Array.from(e.target.files);
-                    console.log("Archivos desde celular:", files);
                     setImagenActualizar(files);
                   }}
                 />
-
-                <input type="hidden" value={idNoticiaActualizar} readOnly />
                 <button type="submit" disabled={subiendNoticia}>
                   {subiendNoticia ? "Cargando..." : "Actualizar"}
                 </button>
