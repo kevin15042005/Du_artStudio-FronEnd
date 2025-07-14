@@ -296,7 +296,7 @@ export default function CrudNoticiasPintura() {
 
         {/* Crear Noticia */}
         {mostrarCrear && (
-          <PopUp onClose={() => setMostrarCrear(false)} title="Crear Noticia">
+          <PopUp onClose={() => setMostrarCrear(false)} title="Crear Diseño">
             <form onSubmit={handleSubmit} className="popup-form">
               <input
                 type="text"
@@ -335,7 +335,7 @@ export default function CrudNoticiasPintura() {
               setMostrarActualizar(false);
               limpiarCamposActualizar();
             }}
-            title="Actualizar Noticia"
+            title="Actualizar Diseño"
           >
             <form onSubmit={handleUpdate} className="popup-form">
               <input
