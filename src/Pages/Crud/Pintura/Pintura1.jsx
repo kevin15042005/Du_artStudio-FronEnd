@@ -59,7 +59,7 @@ export default function CrudNoticiasPintura() {
     setIdNoticiaActualizar("");
     const input = document.getElementById("fileInputActualizar");
     if (input) input.value = "";
-    setImagenActualizar([])
+    setImagenActualizar([]);
   };
 
   const obtenerNoticias = async () => {
@@ -356,7 +356,7 @@ export default function CrudNoticiasPintura() {
                 name="cover"
                 accept="image/*"
                 multiple
-                onClick={(e)=>(e.target.value = null)}
+                onClick={(e) => (e.target.value = null)}
                 onChange={(e) =>
                   setImagenActualizar(Array.from(e.target.files))
                 }
