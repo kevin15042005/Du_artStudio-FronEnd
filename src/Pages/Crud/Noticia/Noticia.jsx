@@ -270,8 +270,10 @@ export default function CrudNoticias() {
                   type="file"
                   id="fileInput"
                   multiple
-                  onClick={(e) => (e.target.value = null)}
-                  onChange={(e) => setImagen(Array.from(e.target.files))}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files);
+                    setImagen(files);
+                  }}
                   required
                 />
                 <button type="submit" disabled={subiendNoticia}>
@@ -306,7 +308,6 @@ export default function CrudNoticias() {
                   type="file"
                   accept="image/*"
                   multiple
-                  onClick={(e) => (e.target.value = null)}
                   onChange={(e) => {
                     const files = Array.from(e.target.files);
                     console.log("Archivos desde celular:", files);

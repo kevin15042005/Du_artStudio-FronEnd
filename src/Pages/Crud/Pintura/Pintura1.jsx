@@ -318,7 +318,10 @@ export default function CrudNoticiasPintura() {
                 name="cover"
                 accept="image/*"
                 multiple
-                onChange={(e) => setImagen(Array.from(e.target.files))}
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setImagen(files);
+                }}
                 required
               />
               <button type="submit" disabled={subiendo}>
@@ -356,10 +359,10 @@ export default function CrudNoticiasPintura() {
                 name="cover"
                 accept="image/*"
                 multiple
-                onClick={(e) => (e.target.value = null)}
-                onChange={(e) =>
-                  setImagenActualizar(Array.from(e.target.files))
-                }
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setImagenActualizar(files);
+                }}
               />
               <button type="submit" disabled={subiendo}>
                 {subiendo ? "Cargando..." : "Actualizar"}

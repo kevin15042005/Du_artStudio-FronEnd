@@ -12,8 +12,7 @@ export default function Shop() {
   const [imagen, setImagen] = useState([]);
   const [id_Shop, setIdShop] = useState("");
   const [precio_Shop, setPrecio_Shop] = useState("");
-  const[subirShop, setSubirShop] = useState(false);
-
+  const [subirShop, setSubirShop] = useState(false);
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
@@ -84,7 +83,7 @@ export default function Shop() {
     formData.append("precio_Shop", precio_Shop);
     imagen.forEach((img) => formData.append("cover", img));
 
-    setSubirShop(true)
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop/crear`, {
         method: "POST",
@@ -97,8 +96,8 @@ export default function Shop() {
     } catch (err) {
       console.error(err);
       alert("Error al crear el artículo");
-    }finally{
-      setSubirShop(false)
+    } finally {
+      setSubirShop(false);
     }
   };
 
@@ -117,7 +116,7 @@ export default function Shop() {
         formData.append("cover", img);
       });
     }
-setSubirShop(true)
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop`, {
         method: "PUT",
@@ -133,14 +132,14 @@ setSubirShop(true)
     } catch (err) {
       console.error(err);
       alert(err.message || "Error al actualizar artículo");
-    }finally{
-      setSubirShop(false)
+    } finally {
+      setSubirShop(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm(`¿Eliminar el artículo ${id}?`)) return;
-    setSubirShop(true)
+    setSubirShop(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/Shop/${id}`, {
         method: "DELETE",
@@ -152,8 +151,8 @@ setSubirShop(true)
     } catch (err) {
       console.error(err);
       alert(err.message || "Error al eliminar artículo");
-    }finally{
-      setSubirShop(false)
+    } finally {
+      setSubirShop(false);
     }
   };
 
@@ -259,10 +258,15 @@ setSubirShop(true)
                 type="file"
                 id="fileInput"
                 multiple
-                onClick={(e)=>(e.target.value = null)}
-                onChange={(e) => setImagen(Array.from(e.target.files))}
+                onClick={(e) => (e.target.value = null)}
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setImagen(files);
+                }}
               />
-              <button type="submit" disabled={subirShop}>{subirShop ? "Cargando...":"Crear"}</button>
+              <button type="submit" disabled={subirShop}>
+                {subirShop ? "Cargando..." : "Crear"}
+              </button>
             </form>
           </PopUp>
         )}
@@ -292,10 +296,11 @@ setSubirShop(true)
                 type="file"
                 id="fileInputActualizar"
                 multiple
-                onClick={(e)=>(e.target.value = null)}
-                onChange={(e) =>
-                  setImagenActualizar(Array.from(e.target.files))
-                }
+                onClick={(e) => (e.target.value = null)} 
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setImagenActualizar(files);
+                }}
               />
               <input
                 type="text"
@@ -304,7 +309,9 @@ setSubirShop(true)
                 onChange={(e) => setPrecio_ShopActualizar(e.target.value)}
               />
               <input type="hidden" value={id_ShopActualizar} readOnly />
-              <button type="submit" disabled={subirShop}>{subirShop ?"Cargando..." :"Actualizar"}</button>
+              <button type="submit" disabled={subirShop}>
+                {subirShop ? "Cargando..." : "Actualizar"}
+              </button>
             </form>
           </PopUp>
         )}{" "}
