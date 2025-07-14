@@ -8,14 +8,13 @@ import { useCarrito } from "../../Components/CarritoContext/CarritoContext";
 import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
-  console.log("📦 COVER RECIBIDO:", cover);
   const [indexActual, setIndexActual] = useState(0);
 
   let images = [];
 
   try {
     images = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
-    images = images.filter((img) => !!img?.url); // solo válidas
+    images = images.filter((img) => !!img?.url);
   } catch (err) {
     console.error("❌ Error al parsear cover:", cover);
     images = [];
