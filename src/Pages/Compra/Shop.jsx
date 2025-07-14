@@ -1,4 +1,4 @@
-// Shop1.jsx (Frontend React)
+// Shop.jsx (Frontend React)
 import React, { useEffect, useState } from "react";
 import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
@@ -10,11 +10,16 @@ import Animacion from "../../Components/Animacion/Animacion";
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   console.log("📦 COVER RECIBIDO:", cover);
   const [indexActual, setIndexActual] = useState(0);
-  const images =
-    Array.isArray(cover) && cover.length > 0
-      ? cover.filter((img) => !!img?.url) // solo imágenes válidas
-      : [];
-  if (images.length === 0) return null; // no renderiza si no hay imágenes válidas
+
+  let images = [];
+
+  try {
+    images = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
+    images = images.filter((img) => !!img?.url); // solo válidas
+  } catch (err) {
+    console.error("❌ Error al parsear cover:", cover);
+    images = [];
+  }
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -28,14 +33,14 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   return (
     <div className="carrusel-container-Compra">
       <div className="imagen-contenedor-Compra">
-         {images.map((img, idx) => (
-      <img
-        key={idx}
-        src={img.url}
-        alt=""
-        className={`imagen-fondo-Compra ${idx === indexActual ? "visible" : "oculto"}`}
-      />
-    ))}
+        {images.map((img, idx) => (
+          <img
+            key={idx}
+            src={img.url}
+            alt=""
+            className={`imagen-fondo-Compra ${idx === indexActual ? "visible" : "oculto"}`}
+          />
+        ))}
       </div>
       <div className="texto-hover-Compra">
         <h2>{nombre_Shop}</h2>
@@ -44,6 +49,7 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
     </div>
   );
 }
+
 
 export default function Shop() {
   const [shop, setShop] = useState([]);
@@ -88,7 +94,7 @@ export default function Shop() {
                   <ScrollAnimadoCrud key={articulo.id_Shop} delay={index * 0.2}>
                     <li className="grid-item-Compra">
                       <CarruselImagenes
-                        cover={articulo.cover} // <-- directo, sin fallback aquí
+                        cover={articulo.cover} 
                         nombre_Shop={articulo.nombre_Shop}
                         contenido_Shop={articulo.contenido_Shop}
                       />

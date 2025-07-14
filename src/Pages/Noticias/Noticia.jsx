@@ -82,12 +82,10 @@ export default function Noticias() {
             <div className="Informacion-RelevanteGeneral-Noticia">
               <section className="InformacionRelevanteNoticia">
                 <h2>Información Relevante</h2>
-                <div className="Informacion-RelevanteGeneral-Noticia">
                   <p>
                     Aquí se mostrarán noticias importantes sobre eventos,
                     comunidad y novedades del mundo de la motovelocidad.
                   </p>
-                </div>
               </section>
             </div>
           </div>
