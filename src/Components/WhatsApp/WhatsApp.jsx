@@ -2,7 +2,7 @@ import React from "react";
 import "./WhatsApp.css";
 
 export default function WhatsApp() {
-  retunr(
+  return(
     <a
       href="http://wa.me/573204916831"
       target="_blank "
