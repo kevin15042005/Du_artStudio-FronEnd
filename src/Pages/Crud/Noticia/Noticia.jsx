@@ -10,18 +10,20 @@ export default function CrudNoticias() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState([]);
-  const [noticiasPublicadas, setNoticiasPublicadas] = useState(0);
-  const [subiendNoticia, setSubiendoNoticia] = useState(false);
+  const [enlace, setEnlace] = useState("");
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
   const [imagenActualizar, setImagenActualizar] = useState([]);
+  const [enlaceActualizar, setEnlaceActualizar] = useState("");
   const [idNoticiaActualizar, setIdNoticiaActualizar] = useState("");
 
   const [mostrarCrear, setMostrarCrear] = useState(false);
   const [mostrarActualizar, setMostrarActualizar] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [expandedRows, setExpandedRows] = useState([]);
+  const [subiendNoticia, setSubiendoNoticia] = useState(false);
+  const [noticiasPublicadas, setNoticiasPublicadas] = useState(0);
 
   const idAdministradorActual = localStorage.getItem("id_Administrador");
 
@@ -35,6 +37,7 @@ export default function CrudNoticias() {
     setTitulo("");
     setDescripcion("");
     setImagen([]);
+    setEnlace("");
     const input = document.getElementById("fileInput");
     if (input) input.value = "";
   };
@@ -42,7 +45,8 @@ export default function CrudNoticias() {
   const limpiarCamposActualizar = () => {
     setTituloActualizar("");
     setDescripcionActualizar("");
-    setImagenActualizar(null);
+    setImagenActualizar([]);
+    setEnlaceActualizar("");
     setIdNoticiaActualizar("");
     const input = document.getElementById("fileInputActualizar");
     if (input) input.value = "";
@@ -66,13 +70,8 @@ export default function CrudNoticias() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (noticiasPublicadas >= 9) {
-      alert("Ya llegaste al límite de 9 noticias publicadas.");
-      return;
-    }
-
-    if (!titulo || !descripcion || imagen.length === 0) {
-      alert("Ingresa todos los campos");
+    if (!titulo || !descripcion || imagen.length === 0 || !enlace) {
+      alert("Completa todos los campos");
       return;
     }
 
@@ -87,6 +86,7 @@ export default function CrudNoticias() {
     formData.append("nombre_Noticias", titulo);
     formData.append("contenido_Noticia", descripcion);
     formData.append("id_Administrador", idAdministradorActual);
+    formData.append("enlace", enlace);
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
@@ -122,6 +122,7 @@ export default function CrudNoticias() {
       const formData = new FormData();
       formData.append("nombre_Noticias", tituloActualizar);
       formData.append("contenido_Noticia", descripcionActualizar);
+      formData.append("enlace", enlaceActualizar);
       if (imagenActualizar?.length > 0) {
         imagenActualizar.forEach((img) => {
           formData.append("cover", img);
@@ -193,9 +194,7 @@ export default function CrudNoticias() {
 
           <div className="NoticiaTabla">
             <div className="filtro-bar">
-              <button onClick={() => setMostrarCrear(true)}>
-                ➕ Crear Noticia
-              </button>
+              <button onClick={() => setMostrarCrear(true)}>➕ Crear Noticia</button>
               <input
                 type="text"
                 placeholder="Buscar Noticia"
@@ -204,59 +203,56 @@ export default function CrudNoticias() {
               />
             </div>
 
-            <div>
-              <table className="tabla-noticias">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Autor</th>
-                    <th>Acciones</th>
+            <table className="tabla-noticias">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Autor</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtradoNoticia.map((item) => (
+                  <tr key={item.id_Noticia}>
+                    <td>{item.id_Noticia}</td>
+                    <td>{item.nombre_Noticias}</td>
+                    <td>
+                      <div className="descripcion-limitada">
+                        {expandedRows.includes(item.id_Noticia)
+                          ? item.contenido_Noticia
+                          : item.contenido_Noticia.slice(0, 120) +
+                            (item.contenido_Noticia.length > 120 ? "..." : "")}
+                      </div>
+                    </td>
+                    <td>{item.nombre_Administrador}</td>
+                    <td>
+                      <div className="acciones-botones">
+                        <button
+                          className="btn-editar"
+                          onClick={() => {
+                            setIdNoticiaActualizar(item.id_Noticia);
+                            setTituloActualizar(item.nombre_Noticias);
+                            setDescripcionActualizar(item.contenido_Noticia);
+                            setEnlaceActualizar(item.enlace || "");
+                            setMostrarActualizar(true);
+                          }}
+                        >
+                          🖌️
+                        </button>
+                        <button
+                          className="btn-eliminar"
+                          onClick={() => handleDelete(item.id_Noticia)}
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filtradoNoticia.map((item) => (
-                    <tr key={item.id_Noticia}>
-                      <td>{item.id_Noticia}</td>
-                      <td>{item.nombre_Noticias}</td>
-                      <td>
-                        <div className="descripcion-limitada">
-                          {expandedRows.includes(item.id_Noticia)
-                            ? item.contenido_Noticia
-                            : item.contenido_Noticia.slice(0, 120) +
-                              (item.contenido_Noticia.length > 120
-                                ? "..."
-                                : "")}
-                        </div>
-                      </td>
-                      <td>{item.nombre_Administrador}</td>
-                      <td>
-                        <div className="acciones-botones">
-                          <button
-                            className="btn-editar"
-                            onClick={() => {
-                              setIdNoticiaActualizar(item.id_Noticia);
-                              setTituloActualizar(item.nombre_Noticias);
-                              setDescripcionActualizar(item.contenido_Noticia);
-                              setMostrarActualizar(true);
-                            }}
-                          >
-                            🖌️
-                          </button>
-                          <button
-                            className="btn-eliminar"
-                            onClick={() => handleDelete(item.id_Noticia)}
-                          >
-                            🗑️
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
 
           {/* Crear Noticia */}
@@ -277,13 +273,16 @@ export default function CrudNoticias() {
                   required
                 />
                 <input
+                  type="text"
+                  placeholder="Enlace (opcional)"
+                  value={enlace}
+                  onChange={(e) => setEnlace(e.target.value)}
+                />
+                <input
                   type="file"
                   id="fileInput"
                   multiple
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files);
-                    setImagen(files);
-                  }}
+                  onChange={(e) => setImagen(Array.from(e.target.files))}
                   required
                 />
                 <button type="submit" disabled={subiendNoticia}>
@@ -315,14 +314,17 @@ export default function CrudNoticias() {
                   onChange={(e) => setDescripcionActualizar(e.target.value)}
                 />
                 <input
+                  type="text"
+                  placeholder="Enlace"
+                  value={enlaceActualizar}
+                  onChange={(e) => setEnlaceActualizar(e.target.value)}
+                />
+                <input
                   type="file"
                   accept="image/*"
                   multiple
                   id="fileInputActualizar"
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files);
-                    setImagenActualizar(files);
-                  }}
+                  onChange={(e) => setImagenActualizar(Array.from(e.target.files))}
                 />
                 <button type="submit" disabled={subiendNoticia}>
                   {subiendNoticia ? "Cargando..." : "Actualizar"}
