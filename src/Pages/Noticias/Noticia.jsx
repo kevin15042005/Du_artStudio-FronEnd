@@ -13,8 +13,8 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace })
   let coverArray = [];
 
   try {
-    const parsed = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
-    coverArray = parsed.filter((img) => img && img.url); // Solo imágenes válidas
+    const parsed = typeof cover === "string" ? JSON.parse(cover) : cover;
+    coverArray = Array.isArray(parsed) ? parsed.filter((img) => img?.url) : [];
   } catch (err) {
     console.error("❌ Error al parsear cover:", cover);
     coverArray = [];
@@ -65,6 +65,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace })
     </div>
   );
 }
+
 
 export default function Noticias() {
   const [noticias, setNoticias] = useState([]);
