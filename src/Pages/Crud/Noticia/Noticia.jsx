@@ -10,12 +10,14 @@ export default function CrudNoticias() {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState([]);
+  const [enlace, setEnlace] = useState("");
   const [noticiasPublicadas, setNoticiasPublicadas] = useState(0);
   const [subiendNoticia, setSubiendoNoticia] = useState(false);
 
   const [tituloActualizar, setTituloActualizar] = useState("");
   const [descripcionActualizar, setDescripcionActualizar] = useState("");
   const [imagenActualizar, setImagenActualizar] = useState([]);
+  const [enlaceActualizar, setEnlaceActualizar] = useState("");
   const [idNoticiaActualizar, setIdNoticiaActualizar] = useState("");
 
   const [mostrarCrear, setMostrarCrear] = useState(false);
@@ -24,7 +26,7 @@ export default function CrudNoticias() {
   const [expandedRows, setExpandedRows] = useState([]);
 
   const idAdministradorActual =
-    localStorage.getItem("id_Administrador") || "1"; // fallback por defecto
+    localStorage.getItem("id_Administrador") || "1";
 
   const filtradoNoticia = Array.isArray(noticia)
     ? noticia.filter((item) =>
@@ -36,6 +38,7 @@ export default function CrudNoticias() {
     setTitulo("");
     setDescripcion("");
     setImagen([]);
+    setEnlace("");
     const input = document.getElementById("fileInput");
     if (input) input.value = "";
   };
@@ -45,6 +48,7 @@ export default function CrudNoticias() {
     setDescripcionActualizar("");
     setImagenActualizar(null);
     setIdNoticiaActualizar("");
+    setEnlaceActualizar("");
     const input = document.getElementById("fileInputActualizar");
     if (input) input.value = "";
   };
@@ -73,12 +77,12 @@ export default function CrudNoticias() {
     }
 
     if (!titulo || !descripcion || imagen.length === 0) {
-      alert("Ingresa todos los campos");
+      alert("Ingresa todos los campos obligatorios");
       return;
     }
 
     if (!idAdministradorActual || idAdministradorActual === "null") {
-      alert("Administrador no identificado. Inicia sesión nuevamente.");
+      alert("Administrador no identificado.");
       return;
     }
 
@@ -88,6 +92,7 @@ export default function CrudNoticias() {
     formData.append("nombre_Noticias", titulo);
     formData.append("contenido_Noticia", descripcion);
     formData.append("id_Administrador", idAdministradorActual);
+    formData.append("enlace", enlace);
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
@@ -124,6 +129,7 @@ export default function CrudNoticias() {
       const formData = new FormData();
       formData.append("nombre_Noticias", tituloActualizar);
       formData.append("contenido_Noticia", descripcionActualizar);
+      formData.append("enlace", enlaceActualizar);
       if (imagenActualizar?.length > 0) {
         imagenActualizar.forEach((img) => {
           formData.append("cover", img);
@@ -230,6 +236,16 @@ export default function CrudNoticias() {
                               (item.contenido_Noticia.length > 120
                                 ? "..."
                                 : "")}
+                          {item.enlace && (
+                            <a
+                              href={item.enlace}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="link-noticia"
+                            >
+                              🔗
+                            </a>
+                          )}
                         </div>
                       </td>
                       <td>{item.nombre_Administrador}</td>
@@ -241,6 +257,7 @@ export default function CrudNoticias() {
                               setIdNoticiaActualizar(item.id_Noticia);
                               setTituloActualizar(item.nombre_Noticias);
                               setDescripcionActualizar(item.contenido_Noticia);
+                              setEnlaceActualizar(item.enlace || "");
                               setMostrarActualizar(true);
                             }}
                           >
@@ -279,6 +296,12 @@ export default function CrudNoticias() {
                   required
                 />
                 <input
+                  type="text"
+                  placeholder="Enlace (opcional)"
+                  value={enlace}
+                  onChange={(e) => setEnlace(e.target.value)}
+                />
+                <input
                   type="file"
                   id="fileInput"
                   multiple
@@ -315,6 +338,12 @@ export default function CrudNoticias() {
                   placeholder="Descripción"
                   value={descripcionActualizar}
                   onChange={(e) => setDescripcionActualizar(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enlace (opcional)"
+                  value={enlaceActualizar}
+                  onChange={(e) => setEnlaceActualizar(e.target.value)}
                 />
                 <input
                   type="file"
