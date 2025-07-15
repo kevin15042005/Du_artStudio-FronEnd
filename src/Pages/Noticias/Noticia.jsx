@@ -13,8 +13,8 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace })
   let coverArray = [];
 
   try {
-    const parsed = typeof cover === "string" ? JSON.parse(cover) : cover;
-    coverArray = Array.isArray(parsed) ? parsed.filter((img) => img?.url) : [];
+    const parsed = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
+    coverArray = parsed.filter((img) => img && img.url); // Solo imágenes válidas
   } catch (err) {
     console.error("❌ Error al parsear cover:", cover);
     coverArray = [];
@@ -45,22 +45,26 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace })
         <h3>{nombre_Noticias}</h3>
         <div className="contenido-noticia">
           <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
-          {enlace && (
+
+          {/* Botón leer más/menos */}
+          {esLargo && (
+            <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
+              {leerMas ? "Ver menos" : "Leer más"}
+            </button>
+          )}
+
+          {/* Mostrar enlace solo si está expandido o no es largo */}
+          {(leerMas || !esLargo) && enlace && (
             <a
               href={enlace}
               target="_blank"
               rel="noopener noreferrer"
               className="noticia-enlace-publico"
             >
-              🔗 Ver más
+              🔗 Ver enlace
             </a>
           )}
         </div>
-        {esLargo && (
-          <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
-            {leerMas ? "Ver menos" : "Leer más"}
-          </button>
-        )}
       </div>
     </div>
   );
