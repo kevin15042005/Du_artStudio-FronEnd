@@ -5,7 +5,7 @@ import "./Noticias.css";
 import ScrollAnimation from "../../Components/ScrollAnimationCrud/index";
 import Animacion from "../../Components/Animacion/Animacion";
 
-function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
+function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace }) {
   const [indexActual, setIndexActual] = useState(0);
   const [leerMas, setLeerMas] = useState(false);
   const maxLength = 120;
@@ -14,7 +14,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
 
   try {
     const parsed = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
-    coverArray = parsed.filter((img) => img && img.url); // Solo con imágenes válidas
+    coverArray = parsed.filter((img) => img && img.url); // Solo imágenes válidas
   } catch (err) {
     console.error("❌ Error al parsear cover:", cover);
     coverArray = [];
@@ -45,6 +45,16 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia }) {
         <h3>{nombre_Noticias}</h3>
         <div className="contenido-noticia">
           <p>{leerMas || !esLargo ? contenido_Noticia : `${textoCorto}...`}</p>
+          {enlace && (
+            <a
+              href={enlace}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="noticia-enlace-publico"
+            >
+              🔗 Ver más
+            </a>
+          )}
         </div>
         {esLargo && (
           <button className="leer-mas-btn" onClick={() => setLeerMas(!leerMas)}>
@@ -99,6 +109,7 @@ export default function Noticias() {
                       cover={noticia.cover}
                       nombre_Noticias={noticia.nombre_Noticias}
                       contenido_Noticia={noticia.contenido_Noticia}
+                      enlace={noticia.enlace}
                     />
                   </li>
                 </ScrollAnimation>
