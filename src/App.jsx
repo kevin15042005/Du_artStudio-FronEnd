@@ -3,9 +3,6 @@ import "./App.css";
 import Layout from "./Components/layout";
 import Footer from "./Components/Footer/footer";
 import Slider from "./Components/Slider/Slider";
-import moto from "./assets/cf1.jpeg";
-import moto1 from "./assets/cf2.jpeg";
-import moto2 from "./assets/cf3.jpeg";
 import Animacion from "./Components/Animacion/Animacion";
 import Loader from "./Components/Loader/Loader";
 
@@ -43,7 +40,7 @@ const CarruselImagenesFijas = () => {
   );
 };
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);

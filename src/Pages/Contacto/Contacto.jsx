@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
 import "./Contacto.css";
-import Facebook from "../../assest-icons/facebook.png";
-import Intagram from "../../assest-icons/instagram.png";
-import TikTok from "../../assest-icons/tiktok.png";
+import Facebook from "../../assets/icons/facebook.png";
+import Intagram from "../../assets/icons/instagram.png";
+import TikTok from "../../assets/icons/tiktok.png";
 import "./Contacto.css";
-import fondocontacto from "../../assets/motos-fondo.jpg"
 export default function Contacto() {
   const [result, setResult] = React.useState("");
 
@@ -171,6 +170,8 @@ export default function Contacto() {
                   name="mensaje"
                   className="field-contacto mess"
                   placeholder="Escribe un mensaje "
+                  value={mensaje}
+                  onChange={handleMensajeChange}
                   required
                 ></textarea>
               </div>

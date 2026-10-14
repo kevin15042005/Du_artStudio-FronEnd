@@ -5,7 +5,6 @@ import "./footer.css";
 const Footer = () => {
 
 const handleMenuTop  = ()=>{
-  setMenuOpen(false);
   window.scrollTo(0,0)
 }
 

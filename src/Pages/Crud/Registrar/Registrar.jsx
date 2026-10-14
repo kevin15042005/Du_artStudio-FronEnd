@@ -14,10 +14,8 @@ const Registrar = () => {
   const [pin_seguridad, setPin_seguridad] = useState("");
   const [subirRegistar, setSubirRegistrar] = useState(false);
 
-  const [nombreAdminActualizar, setNombreAdminActualizar] = useState("");
   const [correoAdminActualizar, setCorreoAdminActualizar] = useState("");
   const [pinAdminActualizar, setPinAdminActualizar] = useState("");
-  const [idAdminActualizar, setIdAdminActualizar] = useState("");
 
   const [mostrarActualizar, setMostrarActualizar] = useState(false);
   const [mostrarCrear, setMostrarCrear] = useState(false);
@@ -101,7 +99,7 @@ const Registrar = () => {
       setMostrarActualizar(false);
       limpiarCampos();
       obtenerAdministradores();
-    } catch (err) {
+    } catch {
       alert("❌ Error al actualizar contraseña");
     }finally{
       setSubirRegistrar(false)
@@ -114,7 +112,7 @@ const Registrar = () => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/admin/${id}`);
       alert("✅ Administrador eliminado");
       obtenerAdministradores();
-    } catch (err) {
+    } catch {
       alert("❌ Error al eliminar administrador");
     }
   };
@@ -155,8 +153,6 @@ const Registrar = () => {
                   <button
                     className="btn-editar"
                     onClick={() => {
-                      setIdAdminActualizar(item.id_Administrador);
-                      setNombreAdminActualizar(item.nombre_Administrador);
                       setCorreoAdminActualizar(item.correo_Administrador);
                       setMostrarActualizar(true);
                     }}

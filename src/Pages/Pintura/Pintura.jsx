@@ -3,9 +3,6 @@ import Layout from "../../Components/layout/index.jsx";
 import Footer from "../../Components/Footer/footer.jsx";
 import "./Pintura.css";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud/index.jsx";
-import moto from "../../assets/cf1.jpeg";
-import moto1 from "../../assets/cf2.jpeg";
-import moto2 from "../../assets/cf3.jpeg";
 import Animacion from "../../Components/Animacion/Animacion.jsx";
 
 // Carrusel dinámico por noticia
@@ -147,6 +144,7 @@ const Pintura = () => {
 
         <div className="Container-Pintura">
           <div className="Contenedor-principal">
+            {error && <p className="error-pintura">{error}</p>}
             <ul className="grid-container-pintura">
               {currentItems.map((noticia, index) => (
                 <ScrollAnimadoCrud

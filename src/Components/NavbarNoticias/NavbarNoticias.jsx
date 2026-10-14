@@ -57,6 +57,12 @@ const NavbarNoticia = () => {
                   <Link to="/Registrar" className="colorTexto">Registrar</Link>
                 </li>
                 <li onClick={handleMenuClick}>
+                  <Link to="/Vehiculos" className="colorTexto">Vehículos</Link>
+                </li>
+                <li onClick={handleMenuClick}>
+                  <Link to="/Inventario" className="colorTexto">Inventario</Link>
+                </li>
+                <li onClick={handleMenuClick}>
                   <button
                     className="Cerrar-Sesion"
                     onClick={() => {

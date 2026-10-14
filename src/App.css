@@ -16,7 +16,7 @@ position: relative;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(20, 20, 20, 0.6); 
+  background: rgba(18, 16, 20, 0.72);
   z-index: -1;
 }
 
@@ -25,7 +25,7 @@ position: relative;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  color: black;
+  color: var(--color-text);
 }
 
 .BienvenidaApp span {
@@ -68,16 +68,17 @@ position: relative;
   min-width: 300px;
   max-width: 500px;
   padding: 2rem;
-  background: linear-gradient(135deg, rgb(7, 33, 73), rgb(229, 62, 232));
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
-  color: black;
+  background: linear-gradient(135deg, var(--color-surface), var(--color-surface-2));
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
   text-align: center;
   animation: transicioFrente 1s ease-out;
 }
 
 .InformacionRelevante h2 {
-  color: #fff;
+  color: var(--color-primary);
   font-size: 1.8rem;
 }
 
@@ -152,7 +153,7 @@ position: relative;
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  color: #d400ff;
+  color: var(--color-primary);
   font-family: "Merienda", cursive;
   font-size: 20px;
   text-align: center;
@@ -225,7 +226,7 @@ position: relative;
 }
 
 .nombre {
-  color: #d400ff;
+  color: var(--color-primary);
   font-weight: bold;
 }
 

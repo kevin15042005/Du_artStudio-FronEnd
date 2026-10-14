@@ -1,5 +1,5 @@
 import React from "react";
-import { useCarrito } from "../CarritoContext/CarritoContext";
+import { useCarrito } from "../../context/CarritoContext";
 import "./CarritoPopUp.css";
 export default function CarritoPopup({ mostrar, cerrar }) {
   const { carrito, eliminarDelCarrito } = useCarrito();

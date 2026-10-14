@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import CarritoPopup from "../CarritoPopup/CarritoPopup";
 import { ShoppingCart, Menu, X } from "lucide-react";
-import { useCarrito } from "../CarritoContext/CarritoContext";
+import { useCarrito } from "../../context/CarritoContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,6 +59,9 @@ const Navbar = () => {
                 </li>
                 <li className="Transicion-navbar" onClick={handleMenuClick}>
                   <Link to="/Contacto" className="colorTexto">Contacto</Link>
+                </li>
+                <li className="Transicion-navbar" onClick={handleMenuClick}>
+                  <Link to="/MiProceso" className="colorTexto">Mi Proceso</Link>
                 </li>
                 <li className="Transicion-navbar" onClick={handleMenuClick}>
                   <Link to="/loging" className="colorTexto">Ingreso</Link>

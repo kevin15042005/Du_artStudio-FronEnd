@@ -1,0 +1,231 @@
+.proceso-container {
+  flex: 1;
+  max-width: 900px;
+  width: 90%;
+  margin: 40px auto;
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.proceso-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.proceso-cabecera h1 {
+  font-family: var(--font-heading);
+  margin: 0 0 4px;
+}
+
+.proceso-subtitulo {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.proceso-boton-secundario {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.proceso-boton-secundario:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.proceso-cargando {
+  color: var(--color-text-muted);
+}
+
+.proceso-vehiculos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.proceso-chip-vehiculo {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.proceso-chip-vehiculo:hover {
+  border-color: var(--color-primary);
+}
+
+.proceso-chip-vehiculo.activo {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.proceso-chip-nueva {
+  background: transparent;
+  border-style: dashed;
+}
+
+.proceso-formulario {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.proceso-formulario h3 {
+  margin-top: 0;
+  font-family: var(--font-heading);
+}
+
+.proceso-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.proceso-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.proceso-form-grid input,
+.proceso-form-grid select {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+}
+
+.proceso-formulario button[type="submit"] {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.proceso-formulario button[type="submit"]:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.proceso-formulario button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.proceso-timeline-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.proceso-timeline-wrap h2 {
+  font-family: var(--font-heading);
+  margin-top: 0;
+}
+
+.proceso-badge-final {
+  display: inline-block;
+  background: rgba(0, 204, 105, 0.15);
+  color: var(--color-success);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.proceso-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  position: relative;
+}
+
+.proceso-paso {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 28px;
+  position: relative;
+}
+
+.proceso-paso::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 22px;
+  bottom: -6px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.proceso-paso:last-child::before {
+  display: none;
+}
+
+.proceso-paso-punto {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  border: 2px solid var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.proceso-paso--completado .proceso-paso-punto {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.proceso-paso--en-curso .proceso-paso-punto {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.25);
+}
+
+.proceso-paso-nombre {
+  margin: 0;
+  font-weight: 600;
+}
+
+.proceso-paso-estado {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.proceso-paso--en-curso .proceso-paso-estado {
+  color: var(--color-primary);
+}
+
+.proceso-paso--completado .proceso-paso-estado {
+  color: var(--color-success);
+}

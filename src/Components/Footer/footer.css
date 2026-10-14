@@ -1,9 +1,10 @@
 .Footer {
-  background: linear-gradient(to bottom, rgb(7, 33, 73), rgb(43, 7, 73));
+  background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
+  border-top: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 5px;
   height: 100%;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .nav-footer {
@@ -27,17 +28,17 @@
 }
 
 .nav-footer a {
-  color: black;
+  color: var(--color-text);
   text-decoration: none;
 }
 
 .nav-footer .nav-link {
-  color: #fff;
+  color: var(--color-text);
   transition: color 0.3s ease;
 }
 
 .nav-footer .nav-link:hover {
-  color: rgb(0, 198, 181);
+  color: var(--color-primary);
 }
 
 .footer-nav {

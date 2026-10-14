@@ -15,7 +15,7 @@ function CarruselImagenes({ cover, nombre_Noticias, contenido_Noticia, enlace })
   try {
     const parsed = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
     coverArray = parsed.filter((img) => img && img.url); // Solo imágenes válidas
-  } catch (err) {
+  } catch {
     console.error("❌ Error al parsear cover:", cover);
     coverArray = [];
   }

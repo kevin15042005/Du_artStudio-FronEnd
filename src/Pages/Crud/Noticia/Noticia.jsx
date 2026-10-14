@@ -236,6 +236,21 @@ export default function CrudNoticias() {
                               (item.contenido_Noticia.length > 120
                                 ? "..."
                                 : "")}
+                          {item.contenido_Noticia.length > 120 && (
+                            <button
+                              type="button"
+                              className="btn-ver-mas"
+                              onClick={() =>
+                                setExpandedRows((prev) =>
+                                  prev.includes(item.id_Noticia)
+                                    ? prev.filter((id) => id !== item.id_Noticia)
+                                    : [...prev, item.id_Noticia]
+                                )
+                              }
+                            >
+                              {expandedRows.includes(item.id_Noticia) ? " ver menos" : " ver más"}
+                            </button>
+                          )}
                           {item.enlace && (
                             <a
                               href={item.enlace}

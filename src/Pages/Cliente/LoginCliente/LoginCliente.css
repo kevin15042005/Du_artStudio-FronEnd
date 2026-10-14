@@ -1,0 +1,7 @@
+.cliente-subtitulo {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: -10px 0 15px;
+  padding: 0 10px;
+}

@@ -4,7 +4,7 @@ import Layout from "../../Components/layout";
 import Footer from "../../Components/Footer/footer";
 import "./Shop.css";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud/index";
-import { useCarrito } from "../../Components/CarritoContext/CarritoContext";
+import { useCarrito } from "../../context/CarritoContext";
 import Animacion from "../../Components/Animacion/Animacion";
 
 function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
@@ -15,7 +15,7 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
   try {
     images = Array.isArray(cover) ? cover : JSON.parse(cover || "[]");
     images = images.filter((img) => !!img?.url);
-  } catch (err) {
+  } catch {
     console.error("❌ Error al parsear cover:", cover);
     images = [];
   }
