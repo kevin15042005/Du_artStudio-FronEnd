@@ -8,9 +8,7 @@ Sitio web y panel administrativo de un taller de pintura y personalización de m
 
 | Integrante | Rol |
 |---|---|
-| [Nombre del integrante 1] | [Rol] |
-| [Nombre del integrante 2] | [Rol] |
-| [Nombre del integrante 3] | [Rol] |
+| Kevin Alejandro Reyes Sarmiento | Desarrollador Full Stack |
 
 ---
 
@@ -52,7 +50,7 @@ BrowserRouter
             └── Routes
 ```
 
-Las rutas del panel se envuelven en `ProtectedRoute`, que redirige a `/Loging` si no hay sesión de administrador; la ruta de cliente se envuelve en `ProtectedRouteCliente`, que redirige a `/ClienteLogin`. El componente `Layout` muestra la barra de navegación pública o la del administrador según la sesión e incluye en todas las páginas el botón de WhatsApp y el chatbot. El chatbot funciona sin IA, con respuestas basadas en palabras clave (`chatbotRespuestas.js`). Vercel reescribe todas las rutas hacia `index.html` (`vercel.json`) para que el enrutamiento del cliente funcione al recargar.
+Las rutas del panel se envuelven en `ProtectedRoute`, que redirige a `/Loging` si no hay sesión de administrador; la ruta de cliente se envuelve en `ProtectedRouteCliente`, que redirige a `/ClienteLogin`. El componente `Layout` muestra la barra de navegación pública o la del administrador según la sesión e incluye en todas las páginas el botón de WhatsApp y el chatbot. El chatbot responde mediante reglas por palabras clave definidas en `chatbotRespuestas.js`. Vercel reescribe todas las rutas hacia `index.html` (`vercel.json`) para que el enrutamiento del cliente funcione al recargar.
 
 ### Estructura de `src/`
 
