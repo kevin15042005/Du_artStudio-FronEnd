@@ -5,6 +5,15 @@ import Footer from "../../../Components/Footer/footer";
 import PopUp from "../../../Components/popup/popup";
 import "./Shop.css";
 
+// El login guarda el administrador en localStorage("user")
+const obtenerIdAdministrador = () => {
+  try {
+    return JSON.parse(localStorage.getItem("user"))?.id_Administrador ?? null;
+  } catch {
+    return null;
+  }
+};
+
 export default function Shop() {
   const [ventas, setVentas] = useState([]);
   const [titulo, setTitulo] = useState("");
@@ -79,6 +88,8 @@ export default function Shop() {
     formData.append("nombre_Shop", titulo);
     formData.append("contenido_Shop", descripcion);
     formData.append("precio_Shop", precio_Shop);
+    const idAdministrador = obtenerIdAdministrador();
+    if (idAdministrador) formData.append("id_Administrador", idAdministrador);
     imagen.forEach((img) => formData.append("cover", img));
 
     setSubirShop(true);
@@ -88,12 +99,13 @@ export default function Shop() {
         body: formData,
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Error al crear el artículo");
       alert(data.message || "Artículo creado");
       limpiarCampos();
       obtenerNoticias();
     } catch (err) {
       console.error(err);
-      alert("Error al crear el artículo");
+      alert(err.message || "Error al crear el artículo");
     } finally {
       setSubirShop(false);
     }
@@ -122,7 +134,7 @@ export default function Shop() {
       });
       const data = await res.json();
       if (!res.ok)
-        throw new Error(data.error || "Error al actualizar artículo");
+        throw new Error(data.message || data.error || "Error al actualizar artículo");
       alert(data.message || "Artículo actualizado");
       limpiarCamposActualizar();
       obtenerNoticias();
@@ -143,7 +155,7 @@ export default function Shop() {
         method: "DELETE",
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Error al eliminar artículo");
+      if (!res.ok) throw new Error(data.message || data.error || "Error al eliminar artículo");
       alert(data.message || "Artículo eliminado exitosamente");
       obtenerNoticias();
     } catch (err) {

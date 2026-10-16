@@ -75,7 +75,7 @@ const Registrar = () => {
       setMostrarCrear(false);
     } catch (err) {
       console.error("Error:", err);
-      alert("❌ Ya existe este usuario/correo");
+      alert(err.response?.data?.message || "❌ Error al registrar administrador");
     }finally{
       setSubirRegistrar(false)
     }
@@ -99,8 +99,8 @@ const Registrar = () => {
       setMostrarActualizar(false);
       limpiarCampos();
       obtenerAdministradores();
-    } catch {
-      alert("❌ Error al actualizar contraseña");
+    } catch (err) {
+      alert(err.response?.data?.message || "❌ Error al actualizar contraseña");
     }finally{
       setSubirRegistrar(false)
     }

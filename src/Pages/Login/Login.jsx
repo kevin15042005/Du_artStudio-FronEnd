@@ -50,12 +50,10 @@ export default function Login() {
         navigate("/CrudNoticias");
       } else {
         alert(data.message || "Credenciales inválidas");
-        localStorage.setItem("isLoging", "false");
       }
     } catch {
       console.log("Error al iniciar sesión");
       alert("Error al iniciar sesión");
-      localStorage.setItem("isLogin", "false");
     }
   };
 

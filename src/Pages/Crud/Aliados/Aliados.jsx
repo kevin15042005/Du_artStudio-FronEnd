@@ -69,13 +69,14 @@ function Aliados() {
         body: formData,
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Error al crear el aliado");
       alert(data.message || "Aliado creado");
       limpiarCampos();
       setMostrarCrear(false);
       obtenerAliados();
     } catch (error) {
       console.error("Error al crear el aliado:", error);
-      alert("Error al crear el aliado");
+      alert(error.message || "Error al crear el aliado");
     } finally {
       setSubirAliados(false);
     }
@@ -105,6 +106,7 @@ function Aliados() {
         body: formData,
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Error al actualizar aliado");
       alert(data.message || "Aliado actualizado");
       setIdActualizar("");
       setNombreActualizar("");
@@ -114,7 +116,7 @@ function Aliados() {
       obtenerAliados();
     } catch (err) {
       console.error("Error al actualizar aliado", err);
-      alert("Error al actualizar aliado");
+      alert(err.message || "Error al actualizar aliado");
     } finally {
       setSubirAliados(false);
     }
@@ -128,11 +130,12 @@ function Aliados() {
         method: "DELETE",
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Error al eliminar aliado");
       alert(data.message || "Aliado eliminado correctamente");
       obtenerAliados();
     } catch (err) {
       console.error("Error al eliminar aliado", err);
-      alert("Error al eliminar aliado");
+      alert(err.message || "Error al eliminar aliado");
     }
   };
 

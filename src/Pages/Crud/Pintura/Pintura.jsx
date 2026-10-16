@@ -5,6 +5,15 @@ import PopUp from "../../../Components/popup/popup";
 import Footer from "../../../Components/Footer/footer";
 import "./Pintura.css";
 
+// El login guarda el administrador en localStorage("user")
+const obtenerIdAdministrador = () => {
+  try {
+    return JSON.parse(localStorage.getItem("user"))?.id_Administrador ?? null;
+  } catch {
+    return null;
+  }
+};
+
 export default function CrudNoticiasPintura() {
   const [pintura, setPintura] = useState([]);
   const [titulo, setTitulo] = useState("");
@@ -88,6 +97,8 @@ export default function CrudNoticiasPintura() {
     const formData = new FormData();
     formData.append("nombre_Noticia_Pintura", titulo);
     formData.append("contenido_Noticia_Pintura", descripcion);
+    const idAdministrador = obtenerIdAdministrador();
+    if (idAdministrador) formData.append("id_Administrador", idAdministrador);
     imagen.forEach((img) => formData.append("cover", img));
 
     try {
@@ -97,12 +108,13 @@ export default function CrudNoticiasPintura() {
       });
 
       const data = await res.json();
-      alert(data.message || "Noticia creada");
+      if (!res.ok) throw new Error(data.message || data.error || "Error al crear la publicación");
+      alert(data.message || "Publicación creada");
       limpiarCampos();
       obtenerNoticias();
     } catch (err) {
       console.error(err);
-      alert("Error al crear la noticia");
+      alert(err.message || "Error al crear la publicación");
     } finally {
       setSubiendo(false);
     }
@@ -139,7 +151,7 @@ export default function CrudNoticiasPintura() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Error al actualizar la noticia");
+        throw new Error(data.message || data.error || "Error al actualizar la publicación");
       }
 
       alert(data.message || "Noticia actualizada con éxito");
@@ -169,7 +181,7 @@ export default function CrudNoticiasPintura() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Error al eliminar la noticia");
+        throw new Error(data.message || data.error || "Error al eliminar la publicación");
       }
 
       alert(data.message || "Diseño eliminado con éxito");

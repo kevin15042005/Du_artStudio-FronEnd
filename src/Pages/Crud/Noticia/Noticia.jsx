@@ -5,6 +5,15 @@ import Animacion from "../../../Components/Animacion/Animacion";
 import PopUp from "../../../Components/popup/popup";
 import "./Noticia.css";
 
+// El login guarda el administrador en localStorage("user")
+const obtenerIdAdministrador = () => {
+  try {
+    return JSON.parse(localStorage.getItem("user"))?.id_Administrador ?? null;
+  } catch {
+    return null;
+  }
+};
+
 export default function CrudNoticias() {
   const [noticia, setNoticia] = useState([]);
   const [titulo, setTitulo] = useState("");
@@ -25,8 +34,7 @@ export default function CrudNoticias() {
   const [busqueda, setBusqueda] = useState("");
   const [expandedRows, setExpandedRows] = useState([]);
 
-  const idAdministradorActual =
-    localStorage.getItem("id_Administrador") || "1";
+  const idAdministradorActual = obtenerIdAdministrador();
 
   const filtradoNoticia = Array.isArray(noticia)
     ? noticia.filter((item) =>
@@ -104,13 +112,14 @@ export default function CrudNoticias() {
         }
       );
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Error al crear la noticia");
       alert(data.message || "Noticia creada");
       limpiarCampos();
       obtenerNoticias();
       setMostrarCrear(false);
     } catch (err) {
       console.error(err);
-      alert("Error al crear la noticia");
+      alert(err.message || "Error al crear la noticia");
     } finally {
       setSubiendoNoticia(false);
     }
@@ -147,7 +156,7 @@ export default function CrudNoticias() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Error al actualizar la noticia");
+        throw new Error(data.message || data.error || "Error al actualizar la noticia");
       }
 
       alert(data.message || "Noticia actualizada con éxito");
@@ -177,7 +186,7 @@ export default function CrudNoticias() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Error al eliminar la noticia");
+        throw new Error(data.message || data.error || "Error al eliminar la noticia");
       }
 
       alert(data.message || "Noticia eliminada con éxito");
