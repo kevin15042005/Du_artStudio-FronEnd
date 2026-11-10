@@ -50,7 +50,7 @@ BrowserRouter
             └── Routes
 ```
 
-Las rutas del panel se envuelven en `ProtectedRoute`, que redirige a `/Loging` si no hay sesión de administrador; la ruta de cliente se envuelve en `ProtectedRouteCliente`, que redirige a `/ClienteLogin`. El componente `Layout` muestra la barra de navegación pública o la del administrador según la sesión e incluye en todas las páginas el botón de WhatsApp y el chatbot. El chatbot responde mediante reglas por palabras clave definidas en `chatbotRespuestas.js`. Vercel reescribe todas las rutas hacia `index.html` (`vercel.json`) para que el enrutamiento del cliente funcione al recargar.
+Las rutas del panel se envuelven en `ProtectedRoute`, que redirige a `/Loging` si no hay sesión de administrador; la ruta de cliente se envuelve en `ProtectedRouteCliente`, que redirige a `/ClienteLogin`. El componente `Layout` muestra la barra de navegación pública o la del administrador según la sesión e incluye en todas las páginas el botón de WhatsApp y el chatbot. El chatbot tiene asistente con IA: las preguntas escritas se envían a `POST /asistente` del backend (OpenCode con un modelo de Ollama), que responde con datos reales del taller y, si el cliente inició sesión, con el estado exacto de su moto. Los botones de preguntas rápidas usan reglas por palabras clave (`chatbotRespuestas.js`), que también sirven de respaldo cuando la IA no está disponible. Vercel reescribe todas las rutas hacia `index.html` (`vercel.json`) para que el enrutamiento del cliente funcione al recargar.
 
 ### Estructura de `src/`
 
@@ -62,7 +62,7 @@ src/
 ├── Components/     # Componentes reutilizables: Navbar, NavbarNoticias, Footer, layout, ChatBot, WhatsApp, Slider, Loader, Animacion, popups del carrito, animaciones de scroll y rutas protegidas
 ├── context/        # AuthContext (administrador), ClienteAuthContext (cliente) y CarritoContext (carrito)
 ├── Pages/          # Páginas públicas (Nosotros, Pintura, Noticias, Compra, Contacto, Login), zona de cliente (Cliente/) y panel administrativo (Crud/)
-└── services/       # procesoService.js: llamadas a /proceso y /cliente para el seguimiento del proceso de pintura
+└── services/       # procesoService.js (seguimiento del proceso de pintura) y asistenteService.js (asistente con IA)
 ```
 
 ---

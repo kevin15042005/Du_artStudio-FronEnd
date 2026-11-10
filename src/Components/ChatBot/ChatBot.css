@@ -86,6 +86,11 @@
   border-bottom-left-radius: 4px;
 }
 
+.chatbot-burbuja--pensando {
+  font-style: italic;
+  opacity: 0.7;
+}
+
 .chatbot-burbuja--usuario {
   align-self: flex-end;
   background: var(--color-primary);
