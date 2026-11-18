@@ -1,0 +1,199 @@
+/* styles/panel.css
+ *
+ * Tema oscuro común para el panel de administración: tablas, barras de
+ * búsqueda y ventanas emergentes. Se importa al final de main.jsx para que
+ * prevalezca sobre los estilos claros que cada página traía por su cuenta
+ * (texto claro sobre fondo blanco, que no se leía).
+ */
+
+/* ---------- Tablas ---------- */
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) {
+  display: table;
+  width: 95%;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-body);
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) thead,
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) th {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) th {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) th,
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) td {
+  border-bottom: 1px solid var(--color-border);
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Las filas no pintan fondo; lo pintan las celdas (filas alternas y hover) */
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr,
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr:nth-child(even),
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr:hover {
+  background-color: transparent;
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) td {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr:nth-child(even) td {
+  background-color: #221e27;
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) tbody tr:hover td {
+  background-color: var(--color-surface-2);
+}
+
+:is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) small {
+  color: var(--color-text-muted);
+}
+
+/* En pantallas pequeñas las tablas se desplazan horizontalmente */
+@media (max-width: 768px) {
+  :is(.tabla-noticias, .tabla-Diseño, .tabla-articulos, .tabla-aliados, .tabla-registro) {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* ---------- Barras de búsqueda y botón "Crear" ---------- */
+
+:is(.filtro-bar, .filtradoDiseños, .filtradorShop, .filtradorRegistrar, .filtradoAliado) input {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+:is(.filtro-bar, .filtradoDiseños, .filtradorShop, .filtradorRegistrar, .filtradoAliado) input::placeholder {
+  color: var(--color-text-muted);
+}
+
+:is(.filtro-bar, .filtradoDiseños, .filtradorShop, .filtradorRegistrar, .filtradoAliado) button {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+:is(.filtro-bar, .filtradoDiseños, .filtradorShop, .filtradorRegistrar, .filtradoAliado) button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* ---------- Ventanas emergentes (crear / editar) ---------- */
+
+.popup-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-overlay .popup-content {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.popup-overlay .popup-content :is(h2, h3, label, p) {
+  color: var(--color-text);
+}
+
+.popup-overlay .popup-content :is(input, textarea, select):not([type="checkbox"], [type="radio"]) {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.popup-overlay .popup-content :is(input, textarea)::placeholder {
+  color: var(--color-text-muted);
+}
+
+.popup-overlay .popup-content :is(input, textarea, select):focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.popup-overlay .popup-content input[type="file"]::file-selector-button {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.popup-overlay .popup-content form button:not(.popup-close) {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+
+.popup-overlay .popup-content form button:not(.popup-close):hover {
+  background-color: var(--color-primary-hover);
+}
+
+.popup-overlay .popup-content .popup-close {
+  background: transparent;
+  color: var(--color-text-muted);
+  box-shadow: none;
+  width: auto;
+  padding: 2px 8px;
+}
+
+.popup-overlay .popup-content .popup-close:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+/* ---------- Descripciones de Noticias y Pintura ---------- */
+
+/* El texto ya llega recortado a 120 caracteres; la altura máxima escondía el botón "ver más" */
+.descripcion-limitada {
+  max-height: none;
+  text-align: left;
+}
+
+.btn-ver-mas {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 4px;
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-ver-mas:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* ---------- Inventario ---------- */
+
+/* Cada pestaña va en un <section>: debe ocupar el ancho para que la tabla no se encoja */
+.contenido-inventario > section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
