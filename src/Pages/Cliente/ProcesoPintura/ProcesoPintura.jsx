@@ -1,6 +1,7 @@
 // Pages/Cliente/ProcesoPintura/ProcesoPintura.jsx
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Layout from "../../../Components/layout";
 import Footer from "../../../Components/Footer/footer";
 import { useClienteAuth } from "../../../context/ClienteAuthContext.jsx";
@@ -12,6 +13,39 @@ import {
 } from "../../../services/procesoService.js";
 import "./ProcesoPintura.css";
 
+// Cada cuánto se consulta el estado de las motos mientras la pestaña está visible
+const INTERVALO_ACTUALIZACION_MS = 10000;
+
+const notificacion = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 6000,
+  timerProgressBar: true,
+  background: "#1c1920",
+  color: "#f3f1f6",
+});
+
+const nombreMoto = (v) =>
+  `${v.nombre_Modelo || v.nombre_Modelo_Texto || "moto"}${v.placa ? ` (${v.placa})` : ""}`;
+
+// Compara el estado anterior con el nuevo y avisa de cada cambio
+function avisarCambios(anteriores, nuevos) {
+  for (const v of nuevos) {
+    const antes = anteriores.get(v.id_Vehiculo);
+    if (!antes) continue;
+    if (v.estado === "finalizado" && antes.estado !== "finalizado") {
+      notificacion.fire({ icon: "success", title: `¡Tu ${nombreMoto(v)} está lista! 🎉`, text: "El proceso de pintura terminó." });
+    } else if (v.estado === "en_proceso" && v.paso_orden !== antes.paso_orden) {
+      notificacion.fire({
+        icon: "info",
+        title: `Tu ${nombreMoto(v)} avanzó`,
+        text: `Ahora está en ${v.nombre_Paso} (paso ${v.paso_orden} de ${v.total_pasos}).`,
+      });
+    }
+  }
+}
+
 export default function ProcesoPintura() {
   const navigate = useNavigate();
   const { clienteActual, logoutCliente } = useClienteAuth();
@@ -19,7 +53,9 @@ export default function ProcesoPintura() {
   const [pasos, setPasos] = useState([]);
   const [modelos, setModelos] = useState([]);
   const [vehiculos, setVehiculos] = useState([]);
-  const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState(null);
+  // Se guarda el id (no una copia) para que la línea de tiempo refleje siempre los datos más recientes
+  const [idSeleccionado, setIdSeleccionado] = useState(null);
+  const estadoAnterior = useRef(new Map());
   const [cargando, setCargando] = useState(true);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -41,7 +77,7 @@ export default function ProcesoPintura() {
       setPasos(pasosData);
       setModelos(modelosData);
       setVehiculos(vehiculosData);
-      setVehiculoSeleccionado((actual) => actual ?? vehiculosData[0] ?? null);
+      guardarEstado(vehiculosData);
       setMostrarFormulario(vehiculosData.length === 0);
     } catch (err) {
       console.error(err);
@@ -50,10 +86,46 @@ export default function ProcesoPintura() {
     }
   };
 
+  function guardarEstado(lista) {
+    estadoAnterior.current = new Map(lista.map((v) => [v.id_Vehiculo, { paso_orden: v.paso_orden, estado: v.estado }]));
+  }
+
+  // Consulta en segundo plano: actualiza la línea de tiempo y avisa si algo cambió
+  const actualizarEstado = useCallback(async () => {
+    if (!clienteActual) return;
+    try {
+      const vehiculosData = await obtenerVehiculosCliente(clienteActual.id_Cliente);
+      avisarCambios(estadoAnterior.current, vehiculosData);
+      guardarEstado(vehiculosData);
+      setVehiculos(vehiculosData);
+    } catch (err) {
+      console.error("No se pudo actualizar el estado:", err);
+    }
+  }, [clienteActual]);
+
   useEffect(() => {
     cargarDatos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clienteActual]);
+
+  useEffect(() => {
+    if (!clienteActual) return;
+
+    const intervalo = setInterval(() => {
+      if (document.visibilityState === "visible") actualizarEstado();
+    }, INTERVALO_ACTUALIZACION_MS);
+
+    // Al volver a la pestaña se actualiza de inmediato
+    const alVolver = () => {
+      if (document.visibilityState === "visible") actualizarEstado();
+    };
+    document.addEventListener("visibilitychange", alVolver);
+
+    return () => {
+      clearInterval(intervalo);
+      document.removeEventListener("visibilitychange", alVolver);
+    };
+  }, [clienteActual, actualizarEstado]);
 
   if (!clienteActual) return null;
 
@@ -90,6 +162,8 @@ export default function ProcesoPintura() {
     navigate("/ClienteLogin");
   };
 
+  const vehiculoSeleccionado =
+    vehiculos.find((v) => v.id_Vehiculo === idSeleccionado) ?? vehiculos[0] ?? null;
   const pasoActualOrden = vehiculoSeleccionado?.paso_orden ?? 0;
   const finalizado = vehiculoSeleccionado?.estado === "finalizado";
 
@@ -119,7 +193,7 @@ export default function ProcesoPintura() {
                     className={`proceso-chip-vehiculo ${
                       vehiculoSeleccionado?.id_Vehiculo === v.id_Vehiculo ? "activo" : ""
                     }`}
-                    onClick={() => setVehiculoSeleccionado(v)}
+                    onClick={() => setIdSeleccionado(v.id_Vehiculo)}
                   >
                     {v.nombre_Modelo || v.nombre_Modelo_Texto || "Moto"}
                     {v.placa ? ` · ${v.placa}` : ""}
