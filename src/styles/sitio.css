@@ -1,0 +1,236 @@
+/* styles/sitio.css
+ *
+ * Ajustes de diseño del sitio público: barra de navegación con logo,
+ * tarjetas de tienda y noticias en el tema oscuro, títulos visibles en la
+ * galería de pintura, paginación y pie de página. Se importa al final de
+ * main.jsx para prevalecer sobre los estilos de cada página.
+ */
+
+/* ---------- Barra de navegación ---------- */
+
+/* Con el logo y todos los enlaces, el 60 % de ancho no alcanzaba y
+   "Ingreso" y el carrito quedaban por fuera del recuadro */
+@media (min-width: 769px) {
+  .nav,
+  .navbar-noticias {
+    width: min(1200px, 94%);
+  }
+}
+
+:is(.nav, .navbar-noticias) .navLogo {
+  width: 64px;
+  height: 64px;
+  margin-right: 16px;
+  background-color: #fff;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  :is(.nav, .navbar-noticias) .navLogo {
+    width: 48px;
+    height: 48px;
+    margin: 0 0 0 12px;
+  }
+}
+
+/* ---------- Tienda ---------- */
+
+.grid-item-Compra {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.grid-item-Compra:hover {
+  border-color: rgba(255, 90, 31, 0.45);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+
+.grid-item-Compra .carrusel-container-Compra {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.info-producto-Compra {
+  flex: 1;
+  padding: 1rem 1.1rem 0.25rem;
+}
+
+.info-producto-Compra h3 {
+  margin: 0 0 0.4rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.info-producto-Compra p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.grid-item-Compra .contenedor-precio {
+  padding: 0.9rem 1.1rem 1.1rem;
+}
+
+.grid-item-Compra .precio {
+  margin: 0;
+  padding: 0;
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.grid-item-Compra .boton-comprar {
+  background: var(--color-primary);
+  font-weight: 600;
+}
+
+.grid-item-Compra .boton-comprar:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ---------- Paginación (tienda, noticias y pintura) ---------- */
+
+.pagination-button,
+.pagina-control-pintura button {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.pagination-button:hover,
+.pagina-control-pintura button:hover {
+  background-color: var(--color-surface-2);
+}
+
+.pagination-button.active,
+.pagina-control-pintura button.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Noticias ---------- */
+
+.noticia-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.noticia-texto,
+.noticia-texto h3 {
+  color: var(--color-text);
+}
+
+.noticia-texto p {
+  color: var(--color-text-muted);
+}
+
+.leer-mas-btn,
+.noticia-enlace-publico {
+  color: var(--color-primary);
+}
+
+.leer-mas-btn:hover,
+.noticia-enlace-publico:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ---------- Galería de pintura ---------- */
+
+/* El nombre del trabajo se ve siempre; la descripción aparece al pasar el mouse */
+.texto-hover-pintura {
+  opacity: 1;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: left;
+  padding: 1.4rem 1.6rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 75%);
+  transition: background 0.4s ease;
+}
+
+.texto-hover-pintura h2 {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+.texto-hover-pintura p {
+  max-width: 100%;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.carrusel-container-pintura:hover .texto-hover-pintura {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.carrusel-container-pintura:hover .texto-hover-pintura p {
+  max-height: 12em;
+  opacity: 1;
+}
+
+/* En pantallas táctiles no hay "pasar el mouse": la descripción se muestra siempre */
+@media (hover: none) {
+  .texto-hover-pintura p {
+    max-height: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Pie de página ---------- */
+
+.footer-nav {
+  justify-content: center;
+  margin-top: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .nav-footer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 12px;
+    padding: 12px 8px;
+  }
+
+  .nav-footer li {
+    height: auto;
+    min-height: 40px;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* En pantallas medianas (tablet) el menú completo se aprieta: menos espacio entre enlaces */
+@media (min-width: 769px) and (max-width: 1150px) {
+  .nav .nav-menu,
+  .navbar-noticias .navbar-noticias-menu {
+    gap: 4px;
+  }
+
+  :is(.nav, .navbar-noticias) .navLogo {
+    width: 52px;
+    height: 52px;
+    margin-right: 8px;
+  }
+}

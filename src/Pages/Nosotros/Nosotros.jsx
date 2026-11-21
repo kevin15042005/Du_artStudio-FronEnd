@@ -11,7 +11,7 @@ export default function Ubicacion() {
         <div className="InformacioNosotros">
           <section className="Menu-Mision">
             <ScrollAnimation>
-            <h2>Mision</h2>
+            <h2>Misión</h2>
             <p className="MisionP activo">
              Somos una microempresa especializada en la
               personalización y pintura de motocicletas, ofreciendo diseños
@@ -25,7 +25,7 @@ export default function Ubicacion() {
             </ScrollAnimation>
           </section>
           <section className="Menu-Vision">
-            <h2>Vision</h2>
+            <h2>Visión</h2>
             <ScrollAnimation>
 
             <p className="VisionP activo">
@@ -40,21 +40,20 @@ export default function Ubicacion() {
             </ScrollAnimation>
           </section>
          
-                      <h2>Nuestra Ubicacion</h2>
+                      <h2>Nuestra Ubicación</h2>
 
           <section className="Ubicacion">
             <p>
-              Nos encontramos ubicados en la ciudad Bogota D.C Colombia nos
-              establecimos aqui por el gran comercio e inspiracion a la gran
-              mayoria de motocilcetas es una de las ciudades con mayor cantidad
-              de motos en Colombia{" "}
+              Nos encontramos en Bogotá D.C., Colombia. Nos establecimos aquí
+              por su gran comercio y por la inspiración que nos da: es una de
+              las ciudades con mayor cantidad de motocicletas del país.
             </p>
           </section>
 
           <div className="contenedor-horario-ubicaicon">
             <div className="Horario">
               <h2>Horario</h2>
-              <p>De lunes a Sabado de 9:00 am a 6:00 pm</p>
+              <p>De lunes a sábado de 9:00 a.m. a 6:00 p.m.</p>
             </div>
 
             <div className="ubicacionMaps">
@@ -66,7 +65,7 @@ export default function Ubicacion() {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                alt="Ubicacion de Empresa"
+                alt="Ubicación del taller"
               ></iframe>
             </div>
           </div>

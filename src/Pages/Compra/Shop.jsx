@@ -6,8 +6,9 @@ import "./Shop.css";
 import ScrollAnimadoCrud from "../../Components/ScrollAnimationCrud/index";
 import { useCarrito } from "../../context/CarritoContext";
 import Animacion from "../../Components/Animacion/Animacion";
+import { formatoPesos } from "../../utils/formato";
 
-function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
+function CarruselImagenes({ cover, nombre_Shop }) {
   const [indexActual, setIndexActual] = useState(0);
 
   let images = [];
@@ -36,14 +37,10 @@ function CarruselImagenes({ cover, nombre_Shop, contenido_Shop }) {
           <img
             key={idx}
             src={img.url}
-            alt=""
+            alt={nombre_Shop}
             className={`imagen-fondo-Compra ${idx === indexActual ? "visible" : "oculto"}`}
           />
         ))}
-      </div>
-      <div className="texto-hover-Compra">
-        <h2>{nombre_Shop}</h2>
-        <p>{contenido_Shop}</p>
       </div>
     </div>
   );
@@ -74,7 +71,7 @@ export default function Shop() {
         <Layout />
         <div className="Contenido-Compra">
           <div className="Informacion-Compra">
-            <Animacion texto="Venta Articulos" className="titulo-Compra" />
+            <Animacion texto="Venta de Artículos" className="titulo-Compra" />
             <div className="Informacion-RelevanteGeneral-Compra">
               <section className="InformacionRelevanteCompra">
                 <h2>Diseños a la venta</h2>
@@ -95,10 +92,13 @@ export default function Shop() {
                       <CarruselImagenes
                         cover={articulo.cover} 
                         nombre_Shop={articulo.nombre_Shop}
-                        contenido_Shop={articulo.contenido_Shop}
                       />
+                      <div className="info-producto-Compra">
+                        <h3>{articulo.nombre_Shop}</h3>
+                        <p>{articulo.contenido_Shop}</p>
+                      </div>
                       <div className="contenedor-precio">
-                        <span className="precio">${articulo.precio_Shop}</span>
+                        <span className="precio">{formatoPesos(articulo.precio_Shop)}</span>
                         <button
                           className="boton-comprar"
                           onClick={() =>

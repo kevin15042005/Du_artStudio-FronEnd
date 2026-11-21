@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import logo from "../../assets/logo.png";
 import CarritoPopup from "../CarritoPopup/CarritoPopup";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCarrito } from "../../context/CarritoContext";
@@ -40,6 +41,10 @@ const Navbar = () => {
                 {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
               </button>
 
+              <Link to="/" onClick={handleMenuClick} aria-label="Inicio">
+                <img src={logo} alt="Du'Art Studio" className="navLogo" />
+              </Link>
+
               {/* Menú de navegación */}
               <ul className={`nav-menu ${isMenuOpen ? "nav-menu-active" : ""}`}>
                 <li className="Transicion-navbar" onClick={handleMenuClick}>
@@ -55,7 +60,7 @@ const Navbar = () => {
                   <Link to="/Compra" className="colorTexto">Shop</Link>
                 </li>
                 <li className="Transicion-navbar" onClick={handleMenuClick}>
-                  <Link to="/Nosotros" className="colorTexto">Ubicacion</Link>
+                  <Link to="/Nosotros" className="colorTexto">Ubicación</Link>
                 </li>
                 <li className="Transicion-navbar" onClick={handleMenuClick}>
                   <Link to="/Contacto" className="colorTexto">Contacto</Link>

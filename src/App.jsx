@@ -63,10 +63,10 @@ function App() {
             <section className="InformacionRelevante">
               <h2>Información Relevante</h2>
               <p>
-                Somos una compañia dedicada y apasionada a las motos donde veran
-                todo lo relacionado a la pintura accesorios y diseño exclusivos
-                de motos . Fabricacion de pintura de la mas alta calidad si
-                quieres ver mas ... navega y descubre que tenemos para ti
+                Somos una compañía dedicada y apasionada por las motos, donde verás
+                todo lo relacionado con pintura, accesorios y diseños exclusivos
+                de motos. Fabricación de pintura de la más alta calidad. Si
+                quieres ver más, navega y descubre lo que tenemos para ti.
               </p>
             </section>
             <section className="Imagen-Relevante-General">

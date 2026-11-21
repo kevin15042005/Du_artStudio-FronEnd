@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./NavbarNoticias.css";
+import logo from "../../assets/logo.png";
 import { Menu, X } from "lucide-react";
 
 
@@ -38,6 +39,10 @@ const NavbarNoticia = () => {
               >
                 {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
               </button>
+
+              <Link to="/CrudNoticias" onClick={handleMenuClick} aria-label="Panel">
+                <img src={logo} alt="Du'Art Studio" className="navLogo" />
+              </Link>
 
               {/* Menú de Navegación */}
               <ul className={`navbar-noticias-menu ${isMenuOpen ? "navbar-noticias-menu-active" : ""}`}>

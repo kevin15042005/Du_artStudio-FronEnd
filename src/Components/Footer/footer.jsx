@@ -39,7 +39,9 @@ const handleMenuTop  = ()=>{
         </li>
       
       </ul>
-      <div className="footer-nav">© 2025 Tu Empresa. Todos los derechos reservados.</div>
+      <div className="footer-nav">
+        © {new Date().getFullYear()} Du'Art Studio · Pintura y personalización de motos en Bogotá
+      </div>
     </div>
   );
 };

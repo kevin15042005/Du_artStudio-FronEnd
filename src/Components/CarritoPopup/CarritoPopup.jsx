@@ -1,6 +1,7 @@
 import React from "react";
 import { useCarrito } from "../../context/CarritoContext";
 import "./CarritoPopup.css";
+import { formatoPesos } from "../../utils/formato";
 
 export default function CarritoPopup({ mostrar, cerrar }) {
   const { carrito, eliminarDelCarrito } = useCarrito();
@@ -12,10 +13,10 @@ export default function CarritoPopup({ mostrar, cerrar }) {
 
   const generarMensajeWhatsApp = () => {
     const mensaje = carrito
-      .map((item, idx) => `${idx + 1}. ${item.nombre} - $${item.precio}`)
+      .map((item, idx) => `${idx + 1}. ${item.nombre} - ${formatoPesos(item.precio)}`)
       .join("\n");
     const total = calcularTotal();
-    return encodeURIComponent(`Hola, quiero comprar:\n${mensaje}\n\nTotal: $${total.toFixed(2)}`);
+    return encodeURIComponent(`Hola, quiero comprar:\n${mensaje}\n\nTotal: ${formatoPesos(total)}`);
   };
 
   if (!mostrar) return null;
@@ -35,7 +36,7 @@ export default function CarritoPopup({ mostrar, cerrar }) {
               {carrito.map((item, idx) => (
                 <li key={idx} className="item-carrito">
                   <span>{item.nombre}</span>
-                  <span>${item.precio}</span>
+                  <span>{formatoPesos(item.precio)}</span>
                   <button onClick={() => eliminarDelCarrito(idx)}>
                     Eliminar
                   </button>
@@ -43,7 +44,7 @@ export default function CarritoPopup({ mostrar, cerrar }) {
               ))}
             </ul>
             <div className="total-carrito">
-              <strong>Total:</strong> ${calcularTotal().toFixed(2)}
+              <strong>Total:</strong> {formatoPesos(calcularTotal())}
             </div>
           </>
         )}

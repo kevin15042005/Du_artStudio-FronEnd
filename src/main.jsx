@@ -28,8 +28,9 @@ import ProcesoPintura from "./Pages/Cliente/ProcesoPintura/ProcesoPintura.jsx";
 import ProtectedRouteCliente from "./Components/ProtectedRoute/ProtectedRouteCliente.jsx";
 import { ClienteAuthProvider } from "./context/ClienteAuthContext.jsx";
 
-// Tema oscuro común del panel; va al final para prevalecer sobre los estilos de cada página
+// Temas comunes del panel y del sitio; van al final para prevalecer sobre los estilos de cada página
 import "./styles/panel.css";
+import "./styles/sitio.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

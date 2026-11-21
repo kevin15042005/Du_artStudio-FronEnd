@@ -72,9 +72,9 @@ export default function Contacto() {
          <div className="InformacionCorreo">
           <section className="contacto">
             <form onSubmit={onSubmit}>
-              <h2>Tambien por Aqui</h2>
+              <h2>También por aquí</h2>
               <div className="input-box-contacto">
-                <label>Telefono</label>
+                <label>Teléfono</label>
                 <div className="telefono">
                   <button
                     className="telefono-button"
@@ -143,7 +143,7 @@ export default function Contacto() {
         <div className="InformacionCorreo">
           <section className="contacto">
             <form onSubmit={onSubmit}>
-              <h2>Contactonos Aqui</h2>
+              <h2>Contáctanos aquí</h2>
               <div className="input-box-contacto">
                 <label>Nombre Completo</label>
                 <input
@@ -155,7 +155,7 @@ export default function Contacto() {
                 />
               </div>
               <div className="input-box-contacto">
-                <label>Direccion Email</label>
+                <label>Correo electrónico</label>
                 <input
                   type="email"
                   className="field-contacto"
